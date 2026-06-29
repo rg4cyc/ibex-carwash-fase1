@@ -1,0 +1,307 @@
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #172033;
+  background: #f5f7fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.hero {
+  background:
+    radial-gradient(circle at top right, rgba(86, 110, 255, 0.26), transparent 32rem),
+    linear-gradient(135deg, #101827, #1f3158);
+  color: white;
+  padding: 24px;
+}
+
+.nav {
+  max-width: 1180px;
+  margin: 0 auto 44px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+}
+
+.brand {
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.pill {
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 999px;
+  padding: 8px 12px;
+  color: #dbe7ff;
+  font-size: .9rem;
+}
+
+.heroGrid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr .6fr;
+  gap: 28px;
+  align-items: end;
+}
+
+.eyebrow {
+  color: #93c5fd;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 6vw, 4.8rem);
+  line-height: .95;
+  margin: 0;
+  letter-spacing: -0.06em;
+}
+
+.heroText {
+  color: #d9e5ff;
+  max-width: 720px;
+  font-size: 1.1rem;
+}
+
+.statsCard {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 24px;
+  padding: 22px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px 14px;
+  backdrop-filter: blur(12px);
+}
+
+.statsCard strong {
+  font-size: 2rem;
+}
+
+.statsCard span {
+  align-self: center;
+  color: #dbe7ff;
+}
+
+.layout {
+  width: min(1180px, calc(100% - 32px));
+  margin: -28px auto 40px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 22px;
+}
+
+.architecture,
+.formCard,
+.tableCard,
+.feedCard {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, .08);
+}
+
+.archGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.archGrid div {
+  background: #eef2ff;
+  border-radius: 18px;
+  padding: 14px;
+  text-align: center;
+  font-weight: 800;
+}
+
+.archGrid span {
+  display: block;
+  margin-top: 5px;
+  color: #4b5563;
+  font-size: .78rem;
+  font-weight: 500;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 18px 0;
+}
+
+.tab,
+.primaryButton,
+.smallButton,
+.dangerButton {
+  border: 0;
+  cursor: pointer;
+  border-radius: 999px;
+  font-weight: 800;
+}
+
+.tab {
+  padding: 10px 14px;
+  background: white;
+  color: #334155;
+  border: 1px solid #e5e7eb;
+}
+
+.tab.active {
+  background: #1d4ed8;
+  color: white;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+label span {
+  display: block;
+  font-size: .86rem;
+  color: #4b5563;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 14px;
+  padding: 12px 13px;
+  background: #f9fafb;
+}
+
+.primaryButton {
+  margin-top: 16px;
+  background: #16a34a;
+  color: white;
+  padding: 13px 18px;
+}
+
+.message {
+  background: #ecfeff;
+  border: 1px solid #a5f3fc;
+  color: #155e75;
+  border-radius: 16px;
+  padding: 12px 14px;
+  font-weight: 700;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: top;
+}
+
+th {
+  color: #475569;
+  font-size: .85rem;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.smallButton {
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 8px 10px;
+}
+
+.dangerButton {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 8px 10px;
+}
+
+.muted {
+  color: #64748b;
+}
+
+.feedCard {
+  position: sticky;
+  top: 18px;
+  align-self: start;
+}
+
+.feed {
+  display: grid;
+  gap: 10px;
+}
+
+.feedItem {
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 12px;
+  background: #f8fafc;
+}
+
+.feedItem strong,
+.feedItem span,
+.feedItem small {
+  display: block;
+}
+
+.feedItem strong {
+  color: #1d4ed8;
+}
+
+.feedItem small {
+  color: #64748b;
+  margin-top: 6px;
+}
+
+@media (max-width: 900px) {
+  .heroGrid,
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .archGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .feedCard {
+    position: static;
+  }
+
+  .nav {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
