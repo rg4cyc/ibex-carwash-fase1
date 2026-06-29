@@ -258,66 +258,201 @@ io.on("connection", (socket) => {
 });
 
 async function seedIfEmpty() {
-  const clients = await listRecords("clients");
-  if (clients.length > 0) return;
+  const seedData = {
+    clients: [
+      {
+        name: "Cliente demo",
+        phone: "555-0100",
+        email: "cliente.demo@example.com"
+      },
+      {
+        name: "María López",
+        phone: "555-0120",
+        email: "maria.lopez@example.com"
+      },
+      {
+        name: "Carlos Gómez",
+        phone: "555-0130",
+        email: "carlos.gomez@example.com"
+      }
+    ],
+    guardians: [
+      {
+        name: "Tutor demo",
+        phone: "555-0110",
+        email: "tutor.demo@example.com"
+      },
+      {
+        name: "Ana Rodríguez",
+        phone: "555-0140",
+        email: "ana.rodriguez@example.com"
+      },
+      {
+        name: "Luis Hernández",
+        phone: "555-0150",
+        email: "luis.hernandez@example.com"
+      }
+    ],
+    students: [
+      {
+        name: "Estudiante demo",
+        guardianName: "Tutor demo",
+        status: "activo",
+        skills: "Puntualidad, atención al cliente"
+      },
+      {
+        name: "Sofía Martínez",
+        guardianName: "Ana Rodríguez",
+        status: "activo",
+        skills: "Trabajo en equipo, secado exterior"
+      },
+      {
+        name: "Diego Pérez",
+        guardianName: "Luis Hernández",
+        status: "activo",
+        skills: "Organización, preparación de material"
+      }
+    ],
+    vehicles: [
+      {
+        clientName: "Cliente demo",
+        description: "SUV gris",
+        plate: "DEMO-001"
+      },
+      {
+        clientName: "María López",
+        description: "Sedán blanco",
+        plate: "ML-204"
+      },
+      {
+        clientName: "Carlos Gómez",
+        description: "Pickup negra",
+        plate: "CG-318"
+      }
+    ],
+    projects: [
+      {
+        name: "Jornada IBEX Sábado",
+        date: "2026-02-07",
+        status: "planeada",
+        objective: "Coordinar slots de lavado exterior"
+      },
+      {
+        name: "Jornada IBEX Domingo",
+        date: "2026-02-08",
+        status: "planeada",
+        objective: "Atender reservas de práctica prelaboral"
+      },
+      {
+        name: "Campaña Comunidad IBEX",
+        date: "2026-02-14",
+        status: "activa",
+        objective: "Validar operación con más clientes y estudiantes"
+      }
+    ],
+    tasks: [
+      {
+        title: "Preparar material de lavado",
+        projectName: "Jornada IBEX Sábado",
+        assignedTo: "Estudiante demo",
+        status: "pendiente",
+        priority: "media"
+      },
+      {
+        title: "Recibir cliente y confirmar reserva",
+        projectName: "Jornada IBEX Domingo",
+        assignedTo: "Sofía Martínez",
+        status: "en progreso",
+        priority: "alta"
+      },
+      {
+        title: "Organizar área de secado",
+        projectName: "Campaña Comunidad IBEX",
+        assignedTo: "Diego Pérez",
+        status: "pendiente",
+        priority: "media"
+      }
+    ],
+    slots: [
+      {
+        date: "2026-02-07",
+        startTime: "09:00",
+        durationMinutes: "30",
+        capacity: "3",
+        location: "IBEX Carwash"
+      },
+      {
+        date: "2026-02-07",
+        startTime: "09:30",
+        durationMinutes: "30",
+        capacity: "3",
+        location: "IBEX Carwash"
+      },
+      {
+        date: "2026-02-07",
+        startTime: "10:00",
+        durationMinutes: "60",
+        capacity: "2",
+        location: "IBEX Carwash"
+      }
+    ],
+    bookings: [
+      {
+        clientName: "Cliente demo",
+        vehicleDescription: "SUV gris",
+        slotLabel: "2026-02-07 09:00",
+        serviceName: "Lavado exterior",
+        status: "confirmada"
+      },
+      {
+        clientName: "María López",
+        vehicleDescription: "Sedán blanco",
+        slotLabel: "2026-02-07 09:30",
+        serviceName: "Lavado exterior",
+        status: "confirmada"
+      },
+      {
+        clientName: "Carlos Gómez",
+        vehicleDescription: "Pickup negra",
+        slotLabel: "2026-02-07 10:00",
+        serviceName: "Lavado exterior",
+        status: "en proceso"
+      }
+    ]
+  };
 
-  await insertRecord("clients", {
-    name: "Cliente demo",
-    phone: "555-0100",
-    email: "cliente.demo@example.com"
-  });
+  let inserted = 0;
 
-  await insertRecord("guardians", {
-    name: "Tutor demo",
-    phone: "555-0110",
-    email: "tutor.demo@example.com"
-  });
+  for (const [resource, records] of Object.entries(seedData)) {
+    const existingRecords = await listRecords(resource);
+    const existingLabels = new Set(
+      existingRecords.map((item) =>
+        item.name ||
+        item.title ||
+        item.description ||
+        `${item.date || ""} ${item.startTime || ""}`.trim() ||
+        `${item.clientName || ""}-${item.slotLabel || ""}`
+      )
+    );
 
-  await insertRecord("students", {
-    name: "Estudiante demo",
-    guardianName: "Tutor demo",
-    status: "activo",
-    skills: "Puntualidad, atención al cliente"
-  });
+    for (const record of records) {
+      const label =
+        record.name ||
+        record.title ||
+        record.description ||
+        `${record.date || ""} ${record.startTime || ""}`.trim() ||
+        `${record.clientName || ""}-${record.slotLabel || ""}`;
 
-  await insertRecord("vehicles", {
-    clientName: "Cliente demo",
-    description: "SUV gris",
-    plate: "DEMO-001"
-  });
+      if (!existingLabels.has(label)) {
+        await insertRecord(resource, record);
+        inserted += 1;
+      }
+    }
+  }
 
-  await insertRecord("projects", {
-    name: "Jornada IBEX Sábado",
-    date: "2026-02-07",
-    status: "planeada",
-    objective: "Coordinar slots de lavado exterior"
-  });
-
-  await insertRecord("tasks", {
-    title: "Preparar material de lavado",
-    projectName: "Jornada IBEX Sábado",
-    assignedTo: "Estudiante demo",
-    status: "pendiente",
-    priority: "media"
-  });
-
-  await insertRecord("slots", {
-    date: "2026-02-07",
-    startTime: "09:00",
-    durationMinutes: 30,
-    capacity: 3,
-    location: "IBEX Carwash"
-  });
-
-  await insertRecord("bookings", {
-    clientName: "Cliente demo",
-    vehicleDescription: "SUV gris",
-    slotLabel: "2026-02-07 09:00",
-    serviceName: "Lavado exterior",
-    status: "confirmada"
-  });
-
-  await addActivity("system:seeded", "Datos iniciales cargados para demostración");
+  if (inserted > 0) {
+    await addActivity("system:seeded", `Datos iniciales enriquecidos: ${inserted} registros agregados`);
+  }
 }
 
 async function start() {
