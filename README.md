@@ -65,3 +65,36 @@ api-ibex.ccjira.io -> AWS Lightsail Node.js
 Node.js + Express + Socket.IO
 ↓
 MongoDB Atlas
+
+## Despliegue en nube
+
+La Fase I fue desplegada en servicios de nube para validar una arquitectura full stack funcional.
+
+### Front-end
+
+- Servicio: AWS Amplify
+- URL: https://main.dh7s19dghakus.amplifyapp.com
+- Fuente: repositorio GitHub conectado a la rama `main`
+- Build: React + Vite desde la carpeta `frontend`
+
+### Back-end
+
+- Servicio: AWS Lightsail
+- Servidor: Ubuntu 24.04 LTS
+- Proceso: Node.js + Express + Socket.IO ejecutado con PM2
+- Proxy inverso: Nginx
+- API pública: https://api-ibex.ccjira.io/api/health
+
+### Base de datos
+
+- Servicio: MongoDB Atlas
+- Base: `ibex_carwash_fase1`
+- Persistencia validada mediante creación de registros desde la interfaz y posterior consulta desde el front-end desplegado.
+
+### DNS y HTTPS
+
+- Servicio DNS: Cloudflare
+- Subdominio API: `api-ibex.ccjira.io`
+- Modo SSL utilizado para Fase I: Flexible
+- Mejora futura recomendada: migrar a Full Strict con certificado TLS en el servidor de origen.
+
