@@ -96,23 +96,113 @@ function ResourceTabs({ active, setActive }) {
   );
 }
 
-function ResourceForm({ resource, form, setForm, onSubmit, isSaving }) {
+function ResourceForm({ resource, form, setForm, onSubmit, isSaving, dashboard }) {
   const fields = Object.keys(initialForms[resource]);
+
+  function getOptions(field) {
+    if (field === "clientName") {
+      return (dashboard.clients || []).map((client) => client.name).filter(Boolean);
+    }
+
+    if (field === "guardianName") {
+      return (dashboard.guardians || []).map((guardian) => guardian.name).filter(Boolean);
+    }
+
+    if (field === "vehicleDescription") {
+      return (dashboard.vehicles || []).map((vehicle) => vehicle.description).filter(Boolean);
+    }
+
+    if (field === "projectName") {
+      return (dashboard.projects || []).map((project) => project.name).filter(Boolean);
+    }
+
+    if (field === "assignedTo") {
+      return (dashboard.students || []).map((student) => student.name).filter(Boolean);
+    }
+
+    if (field === "slotLabel") {
+      return (dashboard.slots || [])
+        .map((slot) => `${slot.date || ""} ${slot.startTime || ""}`.trim())
+        .filter(Boolean);
+    }
+
+    if (field === "serviceName") {
+      return ["Lavado exterior"];
+    }
+
+    if (field === "status" && resource === "tasks") {
+      return ["pendiente", "en progreso", "completada"];
+    }
+
+    if (field === "status" && resource === "bookings") {
+      return ["confirmada", "en proceso", "completada", "cancelada"];
+    }
+
+    if (field === "status" && resource === "projects") {
+      return ["planeada", "activa", "cerrada"];
+    }
+
+    if (field === "status" && resource === "students") {
+      return ["activo", "inactivo"];
+    }
+
+    if (field === "priority") {
+      return ["baja", "media", "alta"];
+    }
+
+    return [];
+  }
+
+  function renderField(field) {
+    const options = getOptions(field);
+    const isRequired = ["name", "phone", "guardianName", "clientName", "description", "date", "startTime", "title", "projectName", "assignedTo", "vehicleDescription", "slotLabel", "serviceName"].includes(field);
+
+    if (options.length > 0) {
+      return (
+        <select
+          required={isRequired}
+          value={form[field] ?? ""}
+          onChange={(event) => setForm((current) => ({ ...current, [field]: event.target.value }))}
+        >
+          <option value="">Selecciona {fieldLabels[field] || field}</option>
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      );
+    }
+
+    return (
+      <input
+        required={isRequired}
+        value={form[field] ?? ""}
+        type={field === "date" ? "date" : field === "capacity" || field === "durationMinutes" ? "number" : "text"}
+        onChange={(event) => setForm((current) => ({ ...current, [field]: event.target.value }))}
+        placeholder={fieldLabels[field] || field}
+      />
+    );
+  }
 
   return (
     <form className="formCard" onSubmit={onSubmit}>
       <h2>Crear {resources.find((item) => item.key === resource)?.label}</h2>
+      {resource === "bookings" && (
+        <p className="helperText">
+          Selecciona cliente, vehículo y slot desde catálogos existentes. La reserva ya no se captura manualmente.
+        </p>
+      )}
+      {resource === "tasks" && (
+        <p className="helperText">
+          Asigna tareas a una jornada y a un estudiante registrado.
+        </p>
+      )}
       <div className="formGrid">
         {fields.map((field) => (
           <label key={field}>
             <span>{fieldLabels[field] || field}</span>
-            <input
-              required={["name", "phone", "guardianName", "clientName", "description", "date", "startTime", "title", "projectName", "assignedTo", "vehicleDescription", "slotLabel", "serviceName"].includes(field)}
-              value={form[field] ?? ""}
-              type={field === "date" ? "date" : field === "capacity" || field === "durationMinutes" ? "number" : "text"}
-              onChange={(event) => setForm((current) => ({ ...current, [field]: event.target.value }))}
-              placeholder={fieldLabels[field] || field}
-            />
+            {renderField(field)}
           </label>
         ))}
       </div>
@@ -302,6 +392,7 @@ export default function App() {
             }
             onSubmit={handleSubmit}
             isSaving={isSaving}
+            dashboard={dashboard}
           />
           <ResourceTable
             resource={activeResource}

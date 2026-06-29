@@ -13,7 +13,8 @@ body {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
@@ -181,12 +182,24 @@ label span {
   font-weight: 700;
 }
 
-input {
+input,
+select {
   width: 100%;
   border: 1px solid #d1d5db;
   border-radius: 14px;
   padding: 12px 13px;
   background: #f9fafb;
+}
+
+.helperText {
+  margin-top: -4px;
+  margin-bottom: 18px;
+  color: #475569;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-weight: 650;
 }
 
 .primaryButton {
