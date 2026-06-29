@@ -133,6 +133,27 @@ function ResourceTabs({ active, setActive }) {
 function buildOptions(resource, field, dashboard, currentValue) {
   let options = [];
 
+  const relationFields = new Set([
+    "guardianName",
+    "clientName",
+    "vehicleDescription",
+    "projectName",
+    "assignedTo",
+    "slotLabel",
+    "serviceName"
+  ]);
+
+  const controlledFields = new Set([
+    "startTime",
+    "durationMinutes",
+    "status",
+    "priority"
+  ]);
+
+  if (!relationFields.has(field) && !controlledFields.has(field)) {
+    return [];
+  }
+
   if (field === "clientName") {
     options = (dashboard.clients || []).map((client) => client.name).filter(Boolean);
   }
@@ -192,7 +213,7 @@ function buildOptions(resource, field, dashboard, currentValue) {
   }
 
   const unique = [...new Set(options)];
-  if (currentValue && !unique.includes(String(currentValue))) {
+  if (currentValue && relationFields.has(field) && !unique.includes(String(currentValue))) {
     unique.unshift(String(currentValue));
   }
 
