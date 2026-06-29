@@ -98,3 +98,12 @@ La Fase I fue desplegada en servicios de nube para validar una arquitectura full
 - Modo SSL utilizado para Fase I: Flexible
 - Mejora futura recomendada: migrar a Full Strict con certificado TLS en el servidor de origen.
 
+## URLs finales de entrega
+
+- Aplicación principal: https://main.dh7s19dghakus.amplifyapp.com
+- API pública: https://api-ibex.ccjira.io/api/health
+- Repositorio GitHub: https://github.com/rg4cyc/ibex-carwash-fase1
+- Dominio personalizado configurado como mejora: https://ibex.ccjira.io
+
+Nota: la URL principal de entrega es la URL pública de AWS Amplify porque se encuentra estable y funcional. El dominio personalizado `ibex.ccjira.io` fue configurado como mejora adicional, pero puede presentar propagación DNS temporal dependiendo del navegador o red.
+

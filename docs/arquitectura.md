@@ -41,3 +41,12 @@ El back-end utiliza variables de entorno privadas en el servidor:
 
 Los secretos no se versionan en GitHub. Para fases posteriores se recomienda migrar la gestión de secretos a AWS Secrets Manager o AWS Systems Manager Parameter Store.
 
+## URLs finales de entrega
+
+- Aplicación principal: https://main.dh7s19dghakus.amplifyapp.com
+- API pública: https://api-ibex.ccjira.io/api/health
+- Repositorio GitHub: https://github.com/rg4cyc/ibex-carwash-fase1
+- Dominio personalizado configurado como mejora: https://ibex.ccjira.io
+
+Nota: la URL principal de entrega es la URL pública de AWS Amplify porque se encuentra estable y funcional. El dominio personalizado `ibex.ccjira.io` fue configurado como mejora adicional, pero puede presentar propagación DNS temporal dependiendo del navegador o red.
+
