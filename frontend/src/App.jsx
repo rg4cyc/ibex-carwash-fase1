@@ -20,7 +20,7 @@ const initialForms = {
   vehicles: { clientName: "", description: "", plate: "" },
   projects: { name: "", date: "", status: "planeada", objective: "" },
   tasks: { title: "", projectName: "", assignedTo: "", status: "pendiente", priority: "media" },
-  slots: { date: "", startTime: "", durationMinutes: 30, capacity: 3, location: "IBEX Carwash" },
+  slots: { date: "", startTime: "09:00", durationMinutes: "30", capacity: "3", location: "IBEX Carwash" },
   bookings: { clientName: "", vehicleDescription: "", slotLabel: "", serviceName: "Lavado exterior", status: "confirmada" }
 };
 
@@ -49,6 +49,40 @@ const fieldLabels = {
   serviceName: "Servicio"
 };
 
+const requiredFields = [
+  "name",
+  "phone",
+  "guardianName",
+  "clientName",
+  "description",
+  "date",
+  "startTime",
+  "title",
+  "projectName",
+  "assignedTo",
+  "vehicleDescription",
+  "slotLabel",
+  "serviceName"
+];
+
+const timeOptions = [
+  "08:00", "08:30",
+  "09:00", "09:30",
+  "10:00", "10:30",
+  "11:00", "11:30",
+  "12:00", "12:30",
+  "13:00", "13:30",
+  "14:00", "14:30",
+  "15:00", "15:30",
+  "16:00", "16:30",
+  "17:00", "17:30",
+  "18:00"
+];
+
+function getRecordId(item) {
+  return item.id || item._id;
+}
+
 function Header({ stats }) {
   return (
     <header className="hero">
@@ -63,7 +97,7 @@ function Header({ stats }) {
           <h1>Gestión de jornadas, tareas, estudiantes, clientes y reservas</h1>
           <p className="heroText">
             Major release de IBEX Carwash Slots para administrar el programa prelaboral
-            con CRUD full stack y eventos en tiempo real.
+            con CRUD full stack, catálogos relacionados y eventos en tiempo real.
           </p>
         </div>
 
@@ -96,72 +130,98 @@ function ResourceTabs({ active, setActive }) {
   );
 }
 
-function ResourceForm({ resource, form, setForm, onSubmit, isSaving, dashboard }) {
-  const fields = Object.keys(initialForms[resource]);
+function buildOptions(resource, field, dashboard, currentValue) {
+  let options = [];
 
-  function getOptions(field) {
-    if (field === "clientName") {
-      return (dashboard.clients || []).map((client) => client.name).filter(Boolean);
-    }
-
-    if (field === "guardianName") {
-      return (dashboard.guardians || []).map((guardian) => guardian.name).filter(Boolean);
-    }
-
-    if (field === "vehicleDescription") {
-      return (dashboard.vehicles || []).map((vehicle) => vehicle.description).filter(Boolean);
-    }
-
-    if (field === "projectName") {
-      return (dashboard.projects || []).map((project) => project.name).filter(Boolean);
-    }
-
-    if (field === "assignedTo") {
-      return (dashboard.students || []).map((student) => student.name).filter(Boolean);
-    }
-
-    if (field === "slotLabel") {
-      return (dashboard.slots || [])
-        .map((slot) => `${slot.date || ""} ${slot.startTime || ""}`.trim())
-        .filter(Boolean);
-    }
-
-    if (field === "serviceName") {
-      return ["Lavado exterior"];
-    }
-
-    if (field === "status" && resource === "tasks") {
-      return ["pendiente", "en progreso", "completada"];
-    }
-
-    if (field === "status" && resource === "bookings") {
-      return ["confirmada", "en proceso", "completada", "cancelada"];
-    }
-
-    if (field === "status" && resource === "projects") {
-      return ["planeada", "activa", "cerrada"];
-    }
-
-    if (field === "status" && resource === "students") {
-      return ["activo", "inactivo"];
-    }
-
-    if (field === "priority") {
-      return ["baja", "media", "alta"];
-    }
-
-    return [];
+  if (field === "clientName") {
+    options = (dashboard.clients || []).map((client) => client.name).filter(Boolean);
   }
 
+  if (field === "guardianName") {
+    options = (dashboard.guardians || []).map((guardian) => guardian.name).filter(Boolean);
+  }
+
+  if (field === "vehicleDescription") {
+    options = (dashboard.vehicles || []).map((vehicle) => vehicle.description).filter(Boolean);
+  }
+
+  if (field === "projectName") {
+    options = (dashboard.projects || []).map((project) => project.name).filter(Boolean);
+  }
+
+  if (field === "assignedTo") {
+    options = (dashboard.students || []).map((student) => student.name).filter(Boolean);
+  }
+
+  if (field === "slotLabel") {
+    options = (dashboard.slots || [])
+      .map((slot) => `${slot.date || ""} ${slot.startTime || ""}`.trim())
+      .filter(Boolean);
+  }
+
+  if (field === "serviceName") {
+    options = ["Lavado exterior"];
+  }
+
+  if (field === "startTime" && resource === "slots") {
+    options = timeOptions;
+  }
+
+  if (field === "durationMinutes" && resource === "slots") {
+    options = ["30", "60"];
+  }
+
+  if (field === "status" && resource === "tasks") {
+    options = ["pendiente", "en progreso", "completada"];
+  }
+
+  if (field === "status" && resource === "bookings") {
+    options = ["confirmada", "en proceso", "completada", "cancelada"];
+  }
+
+  if (field === "status" && resource === "projects") {
+    options = ["planeada", "activa", "cerrada"];
+  }
+
+  if (field === "status" && resource === "students") {
+    options = ["activo", "inactivo"];
+  }
+
+  if (field === "priority") {
+    options = ["baja", "media", "alta"];
+  }
+
+  const unique = [...new Set(options)];
+  if (currentValue && !unique.includes(String(currentValue))) {
+    unique.unshift(String(currentValue));
+  }
+
+  return unique;
+}
+
+function ResourceForm({
+  resource,
+  form,
+  setForm,
+  onSubmit,
+  isSaving,
+  dashboard,
+  editingRecord,
+  onCancelEdit
+}) {
+  const fields = Object.keys(initialForms[resource]);
+  const resourceLabel = resources.find((item) => item.key === resource)?.label;
+
   function renderField(field) {
-    const options = getOptions(field);
-    const isRequired = ["name", "phone", "guardianName", "clientName", "description", "date", "startTime", "title", "projectName", "assignedTo", "vehicleDescription", "slotLabel", "serviceName"].includes(field);
+    const value = form[field] ?? "";
+    const options = buildOptions(resource, field, dashboard, value);
+    const isRequired = requiredFields.includes(field);
 
     if (options.length > 0) {
       return (
         <select
           required={isRequired}
-          value={form[field] ?? ""}
+          value={String(value)}
           onChange={(event) => setForm((current) => ({ ...current, [field]: event.target.value }))}
         >
           <option value="">Selecciona {fieldLabels[field] || field}</option>
@@ -177,8 +237,9 @@ function ResourceForm({ resource, form, setForm, onSubmit, isSaving, dashboard }
     return (
       <input
         required={isRequired}
-        value={form[field] ?? ""}
-        type={field === "date" ? "date" : field === "capacity" || field === "durationMinutes" ? "number" : "text"}
+        value={value}
+        type={field === "date" ? "date" : field === "capacity" ? "number" : "text"}
+        min={field === "capacity" ? "1" : undefined}
         onChange={(event) => setForm((current) => ({ ...current, [field]: event.target.value }))}
         placeholder={fieldLabels[field] || field}
       />
@@ -187,17 +248,33 @@ function ResourceForm({ resource, form, setForm, onSubmit, isSaving, dashboard }
 
   return (
     <form className="formCard" onSubmit={onSubmit}>
-      <h2>Crear {resources.find((item) => item.key === resource)?.label}</h2>
-      {resource === "bookings" && (
-        <p className="helperText">
-          Selecciona cliente, vehículo y slot desde catálogos existentes. La reserva ya no se captura manualmente.
-        </p>
-      )}
-      {resource === "tasks" && (
-        <p className="helperText">
-          Asigna tareas a una jornada y a un estudiante registrado.
-        </p>
-      )}
+      <div className="formHeader">
+        <div>
+          <h2>{editingRecord ? `Editar ${resourceLabel}` : `Crear ${resourceLabel}`}</h2>
+          {resource === "bookings" && (
+            <p className="helperText">
+              Selecciona cliente, vehículo y slot desde catálogos existentes. La reserva ya no se captura manualmente.
+            </p>
+          )}
+          {resource === "tasks" && (
+            <p className="helperText">
+              Asigna tareas a una jornada y a un estudiante registrado.
+            </p>
+          )}
+          {resource === "slots" && (
+            <p className="helperText">
+              La hora solo permite bloques de media hora. La duración actual permitida es 30 o 60 minutos.
+            </p>
+          )}
+        </div>
+
+        {editingRecord && (
+          <button type="button" className="secondaryButton" onClick={onCancelEdit}>
+            Cancelar edición
+          </button>
+        )}
+      </div>
+
       <div className="formGrid">
         {fields.map((field) => (
           <label key={field}>
@@ -206,19 +283,21 @@ function ResourceForm({ resource, form, setForm, onSubmit, isSaving, dashboard }
           </label>
         ))}
       </div>
+
       <button className="primaryButton" disabled={isSaving}>
-        {isSaving ? "Guardando..." : "Guardar registro"}
+        {isSaving ? "Guardando..." : editingRecord ? "Actualizar registro" : "Guardar registro"}
       </button>
     </form>
   );
 }
 
-function ResourceTable({ resource, items, onDelete, onStatusChange }) {
+function ResourceTable({ resource, items, onEdit, onDelete, onStatusChange }) {
   const columns = Object.keys(initialForms[resource]);
+  const resourceLabel = resources.find((item) => item.key === resource)?.label;
 
   return (
     <section className="tableCard">
-      <h2>{resources.find((item) => item.key === resource)?.label} registrados</h2>
+      <h2>{resourceLabel} registrados</h2>
       {items.length === 0 ? (
         <p className="muted">No hay registros todavía.</p>
       ) : (
@@ -234,11 +313,17 @@ function ResourceTable({ resource, items, onDelete, onStatusChange }) {
             </thead>
             <tbody>
               {items.map((item) => (
-                <tr key={item.id || item._id}>
+                <tr key={getRecordId(item)}>
                   {columns.slice(0, 4).map((column) => (
                     <td key={column}>{String(item[column] ?? "-")}</td>
                   ))}
                   <td className="actions">
+                    <button
+                      className="editButton"
+                      onClick={() => onEdit(item)}
+                    >
+                      Editar
+                    </button>
                     {resource === "tasks" && (
                       <button
                         className="smallButton"
@@ -249,7 +334,7 @@ function ResourceTable({ resource, items, onDelete, onStatusChange }) {
                     )}
                     <button
                       className="dangerButton"
-                      onClick={() => onDelete(item.id || item._id)}
+                      onClick={() => onDelete(getRecordId(item))}
                     >
                       Eliminar
                     </button>
@@ -304,6 +389,7 @@ export default function App() {
   const [forms, setForms] = useState(initialForms);
   const [message, setMessage] = useState("");
   const [isSaving, setIsSaving] = useState(false);
+  const [editingRecord, setEditingRecord] = useState(null);
 
   const stats = useMemo(() => {
     return resources.reduce((acc, resource) => {
@@ -330,16 +416,44 @@ export default function App() {
     return () => socket.disconnect();
   }, []);
 
+  useEffect(() => {
+    setEditingRecord(null);
+    setForms((current) => ({ ...current, [activeResource]: initialForms[activeResource] }));
+  }, [activeResource]);
+
+  function handleEdit(item) {
+    const cleanForm = { ...initialForms[activeResource] };
+    Object.keys(cleanForm).forEach((field) => {
+      cleanForm[field] = item[field] ?? cleanForm[field];
+    });
+
+    setEditingRecord(item);
+    setForms((current) => ({ ...current, [activeResource]: cleanForm }));
+    window.scrollTo({ top: 260, behavior: "smooth" });
+  }
+
+  function handleCancelEdit() {
+    setEditingRecord(null);
+    setForms((current) => ({ ...current, [activeResource]: initialForms[activeResource] }));
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
     setIsSaving(true);
     setMessage("");
 
     try {
-      await createResource(activeResource, forms[activeResource]);
+      if (editingRecord) {
+        await updateResource(activeResource, getRecordId(editingRecord), forms[activeResource]);
+        setMessage("Registro actualizado correctamente.");
+      } else {
+        await createResource(activeResource, forms[activeResource]);
+        setMessage("Registro creado correctamente.");
+      }
+
+      setEditingRecord(null);
       setForms((current) => ({ ...current, [activeResource]: initialForms[activeResource] }));
       await loadDashboard();
-      setMessage("Registro creado correctamente.");
     } catch (error) {
       setMessage(error.message);
     } finally {
@@ -349,10 +463,15 @@ export default function App() {
 
   async function handleDelete(id) {
     setMessage("");
+
     try {
       await deleteResource(activeResource, id);
       await loadDashboard();
       setMessage("Registro eliminado correctamente.");
+
+      if (editingRecord && getRecordId(editingRecord) === id) {
+        handleCancelEdit();
+      }
     } catch (error) {
       setMessage(error.message);
     }
@@ -364,7 +483,7 @@ export default function App() {
     const nextStatus = order[(currentIndex + 1) % order.length];
 
     try {
-      await updateResource("tasks", task.id, { status: nextStatus });
+      await updateResource("tasks", getRecordId(task), { status: nextStatus });
       await loadDashboard();
       setMessage(`Tarea actualizada a: ${nextStatus}`);
     } catch (error) {
@@ -393,10 +512,13 @@ export default function App() {
             onSubmit={handleSubmit}
             isSaving={isSaving}
             dashboard={dashboard}
+            editingRecord={editingRecord}
+            onCancelEdit={handleCancelEdit}
           />
           <ResourceTable
             resource={activeResource}
             items={dashboard[activeResource] || []}
+            onEdit={handleEdit}
             onDelete={handleDelete}
             onStatusChange={handleStatusChange}
           />

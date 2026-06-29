@@ -209,6 +209,33 @@ select {
   padding: 13px 18px;
 }
 
+.secondaryButton {
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #334155;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.formHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.editButton {
+  border: 0;
+  cursor: pointer;
+  border-radius: 999px;
+  font-weight: 800;
+  background: #fef3c7;
+  color: #92400e;
+  padding: 8px 10px;
+}
+
 .message {
   background: #ecfeff;
   border: 1px solid #a5f3fc;
