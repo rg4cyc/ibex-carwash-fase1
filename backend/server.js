@@ -13,6 +13,20 @@ const MONGODB_URI = process.env.MONGODB_URI || "";
 const DB_NAME = process.env.DB_NAME || "ibex_carwash_fase1";
 
 const app = express();
+
+const allowedOrigins = (process.env.CLIENT_ORIGIN || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+function corsOriginDelegate(origin, callback) {
+  if (!origin) return callback(null, true);
+  if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+    return callback(null, true);
+  }
+  return callback(new Error(`CORS blocked origin: ${origin}`));
+}
+
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -22,7 +36,10 @@ const io = new Server(server, {
   }
 });
 
-app.use(cors({ origin: CLIENT_ORIGIN }));
+app.use(cors({
+  origin: corsOriginDelegate,
+  credentials: true
+}));
 app.use(express.json());
 
 const allowedResources = [
