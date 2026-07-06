@@ -69,7 +69,7 @@ INS05. Diseño de proyecto Scrum para mejorar el front-end.
 
 INS06. Sistema de control de versiones con Git, ramas, flujo de trabajo, repositorio y recuperación.
 
-INS07. Guion y preparación de video.
+INS07. Video de presentación de la actividad.
 
 INS08. Reporte con evidencias, capturas y enlaces.
 
@@ -105,8 +105,8 @@ https://github.com/rg4cyc/ibex-carwash-fase1
 
 
 [CAPTURA 01 - FRONT-END PÚBLICO]
-Archivo sugerido: assets/screenshots/t3/01_frontend_publico.png
-Insertar aquí captura de https://ibex.ccjira.io mostrando la aplicación cargada, tabs principales y dashboard visual.
+Archivo: assets/screenshots/t3/01_frontend_publico.png
+Insertar aquí captura de https://ibex.ccjira.io mostrando la aplicación cargada, nombre del proyecto, dashboard/tarjetas principales y pestañas de navegación.
 
 
 
@@ -141,14 +141,14 @@ Esta elección resulta adecuada porque evita que la base de datos dependa direct
 
 
 [CAPTURA 02 - AWS LIGHTSAIL]
-Archivo sugerido: assets/screenshots/t3/02_lightsail_instancia.png
-Insertar aquí captura de AWS Lightsail mostrando la instancia ibex-fase1-api corriendo.
+Archivo: assets/screenshots/t3/02_lightsail_instancia.png
+Insertar aquí captura de AWS Lightsail mostrando la instancia ibex-fase1-api en estado Running, sistema operativo Ubuntu y datos generales del servidor.
 
 
 
 [CAPTURA 03 - MONGODB ATLAS]
-Archivo sugerido: assets/screenshots/t3/03_mongodb_atlas.png
-Insertar aquí captura de MongoDB Atlas mostrando el cluster conectado o la base ibex_carwash_fase1.
+Archivo: assets/screenshots/t3/03_mongodb_atlas.png
+Insertar aquí captura de MongoDB Atlas mostrando el cluster activo o la base ibex_carwash_fase1 con colecciones visibles. No mostrar connection string, usuario ni contraseña.
 
 
 
@@ -243,8 +243,8 @@ MongoDB Atlas administra el sistema operativo subyacente del cluster de base de 
 
 
 [CAPTURA 04 - API HEALTH]
-Archivo sugerido: assets/screenshots/t3/04_api_health.png
-Insertar aquí captura de https://api-ibex.ccjira.io/api/health mostrando ok true, database mongodb y servicio activo.
+Archivo: assets/screenshots/t3/04_api_health.png
+Insertar aquí captura de https://api-ibex.ccjira.io/api/health mostrando respuesta JSON con ok true, database mongodb y servicio activo.
 
 
 
@@ -412,8 +412,8 @@ La razón es que IBEX Carwash está distribuido. Ninguna herramienta aislada cub
 
 
 [CAPTURA 05 - CLOUDFLARE DNS]
-Archivo sugerido: assets/screenshots/t3/05_cloudflare_dns.png
-Insertar aquí captura de Cloudflare mostrando los subdominios ibex.ccjira.io y api-ibex.ccjira.io.
+Archivo: assets/screenshots/t3/05_cloudflare_dns.png
+Insertar aquí captura de Cloudflare DNS mostrando los registros ibex.ccjira.io y api-ibex.ccjira.io. Recortar u ocultar cualquier registro no relacionado si es necesario.
 
 
 
@@ -439,9 +439,8 @@ Abrir https://ibex.ccjira.io.
 Resultado esperado:
 La aplicación carga correctamente, muestra la interfaz principal, las pestañas y el contenido visual.
 
-[CAPTURA 06 - PRUEBA MANUAL PASO 1]
-Archivo sugerido: assets/screenshots/t3/06_prueba_manual_frontend.png
-Insertar aquí captura del front-end cargado.
+Evidencia:
+La Captura 01 demuestra que el front-end público carga correctamente.
 
 Paso 2. Verificar API público.
 
@@ -451,9 +450,8 @@ Abrir https://api-ibex.ccjira.io/api/health.
 Resultado esperado:
 El API responde JSON con ok true y database mongodb.
 
-[CAPTURA 07 - PRUEBA MANUAL PASO 2]
-Archivo sugerido: assets/screenshots/t3/07_prueba_manual_api_health.png
-Insertar aquí captura del health check del API.
+Evidencia:
+La Captura 04 demuestra que el API público responde correctamente.
 
 Paso 3. Crear un cliente.
 
@@ -463,21 +461,29 @@ Entrar a la pestaña Clientes, capturar datos y guardar.
 Resultado esperado:
 El cliente aparece en la tabla y el feed en tiempo real registra el evento.
 
-[CAPTURA 08 - PRUEBA MANUAL PASO 3]
-Archivo sugerido: assets/screenshots/t3/08_prueba_manual_crear_cliente.png
-Insertar aquí captura de cliente creado o tabla actualizada.
+
+
+[CAPTURA 06 - PRUEBA MANUAL: CREAR CLIENTE]
+Archivo: assets/screenshots/t3/06_prueba_manual_crear_cliente.png
+Insertar aquí captura de la pestaña Clientes mostrando un cliente de prueba creado, por ejemplo QA Manual T3.
+
+
 
 Paso 4. Editar un registro.
 
 Acción:
-Presionar Editar en un registro, modificar un dato y guardar.
+Presionar Editar en el registro de prueba, modificar un dato y guardar.
 
 Resultado esperado:
 El registro se actualiza en la tabla.
 
-[CAPTURA 09 - PRUEBA MANUAL PASO 4]
-Archivo sugerido: assets/screenshots/t3/09_prueba_manual_editar_cliente.png
-Insertar aquí captura del registro editado.
+
+
+[CAPTURA 07 - PRUEBA MANUAL: EDITAR CLIENTE]
+Archivo: assets/screenshots/t3/07_prueba_manual_editar_cliente.png
+Insertar aquí captura del mismo cliente de prueba ya editado, por ejemplo con teléfono o correo modificado.
+
+
 
 Paso 5. Validar persistencia.
 
@@ -487,9 +493,13 @@ Recargar la página y confirmar que los datos siguen visibles.
 Resultado esperado:
 Los datos persisten porque se almacenan en MongoDB Atlas.
 
-[CAPTURA 10 - PRUEBA MANUAL PASO 5]
-Archivo sugerido: assets/screenshots/t3/10_prueba_manual_persistencia.png
-Insertar aquí captura posterior a recargar la página.
+
+
+[CAPTURA 08 - PRUEBA MANUAL: PERSISTENCIA]
+Archivo: assets/screenshots/t3/08_prueba_manual_persistencia.png
+Insertar aquí captura posterior a recargar la página, mostrando que el cliente editado sigue visible.
+
+
 
 8.3. Pruebas automatizadas
 
@@ -504,47 +514,49 @@ node scripts/t3/automated-tests.mjs
 Prueba automatizada 1: Health check del API.
 
 Valida:
+
 - HTTP status exitoso.
 - ok igual a true.
 - database igual a mongodb.
 
 Resultado esperado:
+
 TEST_1_HEALTH_OK
 
 Prueba automatizada 2: Integración API-dashboard-MongoDB.
 
 Valida:
+
 - Respuesta exitosa de /dashboard.
 - Existencia de colecciones principales.
 - Datos base en clientes, slots y reservas.
 
 Resultado esperado:
+
 TEST_2_DASHBOARD_COLLECTIONS_OK
 
 Prueba automatizada 3: CRUD parcial con persistencia.
 
 Valida:
+
 - Crear cliente temporal.
 - Confirmar que aparece en dashboard.
 - Eliminar cliente temporal.
 - Confirmar que ya no aparece.
 
 Resultado esperado:
+
 TEST_3_CLIENT_CREATE_PERSISTENCE_DELETE_OK
 
 Resultado final esperado:
+
 AUTOMATED_TESTS_OK
 
 
 
-[CAPTURA 11 - PRUEBAS AUTOMATIZADAS]
-Archivo sugerido: assets/screenshots/t3/11_pruebas_automatizadas.png
-Insertar aquí captura de Terminal mostrando:
-API_BASE_URL=https://api-ibex.ccjira.io/api
-TEST_1_HEALTH_OK
-TEST_2_DASHBOARD_COLLECTIONS_OK
-TEST_3_CLIENT_CREATE_PERSISTENCE_DELETE_OK
-AUTOMATED_TESTS_OK
+[CAPTURA 09 - PRUEBAS AUTOMATIZADAS]
+Archivo: assets/screenshots/t3/09_pruebas_automatizadas.png
+Insertar aquí captura de Terminal mostrando la ejecución de node scripts/t3/automated-tests.mjs con TEST_1_HEALTH_OK, TEST_2_DASHBOARD_COLLECTIONS_OK, TEST_3_CLIENT_CREATE_PERSISTENCE_DELETE_OK y AUTOMATED_TESTS_OK.
 
 
 
@@ -553,6 +565,7 @@ AUTOMATED_TESTS_OK
 Durante la primera versión de la prueba automatizada se intentó validar el endpoint PUT /clients/:id. El API público respondió 404 para esa ruta específica. En lugar de forzar una prueba incorrecta, se depuró el caso y se ajustó el script para validar endpoints confirmados por el contrato real del API: creación, consulta en dashboard y eliminación.
 
 Esto demuestra el proceso de depuración:
+
 - Se detectó el error.
 - Se identificó que el supuesto de prueba no correspondía al endpoint disponible.
 - Se corrigió la prueba.
@@ -596,21 +609,29 @@ PB-08 | Como administrador técnico quiero health check público. | Alta | /api/
 PB-09 | Como Product Owner quiero evidencia del despliegue. | Alta | Hay capturas de front-end, API, Git y pruebas.
 PB-10 | Como equipo quiero documentación de operación. | Media | Existen documentos de hardware, monitoreo y Git.
 
-[CAPTURA 12 - PRODUCT BACKLOG]
-Archivo sugerido: assets/screenshots/t3/12_scrum_product_backlog.png
-Insertar aquí captura del archivo docs/t3/04-scrum.md mostrando la tabla de backlog.
+
+
+[CAPTURA 10 - SCRUM PRODUCT BACKLOG]
+Archivo: assets/screenshots/t3/10_scrum_product_backlog.png
+Insertar aquí captura de docs/t3/04-scrum.md mostrando la tabla Product backlog.
+
+
 
 9.5. Sprint planning
 
 Sprint | Fechas sugeridas | Objetivo | Historias | Daily | Review | Retroalimentación
---- | --- | --- | --- | --- | --- | ---
+--- | --- | --- | --- | --- | ---
 Sprint 1 | Semana 1 | Estabilizar formularios y CRUD. | PB-01, PB-02, PB-03 | Diario 10 min | Demo de creación, edición y eliminación. | Ajustar campos incorrectos.
 Sprint 2 | Semana 2 | Mejorar experiencia responsiva. | PB-04, PB-05, PB-06 | Diario 10 min | Demo en escritorio y móvil. | Mejorar mensajes y layout.
 Sprint 3 | Semana 3 | Agregar calidad y observabilidad. | PB-07, PB-08, PB-09, PB-10 | Diario 10 min | Demo de pruebas, health check y Git. | Preparar evidencias.
 
-[CAPTURA 13 - SPRINT PLANNING]
-Archivo sugerido: assets/screenshots/t3/13_scrum_sprint_planning.png
-Insertar aquí captura del archivo docs/t3/04-scrum.md mostrando la tabla de sprint planning.
+
+
+[CAPTURA 11 - SCRUM SPRINT PLANNING]
+Archivo: assets/screenshots/t3/11_scrum_sprint_planning.png
+Insertar aquí captura de docs/t3/04-scrum.md mostrando la tabla Sprint planning general con Sprint 1, Sprint 2 y Sprint 3.
+
+
 
 9.6. Sprint review y retrospective final
 
@@ -619,12 +640,14 @@ Se presenta front-end desplegado, API público, MongoDB persistente, CRUD operat
 
 Sprint retrospective:
 Lo que funcionó:
+
 - Reutilizar infraestructura existente.
 - Separar front-end, API y base de datos.
 - Usar Git para cambios incrementales.
 - Documentar decisiones técnicas.
 
 Lo que se puede mejorar:
+
 - Automatizar despliegues del API.
 - Agregar monitoreo formal.
 - Usar manejo de secretos administrado.
@@ -633,48 +656,27 @@ Lo que se puede mejorar:
 
 
 
-[CAPTURA 14 - SPRINT REVIEW / RETROSPECTIVE]
-Archivo sugerido: assets/screenshots/t3/14_scrum_review_retro.png
-Insertar aquí captura del archivo docs/t3/04-scrum.md mostrando review y retrospective.
-
-
-
 10. INS06 - Sistema de control de versiones con Git
 
 10.1. Repositorio público
 
 El repositorio público del proyecto es:
+
 https://github.com/rg4cyc/ibex-carwash-fase1
 
 La rama principal es:
+
 main
 
 La rama de trabajo usada para T3 fue:
+
 t3
 
 Los tags principales son:
+
 t2-baseline
+tarea2-100-baseline
 t3-submit
-
-
-
-[CAPTURA 15 - GITHUB REPOSITORIO PÚBLICO]
-Archivo sugerido: assets/screenshots/t3/15_github_repo_publico.png
-Insertar aquí captura del repositorio GitHub público.
-
-
-
-[CAPTURA 16 - RAMA T3]
-Archivo sugerido: assets/screenshots/t3/16_github_rama_t3.png
-Insertar aquí captura de GitHub mostrando la rama t3.
-
-
-
-[CAPTURA 17 - TAGS]
-Archivo sugerido: assets/screenshots/t3/17_github_tags_t3.png
-Insertar aquí captura de GitHub o terminal mostrando los tags t2-baseline y t3-submit.
-
-
 
 10.2. Flujo de trabajo aplicado
 
@@ -704,9 +706,11 @@ git push --tags
 10.3. Evidencia real de Git
 
 Se generó el archivo:
+
 docs/t3/git-evidence.txt
 
 Este archivo contiene:
+
 - Estado de rama.
 - Últimos commits.
 - Ramas locales/remotas.
@@ -724,31 +728,20 @@ git tag --list "t*"
 
 
 
-[CAPTURA 18 - GIT LOG]
-Archivo sugerido: assets/screenshots/t3/18_git_log.png
-Insertar aquí captura de Terminal mostrando git log --oneline --decorate -5.
-
-
-
-[CAPTURA 19 - GIT BRANCH]
-Archivo sugerido: assets/screenshots/t3/19_git_branch.png
-Insertar aquí captura de Terminal mostrando git branch -a.
-
-
-
-[CAPTURA 20 - GIT TAGS]
-Archivo sugerido: assets/screenshots/t3/20_git_tags.png
-Insertar aquí captura de Terminal mostrando git tag --list "t*".
+[CAPTURA 12 - GIT: HISTORIAL, RAMAS Y TAGS]
+Archivo: assets/screenshots/t3/12_git_evidencia_integral.png
+Insertar aquí una sola captura de Terminal mostrando git log, git branch y git tag. Deben verse main, t3, origin/main, origin/t3, t2-baseline, tarea2-100-baseline y t3-submit.
 
 
 
 10.4. Recuperación de una versión anterior
 
-Para cumplir con recuperación de versiones anteriores, se creó el tag:
+Para cumplir con recuperación de versiones anteriores, se crearon los tags:
 
 t2-baseline
+tarea2-100-baseline
 
-Este tag representa el estado estable anterior a la documentación y evidencias de T3.
+Estos tags representan el estado estable anterior a la documentación y evidencias de T3.
 
 Para consultar una versión anterior sin modificar main:
 
@@ -766,11 +759,23 @@ Para deshacer un commit sin borrar historial:
 
 git revert <commit>
 
+10.5. Buenas prácticas aplicadas
+
+- Se trabajó en rama dedicada.
+- Se conservaron tags de entrega.
+- Se documentó el flujo de trabajo.
+- Se integró a main.
+- Se publicó en GitHub.
+- Se evitó subir secretos.
+- Se evitó agregar archivos locales irrelevantes.
+- Se documentó recuperación de versiones anteriores.
+
 
 
 11. INS07 - Video de presentación
 
 El video debe mostrar:
+
 - Elección de hardware y servidor.
 - Arquitectura de la plataforma.
 - Base de datos MongoDB Atlas.
