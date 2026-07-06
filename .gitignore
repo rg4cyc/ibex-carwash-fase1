@@ -23,3 +23,6 @@ frontend/.env
 !assets/
 !assets/screenshots/
 !assets/screenshots/t3/
+
+# local link notes
+LINKS_*.txt

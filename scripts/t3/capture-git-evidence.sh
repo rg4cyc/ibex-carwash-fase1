@@ -20,8 +20,10 @@ mkdir -p docs/t3
   echo "Ramas:"
   git branch -a
   echo
-  echo "Tags t:"
-  git tag --list "t*"
+  echo "Tags relevantes:"
+  git tag --list "t2-baseline"
+  git tag --list "tarea2-100-baseline"
+  git tag --list "t3-submit"
   echo
   echo "Archivos documentales T3:"
   find docs/t3 -maxdepth 1 -type f | sort

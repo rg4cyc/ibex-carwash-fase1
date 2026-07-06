@@ -1,52 +1,37 @@
 IBEX Carwash Fase I - Evidencia Git T3
 Fecha:
-Mon Jul  6 02:05:06 CDT 2026
+Mon Jul  6 02:08:41 CDT 2026
 
 Repositorio remoto:
 origin	https://github.com/rg4cyc/ibex-carwash-fase1.git (fetch)
 origin	https://github.com/rg4cyc/ibex-carwash-fase1.git (push)
 
 Estado:
-## t3
- M .gitignore
-D  docs/tarea3-actividad2/00-checklist-entrega.md
-D  docs/tarea3-actividad2/01-hardware-servidor.md
-D  docs/tarea3-actividad2/02-licitacion-monitoreo-seguridad.md
-D  docs/tarea3-actividad2/03-pruebas.md
-D  docs/tarea3-actividad2/04-scrum.md
-D  docs/tarea3-actividad2/05-git-versionamiento.md
-D  docs/tarea3-actividad2/06-guion-video.md
-D  docs/tarea3-actividad2/07-evidencia-capturas.md
-D  docs/tarea3-actividad2/REPORTE_WORD_TAREA3_ACTIVIDAD2.md
-D  docs/tarea3-actividad2/reporte-tarea3-actividad2.md
-D  evidence/tarea3-actividad2/git-evidence.txt
-D  scripts/tarea3-actividad2/automated-tests.mjs
-D  scripts/tarea3-actividad2/capture-git-evidence.sh
+## main...origin/main
+ M docs/t3/git-evidence.txt
+ M scripts/t3/capture-git-evidence.sh
 ?? LINKS_S2_F1.txt
-?? assets/screenshots/t3/
-?? docs/t3/
-?? scripts/
 
 Ultimos commits:
-9b08d38 (HEAD -> t3, tag: tarea3-actividad2-submit, origin/main, main) prepare final activity 2 word report
+045c3b3 (HEAD -> main, tag: t3-submit, origin/t3, origin/main, t3) normalize t3 structure and evidence
+9b08d38 prepare final activity 2 word report
 7b89b25 strengthen activity 2 rubric evidence
-7ef3266 (origin/actividad-2-admin-servidores, actividad-2-admin-servidores) add activity 2 platform administration evidence
-f56c8a1 (tag: tarea2-100-baseline) allow amplify and custom domain cors origins
+7ef3266 add activity 2 platform administration evidence
+f56c8a1 (tag: tarea2-100-baseline, tag: t2-baseline) allow amplify and custom domain cors origins
 8087a65 fix html report image paths
 62abd42 add html report with fase 1 screenshots
 ae948cb add fase 1 report draft and video script
-b5f21b0 document final delivery urls
 
 Ramas:
-  actividad-2-admin-servidores
-  main
-* t3
-  remotes/origin/actividad-2-admin-servidores
+* main
+  t3
   remotes/origin/main
+  remotes/origin/t3
 
-Tags t:
+Tags relevantes:
+t2-baseline
 tarea2-100-baseline
-tarea3-actividad2-submit
+t3-submit
 
 Archivos documentales T3:
 docs/t3/00-checklist-entrega.md
