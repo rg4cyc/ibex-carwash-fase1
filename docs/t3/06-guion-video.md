@@ -1,4 +1,4 @@
-# Guion de video - Tarea 3 / Actividad 2
+# Guion de video - T3 / Actividad 2
 
 Duracion sugerida:
 - 5 a 7 minutos.
@@ -48,7 +48,7 @@ La prueba manual se hizo en cinco pasos:
 4. editar un registro;
 5. recargar la pagina y validar persistencia.
 
-Tambien se implementaron tres pruebas automatizadas en el archivo scripts/tarea3-actividad2/automated-tests.mjs.
+Tambien se implementaron tres pruebas automatizadas en el archivo scripts/t3/automated-tests.mjs.
 
 La primera prueba valida el health check del API.
 
@@ -58,7 +58,7 @@ La tercera prueba crea un cliente temporal, verifica que aparece en dashboard y 
 
 Ahora ejecuto el comando:
 
-node scripts/tarea3-actividad2/automated-tests.mjs
+node scripts/t3/automated-tests.mjs
 
 El resultado esperado es AUTOMATED_TESTS_OK.
 
@@ -89,11 +89,11 @@ El repositorio publico es:
 
 https://github.com/rg4cyc/ibex-carwash-fase1
 
-Para esta actividad se utilizo la rama actividad-2-admin-servidores.
+Para esta actividad se utilizo la rama t3.
 
-Se creo el tag tarea2-100-baseline para marcar el estado estable previo, y el tag tarea3-actividad2-submit para marcar la version final de entrega.
+Se creo el tag t2-baseline para marcar el estado estable previo, y el tag t3-submit para marcar la version final de entrega.
 
-Tambien se documento como recuperar una version anterior mediante git checkout tarea2-100-baseline, como regresar a main y como crear una rama de recuperacion.
+Tambien se documento como recuperar una version anterior mediante git checkout t2-baseline, como regresar a main y como crear una rama de recuperacion.
 
 Esto demuestra ramas, flujo de trabajo, repositorio publico y recuperacion de versiones.
 

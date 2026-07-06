@@ -1,7 +1,7 @@
 TECNOLÓGICO DE MONTERREY / TECMILENIO
 
 Materia: Desarrollo Full Stack
-Tarea 3 / Actividad 2
+T3 / Actividad 2
 Administración de plataforma digital, servidores, pruebas, Scrum y control de versiones
 
 Proyecto: IBEX Carwash Fase I
@@ -17,7 +17,7 @@ Video público: [PEGAR AQUÍ ENLACE DEL VIDEO FINAL]
 
 La plataforma IBEX Carwash Fase I es una aplicación web full stack desarrollada para administrar un programa prelaboral de lavado exterior de autos. El sistema permite gestionar clientes, tutores, estudiantes, vehículos, jornadas, tareas, slots de servicio y reservas.
 
-En las actividades anteriores se construyó y desplegó la aplicación web. En esta Actividad 2, el enfoque ya no es construir una nueva aplicación desde cero, sino administrar la plataforma digital existente desde una perspectiva profesional. Para ello se analizan el hardware del servidor, la base de datos, la topología de red, el sistema operativo, las herramientas de monitoreo, la seguridad, las pruebas, la metodología Scrum y el control de versiones con Git.
+En las actividades anteriores se construyó y desplegó la aplicación web. En esta T3 / Actividad 2, el enfoque ya no es construir una nueva aplicación desde cero, sino administrar la plataforma digital existente desde una perspectiva profesional. Para ello se analizan el hardware del servidor, la base de datos, la topología de red, el sistema operativo, las herramientas de monitoreo, la seguridad, las pruebas, la metodología Scrum y el control de versiones con Git.
 
 La solución conserva continuidad con IBEX Carwash Fase I y utiliza una arquitectura distribuida:
 
@@ -104,7 +104,8 @@ https://github.com/rg4cyc/ibex-carwash-fase1
 
 
 
-[CAPTURA 1 - FRONT-END PÚBLICO]
+[CAPTURA 01 - FRONT-END PÚBLICO]
+Archivo sugerido: assets/screenshots/t3/01_frontend_publico.png
 Insertar aquí captura de https://ibex.ccjira.io mostrando la aplicación cargada, tabs principales y dashboard visual.
 
 
@@ -139,12 +140,14 @@ Esta elección resulta adecuada porque evita que la base de datos dependa direct
 
 
 
-[CAPTURA 2 - AWS LIGHTSAIL]
+[CAPTURA 02 - AWS LIGHTSAIL]
+Archivo sugerido: assets/screenshots/t3/02_lightsail_instancia.png
 Insertar aquí captura de AWS Lightsail mostrando la instancia ibex-fase1-api corriendo.
 
 
 
-[CAPTURA 3 - MONGODB ATLAS]
+[CAPTURA 03 - MONGODB ATLAS]
+Archivo sugerido: assets/screenshots/t3/03_mongodb_atlas.png
 Insertar aquí captura de MongoDB Atlas mostrando el cluster conectado o la base ibex_carwash_fase1.
 
 
@@ -239,7 +242,8 @@ MongoDB Atlas administra el sistema operativo subyacente del cluster de base de 
 
 
 
-[CAPTURA 4 - API HEALTH]
+[CAPTURA 04 - API HEALTH]
+Archivo sugerido: assets/screenshots/t3/04_api_health.png
 Insertar aquí captura de https://api-ibex.ccjira.io/api/health mostrando ok true, database mongodb y servicio activo.
 
 
@@ -407,7 +411,8 @@ La razón es que IBEX Carwash está distribuido. Ninguna herramienta aislada cub
 
 
 
-[CAPTURA 5 - CLOUDFLARE DNS]
+[CAPTURA 05 - CLOUDFLARE DNS]
+Archivo sugerido: assets/screenshots/t3/05_cloudflare_dns.png
 Insertar aquí captura de Cloudflare mostrando los subdominios ibex.ccjira.io y api-ibex.ccjira.io.
 
 
@@ -434,7 +439,8 @@ Abrir https://ibex.ccjira.io.
 Resultado esperado:
 La aplicación carga correctamente, muestra la interfaz principal, las pestañas y el contenido visual.
 
-[CAPTURA 6 - PRUEBA MANUAL PASO 1]
+[CAPTURA 06 - PRUEBA MANUAL PASO 1]
+Archivo sugerido: assets/screenshots/t3/06_prueba_manual_frontend.png
 Insertar aquí captura del front-end cargado.
 
 Paso 2. Verificar API público.
@@ -445,7 +451,8 @@ Abrir https://api-ibex.ccjira.io/api/health.
 Resultado esperado:
 El API responde JSON con ok true y database mongodb.
 
-[CAPTURA 7 - PRUEBA MANUAL PASO 2]
+[CAPTURA 07 - PRUEBA MANUAL PASO 2]
+Archivo sugerido: assets/screenshots/t3/07_prueba_manual_api_health.png
 Insertar aquí captura del health check del API.
 
 Paso 3. Crear un cliente.
@@ -456,7 +463,8 @@ Entrar a la pestaña Clientes, capturar datos y guardar.
 Resultado esperado:
 El cliente aparece en la tabla y el feed en tiempo real registra el evento.
 
-[CAPTURA 8 - PRUEBA MANUAL PASO 3]
+[CAPTURA 08 - PRUEBA MANUAL PASO 3]
+Archivo sugerido: assets/screenshots/t3/08_prueba_manual_crear_cliente.png
 Insertar aquí captura de cliente creado o tabla actualizada.
 
 Paso 4. Editar un registro.
@@ -467,7 +475,8 @@ Presionar Editar en un registro, modificar un dato y guardar.
 Resultado esperado:
 El registro se actualiza en la tabla.
 
-[CAPTURA 9 - PRUEBA MANUAL PASO 4]
+[CAPTURA 09 - PRUEBA MANUAL PASO 4]
+Archivo sugerido: assets/screenshots/t3/09_prueba_manual_editar_cliente.png
 Insertar aquí captura del registro editado.
 
 Paso 5. Validar persistencia.
@@ -479,62 +488,57 @@ Resultado esperado:
 Los datos persisten porque se almacenan en MongoDB Atlas.
 
 [CAPTURA 10 - PRUEBA MANUAL PASO 5]
+Archivo sugerido: assets/screenshots/t3/10_prueba_manual_persistencia.png
 Insertar aquí captura posterior a recargar la página.
 
 8.3. Pruebas automatizadas
 
 Se implementó el archivo:
 
-scripts/tarea3-actividad2/automated-tests.mjs
+scripts/t3/automated-tests.mjs
 
 Comando de ejecución:
 
-node scripts/tarea3-actividad2/automated-tests.mjs
+node scripts/t3/automated-tests.mjs
 
 Prueba automatizada 1: Health check del API.
 
 Valida:
-
 - HTTP status exitoso.
 - ok igual a true.
 - database igual a mongodb.
 
 Resultado esperado:
-
 TEST_1_HEALTH_OK
 
 Prueba automatizada 2: Integración API-dashboard-MongoDB.
 
 Valida:
-
 - Respuesta exitosa de /dashboard.
 - Existencia de colecciones principales.
 - Datos base en clientes, slots y reservas.
 
 Resultado esperado:
-
 TEST_2_DASHBOARD_COLLECTIONS_OK
 
 Prueba automatizada 3: CRUD parcial con persistencia.
 
 Valida:
-
 - Crear cliente temporal.
 - Confirmar que aparece en dashboard.
 - Eliminar cliente temporal.
 - Confirmar que ya no aparece.
 
 Resultado esperado:
-
 TEST_3_CLIENT_CREATE_PERSISTENCE_DELETE_OK
 
 Resultado final esperado:
-
 AUTOMATED_TESTS_OK
 
 
 
 [CAPTURA 11 - PRUEBAS AUTOMATIZADAS]
+Archivo sugerido: assets/screenshots/t3/11_pruebas_automatizadas.png
 Insertar aquí captura de Terminal mostrando:
 API_BASE_URL=https://api-ibex.ccjira.io/api
 TEST_1_HEALTH_OK
@@ -549,13 +553,10 @@ AUTOMATED_TESTS_OK
 Durante la primera versión de la prueba automatizada se intentó validar el endpoint PUT /clients/:id. El API público respondió 404 para esa ruta específica. En lugar de forzar una prueba incorrecta, se depuró el caso y se ajustó el script para validar endpoints confirmados por el contrato real del API: creación, consulta en dashboard y eliminación.
 
 Esto demuestra el proceso de depuración:
-
 - Se detectó el error.
 - Se identificó que el supuesto de prueba no correspondía al endpoint disponible.
 - Se corrigió la prueba.
 - Se volvió a ejecutar hasta obtener AUTOMATED_TESTS_OK.
-
-La depuración fue importante porque permitió alinear la prueba automatizada con el comportamiento real del sistema desplegado.
 
 
 
@@ -596,7 +597,8 @@ PB-09 | Como Product Owner quiero evidencia del despliegue. | Alta | Hay captura
 PB-10 | Como equipo quiero documentación de operación. | Media | Existen documentos de hardware, monitoreo y Git.
 
 [CAPTURA 12 - PRODUCT BACKLOG]
-Insertar aquí captura del archivo docs/tarea3-actividad2/04-scrum.md mostrando la tabla de backlog.
+Archivo sugerido: assets/screenshots/t3/12_scrum_product_backlog.png
+Insertar aquí captura del archivo docs/t3/04-scrum.md mostrando la tabla de backlog.
 
 9.5. Sprint planning
 
@@ -607,105 +609,22 @@ Sprint 2 | Semana 2 | Mejorar experiencia responsiva. | PB-04, PB-05, PB-06 | Di
 Sprint 3 | Semana 3 | Agregar calidad y observabilidad. | PB-07, PB-08, PB-09, PB-10 | Diario 10 min | Demo de pruebas, health check y Git. | Preparar evidencias.
 
 [CAPTURA 13 - SPRINT PLANNING]
-Insertar aquí captura del archivo docs/tarea3-actividad2/04-scrum.md mostrando la tabla de sprint planning.
+Archivo sugerido: assets/screenshots/t3/13_scrum_sprint_planning.png
+Insertar aquí captura del archivo docs/t3/04-scrum.md mostrando la tabla de sprint planning.
 
-9.6. Sprint 1
-
-Objetivo:
-Estabilizar formularios y CRUD.
-
-Historias:
-PB-01, PB-02, PB-03.
-
-Criterio de aceptación:
-
-- Crear, editar y eliminar funciona desde la interfaz.
-- Los campos de texto no se convierten en dropdowns incorrectos.
-- Los campos relacionales sí usan dropdowns.
-- El build del front-end pasa.
-
-Review:
-Se presenta CRUD funcionando en pestañas principales.
-
-Retroalimentación:
-Mantener campos libres para nombres, teléfonos y correos. Mantener dropdowns solo para relaciones.
-
-9.7. Sprint 2
-
-Objetivo:
-Mejorar experiencia responsiva.
-
-Historias:
-PB-04, PB-05, PB-06.
-
-Criterio de aceptación:
-
-- La app se usa en móvil.
-- Las tarjetas se reacomodan correctamente.
-- Los mensajes de error son legibles.
-- El feed de eventos sigue visible.
-
-Review:
-Se muestra la app en vista móvil y escritorio.
-
-Retroalimentación:
-Priorizar claridad sobre exceso visual y mantener navegación simple por pestañas.
-
-9.8. Sprint 3
-
-Objetivo:
-Agregar calidad y observabilidad.
-
-Historias:
-PB-07, PB-08, PB-09, PB-10.
-
-Criterio de aceptación:
-
-- Existe health check público.
-- Existen pruebas automatizadas.
-- Existe documentación de monitoreo.
-- Existe documentación de Git/versionamiento.
-- El reporte incluye evidencia de infraestructura.
-
-Review:
-Se ejecutan pruebas automatizadas, se muestra health check y se muestra GitHub con rama, tags y commits.
-
-Retroalimentación:
-Agregar monitoreo formal con alertas, manejo de secretos administrado y pruebas de carga en Fase II.
-
-9.9. Daily meetings
-
-Preguntas guía:
-
-- ¿Qué hice ayer?
-- ¿Qué haré hoy?
-- ¿Qué bloqueos existen?
-
-Bloqueos detectados:
-
-- Propagación DNS.
-- Configuración CORS.
-- Acceso temporal a Lightsail.
-- Autenticación GitHub por HTTPS.
-- Alineación entre pruebas automatizadas y endpoints reales.
-
-9.10. Sprint review y retrospective final
+9.6. Sprint review y retrospective final
 
 Sprint review final:
-
 Se presenta front-end desplegado, API público, MongoDB persistente, CRUD operativo, feed Socket.IO, evidencia de pruebas, evidencia Git y documentación de monitoreo.
 
 Sprint retrospective:
-
 Lo que funcionó:
-
 - Reutilizar infraestructura existente.
 - Separar front-end, API y base de datos.
 - Usar Git para cambios incrementales.
 - Documentar decisiones técnicas.
 
 Lo que se puede mejorar:
-
 - Automatizar despliegues del API.
 - Agregar monitoreo formal.
 - Usar manejo de secretos administrado.
@@ -715,7 +634,8 @@ Lo que se puede mejorar:
 
 
 [CAPTURA 14 - SPRINT REVIEW / RETROSPECTIVE]
-Insertar aquí captura del archivo docs/tarea3-actividad2/04-scrum.md mostrando review y retrospective.
+Archivo sugerido: assets/screenshots/t3/14_scrum_review_retro.png
+Insertar aquí captura del archivo docs/t3/04-scrum.md mostrando review y retrospective.
 
 
 
@@ -724,36 +644,35 @@ Insertar aquí captura del archivo docs/tarea3-actividad2/04-scrum.md mostrando 
 10.1. Repositorio público
 
 El repositorio público del proyecto es:
-
 https://github.com/rg4cyc/ibex-carwash-fase1
 
 La rama principal es:
-
 main
 
-La rama de trabajo usada para la Actividad 2 fue:
-
-actividad-2-admin-servidores
+La rama de trabajo usada para T3 fue:
+t3
 
 Los tags principales son:
-
-tarea2-100-baseline
-tarea3-actividad2-submit
+t2-baseline
+t3-submit
 
 
 
 [CAPTURA 15 - GITHUB REPOSITORIO PÚBLICO]
+Archivo sugerido: assets/screenshots/t3/15_github_repo_publico.png
 Insertar aquí captura del repositorio GitHub público.
 
 
 
-[CAPTURA 16 - RAMA ACTIVIDAD 2]
-Insertar aquí captura de GitHub mostrando la rama actividad-2-admin-servidores.
+[CAPTURA 16 - RAMA T3]
+Archivo sugerido: assets/screenshots/t3/16_github_rama_t3.png
+Insertar aquí captura de GitHub mostrando la rama t3.
 
 
 
 [CAPTURA 17 - TAGS]
-Insertar aquí captura de GitHub o terminal mostrando los tags tarea2-100-baseline y tarea3-actividad2-submit.
+Archivo sugerido: assets/screenshots/t3/17_github_tags_t3.png
+Insertar aquí captura de GitHub o terminal mostrando los tags t2-baseline y t3-submit.
 
 
 
@@ -761,8 +680,8 @@ Insertar aquí captura de GitHub o terminal mostrando los tags tarea2-100-baseli
 
 El flujo de trabajo fue:
 
-1. Marcar el estado estable de Tarea 2.
-2. Crear rama de trabajo para Tarea 3.
+1. Marcar el estado estable de T2.
+2. Crear rama de trabajo t3.
 3. Agregar documentación y pruebas.
 4. Hacer commit.
 5. Integrar a main.
@@ -771,54 +690,55 @@ El flujo de trabajo fue:
 
 Comandos representativos:
 
-git tag tarea2-100-baseline
-git checkout -B actividad-2-admin-servidores
-git add docs/tarea3-actividad2 scripts/tarea3-actividad2
-git commit -m "add activity 2 platform administration evidence"
+git tag t2-baseline
+git checkout -B t3
+git add docs/t3 scripts/t3 assets/screenshots/t3
+git commit -m "normalize t3 structure and evidence"
 git checkout main
-git merge actividad-2-admin-servidores
-git tag tarea3-actividad2-submit
+git merge t3
+git tag t3-submit
 git push -u origin main
-git push -u origin actividad-2-admin-servidores
+git push -u origin t3
 git push --tags
 
 10.3. Evidencia real de Git
 
 Se generó el archivo:
-
-evidence/tarea3-actividad2/git-evidence.txt
+docs/t3/git-evidence.txt
 
 Este archivo contiene:
-
 - Estado de rama.
 - Últimos commits.
 - Ramas locales/remotas.
 - Tags.
 - Remote de GitHub.
 - Archivos documentales.
-- Scripts de Tarea 3.
+- Scripts de T3.
 - Resultado de pruebas automatizadas.
 
 Comandos clave para evidencia:
 
 git log --oneline --decorate -5
 git branch -a
-git tag --list "tarea*"
+git tag --list "t*"
 
 
 
 [CAPTURA 18 - GIT LOG]
+Archivo sugerido: assets/screenshots/t3/18_git_log.png
 Insertar aquí captura de Terminal mostrando git log --oneline --decorate -5.
 
 
 
 [CAPTURA 19 - GIT BRANCH]
+Archivo sugerido: assets/screenshots/t3/19_git_branch.png
 Insertar aquí captura de Terminal mostrando git branch -a.
 
 
 
 [CAPTURA 20 - GIT TAGS]
-Insertar aquí captura de Terminal mostrando git tag --list "tarea*".
+Archivo sugerido: assets/screenshots/t3/20_git_tags.png
+Insertar aquí captura de Terminal mostrando git tag --list "t*".
 
 
 
@@ -826,13 +746,13 @@ Insertar aquí captura de Terminal mostrando git tag --list "tarea*".
 
 Para cumplir con recuperación de versiones anteriores, se creó el tag:
 
-tarea2-100-baseline
+t2-baseline
 
-Este tag representa el estado estable anterior a la documentación y evidencias de Tarea 3.
+Este tag representa el estado estable anterior a la documentación y evidencias de T3.
 
 Para consultar una versión anterior sin modificar main:
 
-git checkout tarea2-100-baseline
+git checkout t2-baseline
 
 Para regresar a main:
 
@@ -840,35 +760,17 @@ git checkout main
 
 Para crear una rama de recuperación desde la versión anterior:
 
-git checkout -b recuperacion-demo tarea2-100-baseline
+git checkout -b t3-recuperacion-demo t2-baseline
 
 Para deshacer un commit sin borrar historial:
 
 git revert <commit>
-
-10.5. Buenas prácticas aplicadas
-
-- Se trabajó en rama dedicada.
-- Se conservaron tags de entrega.
-- Se documentó el flujo de trabajo.
-- Se integró a main.
-- Se publicó en GitHub.
-- Se evitó subir secretos.
-- Se evitó agregar archivos locales irrelevantes.
-- Se documentó recuperación de versiones anteriores.
-
-10.6. Archivos locales no versionados
-
-Durante la entrega existían archivos locales de fases anteriores, como documentos Word, PDF, video y ZIP. Estos aparecían como ?? en git status, pero no se agregaron al commit porque no forman parte del código ni de la documentación técnica de esta actividad.
-
-Esto demuestra control intencional del repositorio: solo se versionan archivos relevantes.
 
 
 
 11. INS07 - Video de presentación
 
 El video debe mostrar:
-
 - Elección de hardware y servidor.
 - Arquitectura de la plataforma.
 - Base de datos MongoDB Atlas.
@@ -880,7 +782,7 @@ El video debe mostrar:
 
 Guion base:
 
-Hola, en este video presento la Actividad 2 de la materia Full Stack. La plataforma base es IBEX Carwash Fase I, una aplicación web para administrar clientes, tutores, estudiantes, vehículos, jornadas, tareas, slots y reservas dentro de un programa prelaboral.
+Hola, en este video presento la T3 / Actividad 2 de la materia Full Stack. La plataforma base es IBEX Carwash Fase I, una aplicación web para administrar clientes, tutores, estudiantes, vehículos, jornadas, tareas, slots y reservas dentro de un programa prelaboral.
 
 En las actividades anteriores se desarrolló y desplegó la aplicación. En esta actividad el enfoque es la administración técnica de la plataforma: hardware, servidor, base de datos, licitación de monitoreo, seguridad, pruebas, metodología Scrum y control de versiones con Git.
 
@@ -902,7 +804,7 @@ Con esto se demuestra administración integral de la plataforma digital.
 
 12. Conclusiones
 
-La Actividad 2 demuestra que IBEX Carwash Fase I no solo es una aplicación funcional, sino una plataforma digital administrable.
+La T3 / Actividad 2 demuestra que IBEX Carwash Fase I no solo es una aplicación funcional, sino una plataforma digital administrable.
 
 Se eligió una arquitectura coherente para el tamaño del proyecto: AWS Amplify para front-end, AWS Lightsail para API, MongoDB Atlas para base de datos y Cloudflare para DNS/HTTPS.
 

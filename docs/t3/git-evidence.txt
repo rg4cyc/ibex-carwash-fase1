@@ -1,0 +1,95 @@
+IBEX Carwash Fase I - Evidencia Git T3
+Fecha:
+Mon Jul  6 02:05:06 CDT 2026
+
+Repositorio remoto:
+origin	https://github.com/rg4cyc/ibex-carwash-fase1.git (fetch)
+origin	https://github.com/rg4cyc/ibex-carwash-fase1.git (push)
+
+Estado:
+## t3
+ M .gitignore
+D  docs/tarea3-actividad2/00-checklist-entrega.md
+D  docs/tarea3-actividad2/01-hardware-servidor.md
+D  docs/tarea3-actividad2/02-licitacion-monitoreo-seguridad.md
+D  docs/tarea3-actividad2/03-pruebas.md
+D  docs/tarea3-actividad2/04-scrum.md
+D  docs/tarea3-actividad2/05-git-versionamiento.md
+D  docs/tarea3-actividad2/06-guion-video.md
+D  docs/tarea3-actividad2/07-evidencia-capturas.md
+D  docs/tarea3-actividad2/REPORTE_WORD_TAREA3_ACTIVIDAD2.md
+D  docs/tarea3-actividad2/reporte-tarea3-actividad2.md
+D  evidence/tarea3-actividad2/git-evidence.txt
+D  scripts/tarea3-actividad2/automated-tests.mjs
+D  scripts/tarea3-actividad2/capture-git-evidence.sh
+?? LINKS_S2_F1.txt
+?? assets/screenshots/t3/
+?? docs/t3/
+?? scripts/
+
+Ultimos commits:
+9b08d38 (HEAD -> t3, tag: tarea3-actividad2-submit, origin/main, main) prepare final activity 2 word report
+7b89b25 strengthen activity 2 rubric evidence
+7ef3266 (origin/actividad-2-admin-servidores, actividad-2-admin-servidores) add activity 2 platform administration evidence
+f56c8a1 (tag: tarea2-100-baseline) allow amplify and custom domain cors origins
+8087a65 fix html report image paths
+62abd42 add html report with fase 1 screenshots
+ae948cb add fase 1 report draft and video script
+b5f21b0 document final delivery urls
+
+Ramas:
+  actividad-2-admin-servidores
+  main
+* t3
+  remotes/origin/actividad-2-admin-servidores
+  remotes/origin/main
+
+Tags t:
+tarea2-100-baseline
+tarea3-actividad2-submit
+
+Archivos documentales T3:
+docs/t3/00-checklist-entrega.md
+docs/t3/01-hardware-servidor.md
+docs/t3/02-licitacion-monitoreo-seguridad.md
+docs/t3/03-pruebas.md
+docs/t3/04-scrum.md
+docs/t3/05-git-versionamiento.md
+docs/t3/06-guion-video.md
+docs/t3/07-evidencia-capturas.md
+docs/t3/git-evidence.txt
+docs/t3/REPORTE_WORD_T3.md
+docs/t3/reporte-t3.md
+
+Scripts T3:
+scripts/t3/automated-tests.mjs
+scripts/t3/capture-git-evidence.sh
+
+Capturas esperadas T3:
+assets/screenshots/t3/01_frontend_publico.png
+assets/screenshots/t3/02_lightsail_instancia.png
+assets/screenshots/t3/03_mongodb_atlas.png
+assets/screenshots/t3/04_api_health.png
+assets/screenshots/t3/05_cloudflare_dns.png
+assets/screenshots/t3/06_prueba_manual_frontend.png
+assets/screenshots/t3/07_prueba_manual_api_health.png
+assets/screenshots/t3/08_prueba_manual_crear_cliente.png
+assets/screenshots/t3/09_prueba_manual_editar_cliente.png
+assets/screenshots/t3/10_prueba_manual_persistencia.png
+assets/screenshots/t3/11_pruebas_automatizadas.png
+assets/screenshots/t3/12_scrum_product_backlog.png
+assets/screenshots/t3/13_scrum_sprint_planning.png
+assets/screenshots/t3/14_scrum_review_retro.png
+assets/screenshots/t3/15_github_repo_publico.png
+assets/screenshots/t3/16_github_rama_t3.png
+assets/screenshots/t3/17_github_tags_t3.png
+assets/screenshots/t3/18_git_log.png
+assets/screenshots/t3/19_git_branch.png
+assets/screenshots/t3/20_git_tags.png
+
+Pruebas automatizadas:
+API_BASE_URL=https://api-ibex.ccjira.io/api
+TEST_1_HEALTH_OK
+TEST_2_DASHBOARD_COLLECTIONS_OK
+TEST_3_CLIENT_CREATE_PERSISTENCE_DELETE_OK
+AUTOMATED_TESTS_OK

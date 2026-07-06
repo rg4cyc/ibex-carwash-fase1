@@ -1,4 +1,4 @@
-# Checklist de entrega - Tarea 3 / Actividad 2
+# Checklist de entrega - T3 / Actividad 2
 
 Proyecto base: IBEX Carwash Fase I
 
@@ -14,17 +14,17 @@ Entregables:
 - Carpeta comprimida con reporte, evidencias y enlaces.
 
 Archivos generados para esta actividad:
-- docs/tarea3-actividad2/01-hardware-servidor.md
-- docs/tarea3-actividad2/02-licitacion-monitoreo-seguridad.md
-- docs/tarea3-actividad2/03-pruebas.md
-- docs/tarea3-actividad2/04-scrum.md
-- docs/tarea3-actividad2/05-git-versionamiento.md
-- docs/tarea3-actividad2/06-guion-video.md
-- docs/tarea3-actividad2/07-evidencia-capturas.md
-- docs/tarea3-actividad2/reporte-tarea3-actividad2.md
-- scripts/tarea3-actividad2/automated-tests.mjs
-- scripts/tarea3-actividad2/capture-git-evidence.sh
-- evidence/tarea3-actividad2/git-evidence.txt
+- docs/t3/01-hardware-servidor.md
+- docs/t3/02-licitacion-monitoreo-seguridad.md
+- docs/t3/03-pruebas.md
+- docs/t3/04-scrum.md
+- docs/t3/05-git-versionamiento.md
+- docs/t3/06-guion-video.md
+- docs/t3/07-evidencia-capturas.md
+- docs/t3/reporte-t3.md
+- scripts/t3/automated-tests.mjs
+- scripts/t3/capture-git-evidence.sh
+- docs/t3/git-evidence.txt
 
 Rubrica cubierta:
 - Hardware del servidor: 20 puntos.

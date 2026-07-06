@@ -3,3 +3,23 @@ dist
 .env
 .DS_Store
 *.log
+# macOS
+__MACOSX/
+# dependencies
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+# env
+backend/.env
+frontend/.env
+.env.local
+# local delivery artifacts
+*.mov
+*.mp4
+*.zip
+*.docx
+*.pdf
+# keep project screenshots, including assets/screenshots/t3/
+!assets/
+!assets/screenshots/
+!assets/screenshots/t3/

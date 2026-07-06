@@ -84,10 +84,10 @@ Evidencia sugerida:
 ## Pruebas automatizadas implementadas
 
 Archivo:
-- scripts/tarea3-actividad2/automated-tests.mjs
+- scripts/t3/automated-tests.mjs
 
 Ejecucion:
-- node scripts/tarea3-actividad2/automated-tests.mjs
+- node scripts/t3/automated-tests.mjs
 
 Variable opcional:
 - API_BASE_URL=https://api-ibex.ccjira.io/api
