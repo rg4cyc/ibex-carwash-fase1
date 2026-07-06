@@ -1,12 +1,12 @@
-# Control de versiones y recuperación
+# Control de versiones, ramas, flujo de trabajo y recuperacion
 
 ## Objetivo
 
-Demostrar el uso profesional de Git y GitHub para administrar cambios, mantener historial, recuperar versiones y documentar la evolución de la plataforma.
+Demostrar el uso profesional de Git y GitHub para administrar cambios, mantener historial, recuperar versiones y documentar la evolucion de la plataforma IBEX Carwash Fase I.
 
-## Repositorio
+## Repositorio publico
 
-Repositorio público:
+Repositorio:
 - https://github.com/rg4cyc/ibex-carwash-fase1
 
 Rama principal:
@@ -19,90 +19,103 @@ Tags:
 - tarea2-100-baseline
 - tarea3-actividad2-submit
 
-## Flujo de trabajo
+## Flujo de trabajo aplicado
 
-1. Crear tag del estado estable previo.
-2. Crear rama de trabajo.
-3. Agregar documentación y pruebas.
-4. Ejecutar pruebas locales.
-5. Hacer commit descriptivo.
-6. Hacer merge a main.
-7. Crear tag final de entrega.
-8. Subir a GitHub.
+| Etapa | Accion | Comando representativo | Proposito |
+|---|---|---|---|
+| 1 | Marcar estado estable previo | git tag tarea2-100-baseline | Identificar version aprobada de Tarea 2 |
+| 2 | Crear rama de trabajo | git checkout -B actividad-2-admin-servidores | Aislar cambios de Tarea 3 |
+| 3 | Agregar documentacion y scripts | git add docs/tarea3-actividad2 scripts/tarea3-actividad2 | Preparar evidencia |
+| 4 | Registrar cambios | git commit -m "add activity 2 platform administration evidence" | Crear punto trazable |
+| 5 | Integrar a main | git merge actividad-2-admin-servidores | Llevar cambios aprobados a rama principal |
+| 6 | Marcar entrega final | git tag tarea3-actividad2-submit | Identificar version entregable |
+| 7 | Publicar en GitHub | git push && git push --tags | Compartir repositorio publico |
 
-## Comandos usados
+## Comandos reales usados
 
-Crear tag base:
+- git status -sb
+- git log --oneline --decorate -5
+- git branch -a
+- git tag --list "tarea*"
+- git checkout -B actividad-2-admin-servidores
+- git add docs/tarea3-actividad2 scripts/tarea3-actividad2
+- git commit -m "add activity 2 platform administration evidence"
+- git checkout main
+- git merge actividad-2-admin-servidores
+- git tag tarea3-actividad2-submit
+- git push -u origin main
+- git push -u origin actividad-2-admin-servidores
+- git push --tags
 
-`git tag tarea2-100-baseline`
+## Recuperacion de una version anterior
 
-Crear rama:
+La recuperacion se puede realizar usando el tag tarea2-100-baseline, que representa el estado estable anterior a los cambios de Tarea 3.
 
-`git checkout -B actividad-2-admin-servidores`
+### Consultar version anterior sin modificar main
 
-Ver estado:
+Comando:
+- git checkout tarea2-100-baseline
 
-`git status --short`
+### Regresar a la rama principal
 
-Agregar cambios:
+Comando:
+- git checkout main
 
-`git add docs/tarea3-actividad2 scripts/tarea3-actividad2`
+### Crear una rama de recuperacion desde la version anterior
 
-Commit:
+Comando:
+- git checkout -b recuperacion-demo tarea2-100-baseline
 
-`git commit -m "add activity 2 platform administration evidence"`
+### Volver a main despues de la demostracion
 
-Merge:
+Comando:
+- git checkout main
 
-`git checkout main`
-`git merge actividad-2-admin-servidores`
+### Deshacer un commit sin borrar historial
 
-Tag final:
+Comando:
+- git revert <commit>
 
-`git tag tarea3-actividad2-submit`
+## Evidencia generada
 
-Push:
+Archivo generado para capturas:
+- evidence/tarea3-actividad2/git-evidence.txt
 
-`git push`
-`git push --tags`
+Este archivo contiene:
+- estado de rama;
+- ultimos commits;
+- ramas locales y remotas;
+- tags de entrega;
+- remote de GitHub;
+- archivos documentales de Tarea 3;
+- scripts de Tarea 3;
+- resultado de pruebas automatizadas.
 
-## Recuperación de versión anterior
+## Estructura de versionamiento
 
-Para revisar el estado estable anterior:
+tarea2-100-baseline
+-> actividad-2-admin-servidores
+-> main
+-> tarea3-actividad2-submit
 
-`git checkout tarea2-100-baseline`
+## Buenas practicas aplicadas
 
-Para volver a main:
+- Se trabajo en una rama dedicada.
+- Se mantuvo un tag del estado estable previo.
+- Se documento el flujo de trabajo.
+- Se integro la rama a main.
+- Se creo un tag final de entrega.
+- Se publico en GitHub.
+- Se evito subir secretos.
+- Se evito agregar archivos locales de entregas anteriores.
+- Se documento como recuperar una version anterior.
 
-`git checkout main`
+## Archivos locales no versionados
 
-Para deshacer un commit sin borrar historial:
+Durante la entrega existian archivos locales de fases anteriores, como documentos Word, PDF, video y ZIP. Estos aparecen como ?? en git status, pero no se agregaron al commit porque no forman parte del codigo ni de la documentacion tecnica de esta actividad.
 
-`git revert <commit>`
+Esto demuestra control intencional del repositorio: solo se versionan los archivos relevantes.
 
-Para crear una rama desde una versión anterior:
+## Conclusion
 
-`git checkout -b recuperacion-demo tarea2-100-baseline`
-
-## Ventajas del flujo usado
-
-- Mantiene historial claro.
-- Permite recuperación.
-- Evita modificar producción sin control.
-- Facilita revisión del profesor.
-- Demuestra buenas prácticas de ingeniería.
-- Permite diferenciar entregas por tags.
-
-## Evidencia recomendada
-
-Capturas sugeridas:
-- GitHub con lista de commits.
-- Rama `actividad-2-admin-servidores`.
-- Tags del proyecto.
-- Archivos de documentación.
-- Resultado de pruebas automatizadas.
-- Repositorio público.
-
-## Conclusión
-
-El uso de Git no se limita a guardar código. En esta actividad se utiliza para demostrar trazabilidad, continuidad entre fases, recuperación de versiones y administración profesional de la plataforma.
+El sistema de control de versiones implementado cubre creacion de repositorio, ramas, commits, flujo de trabajo, tags, merge, publicacion en GitHub y recuperacion de versiones anteriores. La estructura es clara, trazable y permite identificar tanto el estado anterior aprobado como la version final de Tarea 3.

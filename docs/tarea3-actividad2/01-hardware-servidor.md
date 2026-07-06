@@ -1,80 +1,114 @@
-# Selección de hardware y servidor para la base de datos
+# Seleccion de hardware y servidor para la base de datos
 
 ## Contexto de la plataforma
 
-IBEX Carwash Fase I es una aplicación web full stack para administrar clientes, tutores, estudiantes, vehículos, jornadas, tareas, slots y reservas dentro de un programa prelaboral. La plataforma utiliza un front-end React + Vite, un back-end Node.js + Express, comunicación en tiempo real con Socket.IO y persistencia en MongoDB Atlas.
+IBEX Carwash Fase I es una aplicacion web full stack para administrar clientes, tutores, estudiantes, vehiculos, jornadas, tareas, slots y reservas dentro de un programa prelaboral.
 
-La decisión de infraestructura separa responsabilidades:
-- AWS Amplify aloja el front-end estático.
-- AWS Lightsail aloja el API Node.js.
-- MongoDB Atlas aloja la base de datos.
-- Cloudflare administra DNS y HTTPS.
-- Nginx funciona como proxy inverso del API.
+La plataforma utiliza:
+- Front-end React + Vite.
+- Back-end Node.js + Express.
+- Comunicacion en tiempo real con Socket.IO.
+- Persistencia en MongoDB Atlas.
+- AWS Amplify para el front-end.
+- AWS Lightsail para el API.
+- Nginx como reverse proxy.
+- Cloudflare para DNS y HTTPS.
 
-## Hardware lógico seleccionado para la base de datos
+## Decision de arquitectura
 
-Para esta fase se eligió MongoDB Atlas Free Tier en AWS / N. Virginia como base de datos administrada. Aunque no se administra hardware físico directamente, sí se selecciona una topología de servicio que cubre las necesidades actuales de la aplicación.
+Se eligio una arquitectura distribuida:
 
-Configuración usada:
+Usuario
+-> Cloudflare DNS / HTTPS
+-> AWS Amplify para front-end
+-> API Node.js en AWS Lightsail
+-> MongoDB Atlas como base NoSQL administrada
+
+Esta separacion permite que la base de datos no dependa del servidor del API. Si la instancia Lightsail falla, los datos permanecen en MongoDB Atlas.
+
+## Hardware logico seleccionado para la base de datos
+
+Para esta fase se eligio MongoDB Atlas Free Tier en AWS N. Virginia como base de datos administrada.
+
+Configuracion usada:
 - Servicio: MongoDB Atlas.
-- Tipo: replica set administrado.
-- Región: AWS N. Virginia / us-east-1.
-- Motor: MongoDB 8.x.
-- Almacenamiento: 512 MB en tier gratuito.
-- Modelo de administración: base de datos administrada por Atlas.
-- Sistema operativo subyacente: administrado por MongoDB Atlas.
-- Acceso: conexión segura mediante MongoDB Driver desde Node.js.
+- Tipo: base NoSQL administrada.
+- Region: AWS N. Virginia / us-east-1.
+- Motor: MongoDB.
+- Almacenamiento inicial: 512 MB en tier gratuito.
+- Administracion: gestionada por MongoDB Atlas.
+- Acceso: MongoDB Driver desde Node.js.
+- Seguridad: usuario de base de datos, URI privada y variables de entorno.
 
-## Justificación de disco
+## Justificacion de disco duro
 
-La aplicación actual maneja catálogos de baja y mediana volumetría:
-- Clientes.
-- Tutores.
-- Estudiantes.
-- Vehículos.
-- Jornadas.
-- Tareas.
-- Slots.
-- Reservas.
-- Actividades/eventos.
+La aplicacion actual maneja datos de baja y mediana volumetria:
+- clientes;
+- tutores;
+- estudiantes;
+- vehiculos;
+- jornadas;
+- tareas;
+- slots;
+- reservas;
+- eventos de actividad.
 
-En Fase I y Actividad 2 el volumen esperado es pequeño, por lo que 512 MB son suficientes para demostrar persistencia, CRUD y relaciones lógicas. Para producción real se propone escalar a M10 o superior, ya que permitiría más almacenamiento, monitoreo avanzado, backups y mayor capacidad de conexiones.
+Para la entrega academica, 512 MB son suficientes porque se trata de un sistema funcional con datos controlados y bajo volumen. Para una version productiva se recomienda escalar a un cluster dedicado M10 o superior, con mayor almacenamiento, backups administrados y monitoreo avanzado.
 
-## Justificación de RAM
+## Justificacion de memoria RAM
 
-La base de datos se utiliza para operaciones CRUD simples, filtros de catálogos y consultas de dashboard. No se ejecutan cargas analíticas pesadas ni agregaciones complejas. En la etapa actual, el tier administrado es suficiente porque el objetivo principal es validar persistencia, arquitectura y administración de plataforma.
+La base de datos ejecuta operaciones CRUD, consultas de dashboard y lectura de colecciones principales. No se ejecutan cargas analiticas pesadas ni agregaciones masivas.
 
-Para una etapa productiva con múltiples usuarios concurrentes se recomienda escalar a un cluster dedicado, porque MongoDB se beneficia de memoria disponible para índices y working set.
+MongoDB Atlas administra la memoria del servicio. Para esta fase, el tier inicial es suficiente. Para produccion, un cluster dedicado permitiria mas memoria para indices, cache y conexiones concurrentes.
 
-## Justificación de topología
+En el servidor API se usa AWS Lightsail con 512 MB RAM, 2 vCPU y 20 GB SSD. Esta configuracion es adecuada para una carga academica de baja concurrencia. Como mejora productiva se recomienda escalar a 1 GB o 2 GB RAM, agregar swap, monitoreo y backups.
 
-La topología seleccionada es una base de datos administrada por MongoDB Atlas. La ventaja sobre instalar MongoDB manualmente en Lightsail es que Atlas proporciona:
-- Administración del motor de base de datos.
-- Separación entre API y datos.
-- Seguridad mediante usuario/contraseña y lista de acceso de red.
-- Monitoreo básico.
-- Escalabilidad futura.
-- Menor riesgo operativo.
+## Justificacion de topologia de red
 
-La separación también facilita la recuperación: si el servidor Lightsail falla, los datos permanecen fuera de la instancia.
+La topologia separa clientes, front-end, API y base de datos:
 
-## Justificación de sistema operativo
+Clientes web
+-> Cloudflare
+-> Amplify
+-> API Lightsail
+-> MongoDB Atlas
 
-Para el back-end se eligió Ubuntu 24.04 LTS en AWS Lightsail. Ubuntu LTS es una distribución estable, ampliamente documentada y adecuada para Node.js, Nginx, PM2 y despliegues web. La versión LTS reduce el riesgo de incompatibilidades y permite mantener paquetes de seguridad por un periodo extendido.
+Ventajas:
+- separacion de responsabilidades;
+- menor riesgo de perdida de datos;
+- despliegue independiente de front-end y back-end;
+- dominio publico separado para front-end y API;
+- escalabilidad futura;
+- seguridad por capas.
+
+## Justificacion del sistema operativo
+
+Para el servidor API se eligio Ubuntu 24.04 LTS en AWS Lightsail.
+
+Justificacion:
+- es una distribucion estable y ampliamente documentada;
+- tiene soporte de largo plazo;
+- es compatible con Node.js, Nginx y PM2;
+- permite administracion por SSH;
+- es adecuada para un proyecto web full stack;
+- facilita mantenimiento, actualizaciones y despliegue.
+
+MongoDB Atlas administra el sistema operativo subyacente de la base de datos, lo cual reduce la carga operativa y evita administrar parches manuales del motor de base de datos.
 
 ## Servidor del API
 
-Configuración usada:
+Configuracion usada:
 - Servicio: AWS Lightsail.
 - Sistema operativo: Ubuntu 24.04 LTS.
-- Tamaño: 512 MB RAM, 2 vCPU, 20 GB SSD.
-- IP estática: configurada.
-- Proceso Node.js administrado con PM2.
-- Nginx como proxy inverso.
+- RAM: 512 MB.
+- CPU: 2 vCPU.
+- Disco: 20 GB SSD.
+- Proceso Node.js: PM2.
+- Proxy: Nginx.
 - Dominio API: https://api-ibex.ccjira.io.
 
-Esta configuración es suficiente para una aplicación académica con baja concurrencia. Para producción real, se recomienda escalar a una instancia de al menos 1 GB RAM o 2 GB RAM, agregar monitoreo, backups automáticos y un proceso de despliegue controlado.
+## Decision final
 
-## Decisión final
+Se conserva MongoDB Atlas como base NoSQL administrada, AWS Lightsail como servidor de API, AWS Amplify como front-end y Cloudflare como capa DNS/HTTPS.
 
-Para Actividad 2 se conserva MongoDB Atlas como base administrada, AWS Lightsail como servidor de API y AWS Amplify como front-end. Esta decisión maximiza disponibilidad, reduce complejidad operativa y demuestra administración real de una plataforma distribuida.
+Esta decision es adecuada para la Actividad 2 porque demuestra administracion real de una plataforma desplegada, separa datos de servidor, reduce complejidad operativa y permite crecimiento hacia Fase II.

@@ -7,30 +7,33 @@ URLs declaradas:
 - API: https://api-ibex.ccjira.io
 - GitHub: https://github.com/rg4cyc/ibex-carwash-fase1
 
-Evidencia requerida:
+Entregables:
 - Reporte Word o PDF.
 - Video público.
-- Repositorio GitHub público.
-- Evidencia de hardware/infraestructura.
-- Evidencia de monitoreo y seguridad.
-- Evidencia de prueba manual de cinco pasos.
-- Evidencia de tres pruebas automatizadas.
-- Evidencia Scrum.
-- Evidencia Git: ramas, commits, tags y recuperación.
+- Repositorio público de GitHub.
+- Carpeta comprimida con reporte, evidencias y enlaces.
 
-Archivos generados para la entrega:
+Archivos generados para esta actividad:
 - docs/tarea3-actividad2/01-hardware-servidor.md
-- docs/tarea3-actividad2/02-monitoreo-seguridad.md
+- docs/tarea3-actividad2/02-licitacion-monitoreo-seguridad.md
 - docs/tarea3-actividad2/03-pruebas.md
 - docs/tarea3-actividad2/04-scrum.md
 - docs/tarea3-actividad2/05-git-versionamiento.md
 - docs/tarea3-actividad2/06-guion-video.md
+- docs/tarea3-actividad2/07-evidencia-capturas.md
+- docs/tarea3-actividad2/reporte-tarea3-actividad2.md
 - scripts/tarea3-actividad2/automated-tests.mjs
+- scripts/tarea3-actividad2/capture-git-evidence.sh
+- evidence/tarea3-actividad2/git-evidence.txt
 
-Estado objetivo:
-- Plataforma desplegada.
-- MongoDB Atlas activo.
-- API pública con health check.
-- Front-end público en AWS Amplify.
-- API pública en AWS Lightsail mediante Nginx y Cloudflare.
-- Pruebas automatizadas ejecutables desde terminal.
+Rubrica cubierta:
+- Hardware del servidor: 20 puntos.
+- Monitoreo y seguridad mediante licitacion: 10 puntos.
+- Pruebas manuales y automatizadas: 20 puntos.
+- Proyecto agil Scrum: 20 puntos.
+- Sistema de control de versiones Git: 30 puntos.
+
+Capturas prioritarias:
+- INS04: pruebas.
+- INS05: Scrum.
+- INS06: Git.

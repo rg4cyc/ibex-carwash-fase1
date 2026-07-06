@@ -29,14 +29,17 @@ async function request(path, options = {}) {
 
 async function testHealth() {
   const { response, data } = await request("/health");
+
   assert(response.ok, `Health failed with status ${response.status}`);
   assert(data.ok === true, "Health did not return ok=true");
   assert(data.database === "mongodb", "Health did not report mongodb");
+
   console.log("TEST_1_HEALTH_OK");
 }
 
 async function testDashboardCollections() {
   const { response, data } = await request("/dashboard");
+
   assert(response.ok, `Dashboard failed with status ${response.status}`);
 
   const expectedCollections = [
