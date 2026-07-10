@@ -1,0 +1,259 @@
+IBEX Carwash Fase I / T4 - Revision de stack actual
+Fecha:
+Fri Jul 10 18:37:31 CDT 2026
+
+=== Git ===
+## main...origin/main
+?? docs/t4/
+
+4ce13ac (HEAD -> main, tag: t3-submit, origin/main) add final t3 screenshots
+072c95b trim t3 report to essential unique screenshots
+b9c578d clean t3 tag evidence while preserving t2 baseline
+045c3b3 (origin/t3, t3) normalize t3 structure and evidence
+9b08d38 prepare final activity 2 word report
+7b89b25 strengthen activity 2 rubric evidence
+7ef3266 add activity 2 platform administration evidence
+f56c8a1 (tag: tarea2-100-baseline, tag: t2-baseline) allow amplify and custom domain cors origins
+
+* main
+  t3
+  remotes/origin/main
+  remotes/origin/t3
+
+t2-baseline
+t3-submit
+tarea2-100-baseline
+
+=== Estructura raiz ===
+./.DS_Store
+./.gitignore
+./assets/.DS_Store
+./backend/.DS_Store
+./backend/.env
+./backend/.env.example
+./backend/package-lock.json
+./backend/package.json
+./backend/server.js
+./docs/.DS_Store
+./docs/arquitectura.md
+./docs/informe-fase1.md
+./docs/pruebas.md
+./docs/reporte-fase1.html
+./docs/video-guion-fase1.md
+./frontend/index.html
+./frontend/package-lock.json
+./frontend/package.json
+./README.md
+./scripts/.DS_Store
+
+=== Node / npm ===
+v24.14.0
+11.9.0
+
+=== Docker ===
+Docker version 29.4.2, build 055a478
+Docker Compose version v5.1.3
+Client:
+ Version:    29.4.2
+ Context:    desktop-linux
+ Debug Mode: false
+ Plugins:
+  agent: Docker AI Agent Runner (Docker Inc.)
+    Version:  v1.50.0
+    Path:     /Users/vier/.docker/cli-plugins/docker-agent
+  ai: Docker AI Agent - Ask Gordon (Docker Inc.)
+    Version:  v1.20.2
+    Path:     /Users/vier/.docker/cli-plugins/docker-ai
+  buildx: Docker Buildx (Docker Inc.)
+    Version:  v0.33.0-desktop.1
+    Path:     /Users/vier/.docker/cli-plugins/docker-buildx
+  compose: Docker Compose (Docker Inc.)
+    Version:  v5.1.3
+    Path:     /Users/vier/.docker/cli-plugins/docker-compose
+  debug: Get a shell into any image or container (Docker Inc.)
+    Version:  0.0.47
+    Path:     /Users/vier/.docker/cli-plugins/docker-debug
+  desktop: Docker Desktop commands (Docker Inc.)
+    Version:  v0.3.0
+    Path:     /Users/vier/.docker/cli-plugins/docker-desktop
+  dhi: CLI for managing Docker Hardened Images (Docker Inc.)
+    Version:  v0.0.3
+    Path:     /Users/vier/.docker/cli-plugins/docker-dhi
+  extension: Manages Docker extensions (Docker Inc.)
+    Version:  v0.2.31
+    Path:     /Users/vier/.docker/cli-plugins/docker-extension
+  init: Creates Docker-related starter files for your project (Docker Inc.)
+    Version:  v1.4.0
+    Path:     /Users/vier/.docker/cli-plugins/docker-init
+  mcp: Docker MCP Plugin (Docker Inc.)
+    Version:  v0.40.4
+    Path:     /Users/vier/.docker/cli-plugins/docker-mcp
+
+=== Backend package ===
+{
+  "name": "ibex-carwash-fase1-backend",
+  "version": "1.0.0",
+  "description": "Backend Fase I para IBEX Carwash Slots",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "mongodb": "^7.0.0",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
+
+=== Frontend package ===
+{
+  "name": "ibex-carwash-fase1-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^6.0.1",
+    "vite": "^8.0.12",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "socket.io-client": "^4.8.1"
+  },
+  "devDependencies": {}
+}
+
+=== Backend files ===
+backend/.DS_Store
+backend/.env
+backend/.env.example
+backend/package-lock.json
+backend/package.json
+backend/server.js
+
+=== Frontend files ===
+frontend/dist/assets/index-DE7U0kfL.js
+frontend/dist/assets/index-J7qlhV3B.css
+frontend/dist/index.html
+frontend/index.html
+frontend/package-lock.json
+frontend/package.json
+frontend/src/App.jsx
+frontend/src/main.jsx
+frontend/src/services/api.js
+frontend/src/styles/main.css
+
+=== Existing Docker files ===
+
+=== Existing Socket / realtime references ===
+backend/server.js:const { Server } = require("socket.io");
+backend/server.js:    realtime: "Socket.IO enabled",
+backend/node_modules/socket.io-adapter/LICENSE:Copyright (c) 2014-present Guillermo Rauch and Socket.IO contributors
+backend/node_modules/socket.io-adapter/dist/cluster-adapter.js:const debug = (0, debug_1.debug)("socket.io-adapter");
+backend/node_modules/socket.io-adapter/dist/in-memory-adapter.js:     * Returns the number of Socket.IO servers in the cluster
+backend/node_modules/socket.io-adapter/dist/in-memory-adapter.js:     * Send a packet to the other Socket.IO servers in the cluster
+backend/node_modules/socket.io-adapter/dist/in-memory-adapter.d.ts: * A public ID, sent by the server at the beginning of the Socket.IO session and which can be used for private messaging
+backend/node_modules/socket.io-adapter/dist/in-memory-adapter.d.ts: * A private ID, sent by the server at the beginning of the Socket.IO session and used for connection state recovery
+backend/node_modules/socket.io-adapter/dist/in-memory-adapter.d.ts:     * Returns the number of Socket.IO servers in the cluster
+backend/node_modules/socket.io-adapter/dist/in-memory-adapter.d.ts:     * Send a packet to the other Socket.IO servers in the cluster
+backend/node_modules/socket.io-adapter/Readme.md:# socket.io-adapter
+backend/node_modules/socket.io-adapter/Readme.md:Default socket.io in-memory adapter class.
+backend/node_modules/socket.io-adapter/Readme.md:| Adapter version | Socket.IO server version |
+backend/node_modules/socket.io-adapter/Readme.md:at [socket.io-redis](https://github.com/learnboost/socket.io-redis).
+backend/node_modules/socket.io-adapter/package.json:  "name": "socket.io-adapter",
+backend/node_modules/socket.io-adapter/package.json:  "homepage": "https://github.com/socketio/socket.io/tree/main/packages/socket.io-adapter#readme",
+backend/node_modules/socket.io-adapter/package.json:    "url": "git+https://github.com/socketio/socket.io.git"
+backend/node_modules/socket.io-adapter/package.json:    "url": "https://github.com/socketio/socket.io/issues"
+backend/node_modules/socket.io-adapter/package.json:  "description": "default socket.io in-memory adapter",
+backend/node_modules/@socket.io/component-emitter/Readme.md:# `@socket.io/component-emitter`
+backend/node_modules/@socket.io/component-emitter/Readme.md:This project is a fork of the [`component-emitter`](https://github.com/sindresorhus/component-emitter) project, with [Socket.IO](https://socket.io/)-specific TypeScript typings.
+backend/node_modules/@socket.io/component-emitter/Readme.md:$ npm i @socket.io/component-emitter
+backend/node_modules/@socket.io/component-emitter/Readme.md:import { Emitter } from '@socket.io/component-emitter';
+backend/node_modules/@socket.io/component-emitter/Readme.md:import { Emitter } from '@socket.io/component-emitter';
+backend/node_modules/@socket.io/component-emitter/Readme.md:import { Emitter } from '@socket.io/component-emitter';
+backend/node_modules/@socket.io/component-emitter/package.json:  "name": "@socket.io/component-emitter",
+backend/node_modules/@socket.io/component-emitter/lib/esm/package.json:  "name": "@socket.io/component-emitter",
+backend/node_modules/@socket.io/component-emitter/lib/esm/index.d.ts: * This is a hack to mitigate https://github.com/socketio/socket.io/issues/3833.
+backend/node_modules/@socket.io/component-emitter/lib/esm/index.d.ts: * emitted by socket.io with `emitReserved`, and can be listened to with
+backend/node_modules/@socket.io/component-emitter/lib/cjs/package.json:  "name": "@socket.io/component-emitter",
+backend/node_modules/@socket.io/component-emitter/lib/cjs/index.d.ts: * This is a hack to mitigate https://github.com/socketio/socket.io/issues/3833.
+backend/node_modules/@socket.io/component-emitter/lib/cjs/index.d.ts: * emitted by socket.io with `emitReserved`, and can be listened to with
+backend/node_modules/.package-lock.json:    "node_modules/@socket.io/component-emitter": {
+backend/node_modules/.package-lock.json:      "resolved": "https://registry.npmjs.org/@socket.io/component-emitter/-/component-emitter-3.1.2.tgz",
+backend/node_modules/.package-lock.json:    "node_modules/socket.io": {
+backend/node_modules/.package-lock.json:      "resolved": "https://registry.npmjs.org/socket.io/-/socket.io-4.8.3.tgz",
+backend/node_modules/.package-lock.json:        "socket.io-adapter": "~2.5.2",
+backend/node_modules/.package-lock.json:        "socket.io-parser": "~4.2.4"
+backend/node_modules/.package-lock.json:    "node_modules/socket.io-adapter": {
+backend/node_modules/.package-lock.json:      "resolved": "https://registry.npmjs.org/socket.io-adapter/-/socket.io-adapter-2.5.8.tgz",
+backend/node_modules/.package-lock.json:    "node_modules/socket.io-parser": {
+backend/node_modules/.package-lock.json:      "resolved": "https://registry.npmjs.org/socket.io-parser/-/socket.io-parser-4.2.6.tgz",
+backend/node_modules/.package-lock.json:        "@socket.io/component-emitter": "~3.1.0",
+backend/node_modules/.package-lock.json:    "node_modules/socket.io/node_modules/accepts": {
+backend/node_modules/.package-lock.json:    "node_modules/socket.io/node_modules/mime-db": {
+backend/node_modules/.package-lock.json:    "node_modules/socket.io/node_modules/mime-types": {
+backend/node_modules/.package-lock.json:    "node_modules/socket.io/node_modules/negotiator": {
+backend/node_modules/socket.io/LICENSE:Copyright (c) 2014-present Guillermo Rauch and Socket.IO contributors
+backend/node_modules/socket.io/dist/client.js:const socket_io_parser_1 = require("socket.io-parser");
+backend/node_modules/socket.io/dist/client.js:const debug = (0, debug_1.default)("socket.io:client");
+backend/node_modules/socket.io/dist/client.js:                    type: socket_io_parser_1.PacketType.CONNECT_ERROR,
+backend/node_modules/socket.io/dist/client.js:        if (!socket && packet.type === socket_io_parser_1.PacketType.CONNECT) {
+backend/node_modules/socket.io/dist/client.js:            packet.type !== socket_io_parser_1.PacketType.CONNECT &&
+backend/node_modules/socket.io/dist/client.js:            packet.type !== socket_io_parser_1.PacketType.CONNECT_ERROR) {
+backend/node_modules/socket.io/dist/client.js:        const url = new URL(packet.nsp, "https://socket.io");
+backend/node_modules/socket.io/dist/uws.js:const socket_io_adapter_1 = require("socket.io-adapter");
+backend/node_modules/socket.io/dist/uws.js:const debug = (0, debug_1.default)("socket.io:adapter-uws");
+backend/node_modules/socket.io/dist/uws.js:const { addAll, del, broadcast } = socket_io_adapter_1.Adapter.prototype;
+backend/node_modules/socket.io/dist/uws.js:    socket_io_adapter_1.Adapter.prototype.addAll = function (id, rooms) {
+backend/node_modules/socket.io/dist/uws.js:    socket_io_adapter_1.Adapter.prototype.del = function (id, room) {
+backend/node_modules/socket.io/dist/uws.js:    socket_io_adapter_1.Adapter.prototype.broadcast = function (packet, opts) {
+backend/node_modules/socket.io/dist/uws.js:    socket_io_adapter_1.Adapter.prototype.addAll = addAll;
+backend/node_modules/socket.io/dist/uws.js:    socket_io_adapter_1.Adapter.prototype.del = del;
+backend/node_modules/socket.io/dist/uws.js:    socket_io_adapter_1.Adapter.prototype.broadcast = broadcast;
+backend/node_modules/socket.io/dist/broadcast-operator.js:const socket_io_parser_1 = require("socket.io-parser");
+backend/node_modules/socket.io/dist/broadcast-operator.js:            type: socket_io_parser_1.PacketType.EVENT,
+backend/node_modules/socket.io/dist/broadcast-operator.js:            // each Socket.IO server in the cluster sends the number of clients that were notified
+backend/node_modules/socket.io/dist/broadcast-operator.js:     * Returns the matching socket instances. This method works across a cluster of several Socket.IO servers.
+backend/node_modules/socket.io/dist/broadcast-operator.js:     * Note: this method also works within a cluster of multiple Socket.IO servers, with a compatible {@link Adapter}.
+backend/node_modules/socket.io/dist/broadcast-operator.js:     * Note: this method also works within a cluster of multiple Socket.IO servers, with a compatible {@link Adapter}.
+backend/node_modules/socket.io/dist/broadcast-operator.js:     * Note: this method also works within a cluster of multiple Socket.IO servers, with a compatible {@link Adapter}.
+backend/node_modules/socket.io/dist/broadcast-operator.js:     * Note: this method also works within a cluster of multiple Socket.IO servers, with a compatible {@link Adapter}.
+backend/node_modules/socket.io/dist/typed-events.js: * emitted by socket.io with `emitReserved`, and can be listened to with
+backend/node_modules/socket.io/dist/typed-events.d.ts: * This is a hack to mitigate https://github.com/socketio/socket.io/issues/3833.
+backend/node_modules/socket.io/dist/typed-events.d.ts: * emitted by socket.io with `emitReserved`, and can be listened to with
+backend/node_modules/socket.io/dist/socket.d.ts:import { Packet } from "socket.io-parser";
+backend/node_modules/socket.io/dist/socket.d.ts:import type { Room, Session, SocketId } from "socket.io-adapter";
+backend/node_modules/socket.io/dist/index.js:const socket_io_adapter_1 = require("socket.io-adapter");
+backend/node_modules/socket.io/dist/index.js:const parser = __importStar(require("socket.io-parser"));
+backend/node_modules/socket.io/dist/index.js:const debug = (0, debug_1.default)("socket.io:server");
+
+=== API health public ===
+{"ok":true,"service":"IBEX Carwash Fase I API","realtime":"Socket.IO enabled","database":"mongodb","timestamp":"2026-07-10T23:37:33.784Z"}
+
+=== Frontend public HEAD ===
+HTTP/2 200 
+content-type: text/html
+content-length: 404
+date: Fri, 10 Jul 2026 23:37:34 GMT
+cache-control: public, max-age=0, s-maxage=31536000
+server: AmazonS3
+accept-ranges: bytes
+etag: "23e6889ef5ba23704e7e6ac54cc14a02"
+last-modified: Mon, 06 Jul 2026 08:45:21 GMT
+x-cache: Miss from cloudfront
+via: 1.1 879276c144e98bd2a3e8d322c8123694.cloudfront.net (CloudFront)
+x-amz-cf-pop: DFW57-P6
+alt-svc: h3=":443"; ma=86400
+x-amz-cf-id: JKU-u35-qZW6RuXwqG4Tf1WLh4BJa1wsrJZ7ejv5ieasU0djS0pEgw==
+
+
