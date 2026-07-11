@@ -51,51 +51,15 @@ RUNNING backend_dashboard
   "errors": []
 }
 
-RUNNING notifications_health
-{
-  "name": "notifications_health",
-  "method": "GET",
-  "url": "http://localhost:4010/health",
-  "totalRequests": 60,
-  "concurrency": 6,
-  "successfulRequests": 60,
-  "failedRequests": 0,
-  "totalDurationMs": 30.78,
-  "requestsPerSecond": 1949.59,
-  "avgLatencyMs": 2.9,
-  "minLatencyMs": 0.58,
-  "p50LatencyMs": 1.75,
-  "p95LatencyMs": 10.84,
-  "maxLatencyMs": 13.59,
-  "errors": []
-}
 
-RUNNING backend_to_notifications_event
-{
-  "name": "backend_to_notifications_event",
-  "method": "POST",
-  "url": "http://localhost:4000/api/t4/notify",
-  "totalRequests": 30,
-  "concurrency": 3,
-  "successfulRequests": 30,
-  "failedRequests": 0,
-  "totalDurationMs": 67.14,
-  "requestsPerSecond": 446.81,
-  "avgLatencyMs": 6.6,
-  "minLatencyMs": 1.61,
-  "p50LatencyMs": 2.29,
-  "p95LatencyMs": 42.07,
-  "maxLatencyMs": 42.37,
-  "errors": []
-}
 
-SUMMARY
-{
-  "ok": true,
-  "totalTargets": 4,
-  "totalRequests": 190,
-  "totalFailed": 0,
-  "generatedAt": "2026-07-11T01:12:51.232Z"
+
+
+
+
+
+
+
 }
 
 === Docker compose ps after load test ===
