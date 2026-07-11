@@ -53,3 +53,6 @@ assets/screenshots/t4/11_lightsail_https_realtime_demo.png
 
 URL pública T4:
 https://api-ibex.ccjira.io/t4-realtime-demo
+
+Video final:
+https://youtu.be/frh-78AA2qQ

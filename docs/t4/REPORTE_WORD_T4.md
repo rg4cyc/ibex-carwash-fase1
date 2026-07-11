@@ -405,3 +405,11 @@ La captura visual pública corresponde a:
 `assets/screenshots/t4/11_lightsail_https_realtime_demo.png`
 
 Esta captura muestra la demo pública en HTTPS con Socket.IO conectado, `database=mongodb`, `status=201`, `forwarded=true` y eventos realtime recibidos.
+
+## Video de demostración
+
+El video de demostración de la Fase II se encuentra disponible en el siguiente enlace:
+
+https://youtu.be/frh-78AA2qQ
+
+En el video se muestra la arquitectura del proyecto, la estructura de microservicios, Docker Compose, el despliegue en AWS Lightsail, la demo pública por HTTPS, Socket.IO conectado, MongoDB Atlas, el microservicio de notificaciones y las pruebas de rendimiento.
