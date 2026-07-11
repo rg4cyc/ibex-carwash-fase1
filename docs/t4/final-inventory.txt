@@ -39,3 +39,10 @@ assets/screenshots/t4/06_docker_check_results.png
 assets/screenshots/t4/07_performance_results.png
 assets/screenshots/t4/08_socketio_realtime_test.png
 assets/screenshots/t4/09_github_t4_branch.png
+
+Evidencia adicional:
+assets/screenshots/t4/10_docker_containers_running.png
+
+Deploy Lightsail:
+docker-compose.lightsail.yml
+docs/t4/LIGHTSAIL_DOCKER_DEPLOY.md

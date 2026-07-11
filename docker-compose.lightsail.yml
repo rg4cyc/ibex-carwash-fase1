@@ -1,0 +1,22 @@
+services:
+  backend:
+    ports:
+      - "14000:4000"
+    environment:
+      PORT: "4000"
+      NODE_ENV: production
+      NOTIFICATIONS_SERVICE_URL: http://notifications-service:4010
+      NOTIFICATIONS_SERVICE_ENABLED: "true"
+      CLIENT_ORIGIN: "https://api-ibex.ccjira.io,http://localhost:14000,http://localhost:14173"
+
+  notifications-service:
+    ports:
+      - "14010:4010"
+    environment:
+      PORT: "4010"
+      NODE_ENV: production
+      MAX_NOTIFICATIONS: "200"
+
+  frontend:
+    ports:
+      - "14173:4173"

@@ -338,3 +338,36 @@ La Fase II de IBEX Carwash logró extender la aplicación original con una arqui
 La solución mantiene producción estable y agrega una arquitectura local reproducible. La evidencia demuestra separación de responsabilidades, comunicación entre servicios, health checks, pruebas de carga y control de versiones en GitHub.
 
 Como mejoras futuras se propone agregar Redis Adapter para escalar Socket.IO horizontalmente, caché para consultas de dashboard, persistencia propia para notificaciones y monitoreo centralizado de logs y métricas.
+
+## Evidencia adicional de Docker
+
+Se agregó una captura adicional:
+
+`10_docker_containers_running.png`
+
+Esta imagen muestra Docker Desktop con el stack `ibex-carwash-fase1` ejecutando los tres contenedores de Fase II:
+
+`ibex-backend`  
+`ibex-frontend`  
+`ibex-notifications-service`  
+
+La captura complementa la evidencia de Docker Compose y muestra el uso de recursos, puertos publicados y contenedores activos.
+
+## Plan de despliegue Docker en Lightsail
+
+Para cumplir el despliegue de Fase II sin interrumpir la producción existente, se preparó un despliegue paralelo en Lightsail usando:
+
+`docker-compose.yml`  
+`docker-compose.lightsail.yml`  
+
+El archivo `docker-compose.lightsail.yml` usa puertos alternos para evitar conflicto con el backend productivo administrado por PM2:
+
+Backend T4: `14000 -> 4000`  
+Notifications Service T4: `14010 -> 4010`  
+Frontend T4: `14173 -> 4173`  
+
+La URL técnica propuesta para evidencia en servidor es:
+
+`https://api-ibex.ccjira.io/t4-realtime-demo`
+
+Este enfoque permite validar Docker Compose, microservicios y Socket.IO en Lightsail sin apagar ni reemplazar la versión estable de producción.
