@@ -1,0 +1,32 @@
+IBEX Carwash Fase II - Backend Notifications Integration Test
+Fecha:
+Fri Jul 10 19:29:29 CDT 2026
+
+=== Notifications service log inicial ===
+
+> ibex-notifications-service@1.0.0 start
+> node server.js
+
+◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+IBEX Notifications Service listening on port 4010
+
+=== Backend log inicial ===
+
+> ibex-carwash-fase1-backend@1.0.0 start
+> node server.js
+
+◇ injected env (3) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+MongoDB connected: ibex_carwash_fase1
+IBEX Fase I API running on http://localhost:4000
+
+=== Integration test ===
+BACKEND_URL=http://localhost:4000/api
+NOTIFICATIONS_URL=http://localhost:4010
+TEST_1_BACKEND_HEALTH_OK
+TEST_2_NOTIFICATIONS_HEALTH_OK
+TEST_3_BACKEND_FORWARDED_EVENT_OK
+TEST_4_NOTIFICATIONS_RECEIVED_BACKEND_EVENT_OK
+BACKEND_NOTIFICATIONS_INTEGRATION_TESTS_OK
+
+=== Notifications final list ===
+{"ok":true,"count":1,"notifications":[{"id":"1783729769255-cf107098501238","type":"t4.integration","title":"Backend integration test","message":"Main backend forwarded an event to notifications service","source":"ibex-main-backend","entity":{"project":"ibex-carwash-fase2","test":"backend-notifications-integration"},"createdAt":"2026-07-11T00:29:29.255Z"}]}

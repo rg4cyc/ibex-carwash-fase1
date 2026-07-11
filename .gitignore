@@ -26,3 +26,4 @@ frontend/.env
 
 # local link notes
 LINKS_*.txt
+services/notifications-service/.env

@@ -1,0 +1,72 @@
+IBEX Carwash Fase II - Performance Results
+Fecha:
+Fri Jul 10 20:12:45 CDT 2026
+
+=== Docker compose ps before load test ===
+NAME                         IMAGE                                      COMMAND                  SERVICE                 CREATED          STATUS                    PORTS
+ibex-backend                 ibex-carwash-fase1-backend                 "docker-entrypoint.s…"   backend                 43 seconds ago   Up 32 seconds (healthy)   0.0.0.0:4000->4000/tcp, [::]:4000->4000/tcp
+ibex-frontend                ibex-carwash-fase1-frontend                "docker-entrypoint.s…"   frontend                43 seconds ago   Up 22 seconds             0.0.0.0:4173->4173/tcp, [::]:4173->4173/tcp
+ibex-notifications-service   ibex-carwash-fase1-notifications-service   "docker-entrypoint.s…"   notifications-service   43 seconds ago   Up 43 seconds (healthy)   0.0.0.0:4010->4010/tcp, [::]:4010->4010/tcp
+
+=== Load test output ===
+IBEX T4 Load Test
+Fecha: 2026-07-11T01:12:45.745Z
+Timeout por request: 7000 ms
+
+RUNNING backend_health
+{
+  "name": "backend_health",
+  "method": "GET",
+  "url": "http://localhost:4000/api/health",
+  "totalRequests": 60,
+  "concurrency": 6,
+  "successfulRequests": 60,
+  "failedRequests": 0,
+  "totalDurationMs": 58.1,
+  "requestsPerSecond": 1032.71,
+  "avgLatencyMs": 3.03,
+  "minLatencyMs": 0.64,
+  "p50LatencyMs": 1.19,
+  "p95LatencyMs": 13.38,
+  "maxLatencyMs": 44.22,
+  "errors": []
+}
+
+RUNNING backend_dashboard
+{
+  "name": "backend_dashboard",
+  "method": "GET",
+  "url": "http://localhost:4000/api/dashboard",
+  "totalRequests": 40,
+  "concurrency": 4,
+  "successfulRequests": 40,
+  "failedRequests": 0,
+  "totalDurationMs": 5324.32,
+  "requestsPerSecond": 7.51,
+  "avgLatencyMs": 510.72,
+  "minLatencyMs": 392.41,
+  "p50LatencyMs": 476.52,
+  "p95LatencyMs": 822.25,
+  "maxLatencyMs": 963.64,
+  "errors": []
+}
+
+
+
+
+
+
+
+
+
+
+}
+
+=== Docker compose ps after load test ===
+NAME                         IMAGE                                      COMMAND                  SERVICE                 CREATED          STATUS                    PORTS
+ibex-backend                 ibex-carwash-fase1-backend                 "docker-entrypoint.s…"   backend                 49 seconds ago   Up 38 seconds (healthy)   0.0.0.0:4000->4000/tcp, [::]:4000->4000/tcp
+ibex-frontend                ibex-carwash-fase1-frontend                "docker-entrypoint.s…"   frontend                49 seconds ago   Up 27 seconds             0.0.0.0:4173->4173/tcp, [::]:4173->4173/tcp
+ibex-notifications-service   ibex-carwash-fase1-notifications-service   "docker-entrypoint.s…"   notifications-service   49 seconds ago   Up 49 seconds (healthy)   0.0.0.0:4010->4010/tcp, [::]:4010->4010/tcp
+
+=== Notifications count after load test ===
+{"ok":true,"count":30,"notifications":[{"id":"1783732371230-fc21475a066418","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":29,"timestamp":"2026-07-11T01:12:51.229Z"},"createdAt":"2026-07-11T01:12:51.230Z"},{"id":"1783732371230-306392787a46b8","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":28,"timestamp":"2026-07-11T01:12:51.229Z"},"createdAt":"2026-07-11T01:12:51.230Z"},{"id":"1783732371229-6141cfb2f66de8","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":27,"timestamp":"2026-07-11T01:12:51.228Z"},"createdAt":"2026-07-11T01:12:51.229Z"},{"id":"1783732371228-6d1f78a30d4bc","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":26,"timestamp":"2026-07-11T01:12:51.227Z"},"createdAt":"2026-07-11T01:12:51.228Z"},{"id":"1783732371228-d525dde077daa","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":25,"timestamp":"2026-07-11T01:12:51.227Z"},"createdAt":"2026-07-11T01:12:51.228Z"},{"id":"1783732371227-e9bc1ed94c465","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":24,"timestamp":"2026-07-11T01:12:51.226Z"},"createdAt":"2026-07-11T01:12:51.227Z"},{"id":"1783732371226-cca23cdc70c36","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":23,"timestamp":"2026-07-11T01:12:51.225Z"},"createdAt":"2026-07-11T01:12:51.226Z"},{"id":"1783732371226-49b84393bbf2f8","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":22,"timestamp":"2026-07-11T01:12:51.225Z"},"createdAt":"2026-07-11T01:12:51.226Z"},{"id":"1783732371225-eb224fa1d997e8","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":21,"timestamp":"2026-07-11T01:12:51.224Z"},"createdAt":"2026-07-11T01:12:51.225Z"},{"id":"1783732371224-6b47b5474b01b8","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":20,"timestamp":"2026-07-11T01:12:51.223Z"},"createdAt":"2026-07-11T01:12:51.224Z"},{"id":"1783732371223-50892ceda850b8","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":19,"timestamp":"2026-07-11T01:12:51.223Z"},"createdAt":"2026-07-11T01:12:51.224Z"},{"id":"1783732371222-986b7d11a9d6a","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":18,"timestamp":"2026-07-11T01:12:51.222Z"},"createdAt":"2026-07-11T01:12:51.222Z"},{"id":"1783732371222-be366aa88e818","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":17,"timestamp":"2026-07-11T01:12:51.221Z"},"createdAt":"2026-07-11T01:12:51.222Z"},{"id":"1783732371222-ae89f498f16d9","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":16,"timestamp":"2026-07-11T01:12:51.221Z"},"createdAt":"2026-07-11T01:12:51.222Z"},{"id":"1783732371220-44f8abe30ea55","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":15,"timestamp":"2026-07-11T01:12:51.220Z"},"createdAt":"2026-07-11T01:12:51.220Z"},{"id":"1783732371220-a60998d8f24b08","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":14,"timestamp":"2026-07-11T01:12:51.219Z"},"createdAt":"2026-07-11T01:12:51.220Z"},{"id":"1783732371220-13763b0668ac18","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":13,"timestamp":"2026-07-11T01:12:51.219Z"},"createdAt":"2026-07-11T01:12:51.220Z"},{"id":"1783732371218-d906e367fb4758","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":12,"timestamp":"2026-07-11T01:12:51.218Z"},"createdAt":"2026-07-11T01:12:51.218Z"},{"id":"1783732371217-4944c67afbd6a","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":11,"timestamp":"2026-07-11T01:12:51.217Z"},"createdAt":"2026-07-11T01:12:51.217Z"},{"id":"1783732371217-23bfb3dff3c518","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":10,"timestamp":"2026-07-11T01:12:51.216Z"},"createdAt":"2026-07-11T01:12:51.217Z"},{"id":"1783732371217-5786a4e1786a3","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":9,"timestamp":"2026-07-11T01:12:51.216Z"},"createdAt":"2026-07-11T01:12:51.217Z"},{"id":"1783732371215-9bc09384472fe8","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":8,"timestamp":"2026-07-11T01:12:51.213Z"},"createdAt":"2026-07-11T01:12:51.215Z"},{"id":"1783732371215-bcfa11c5c09c2","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":7,"timestamp":"2026-07-11T01:12:51.213Z"},"createdAt":"2026-07-11T01:12:51.215Z"},{"id":"1783732371214-e5193969c78ee","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":6,"timestamp":"2026-07-11T01:12:51.213Z"},"createdAt":"2026-07-11T01:12:51.214Z"},{"id":"1783732371211-bb03498a873708","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":5,"timestamp":"2026-07-11T01:12:51.208Z"},"createdAt":"2026-07-11T01:12:51.211Z"},{"id":"1783732371211-eaf99f42b9e648","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":4,"timestamp":"2026-07-11T01:12:51.207Z"},"createdAt":"2026-07-11T01:12:51.211Z"},{"id":"1783732371211-94b97255393038","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":3,"timestamp":"2026-07-11T01:12:51.206Z"},"createdAt":"2026-07-11T01:12:51.211Z"},{"id":"1783732371201-df1c3bc49db9f8","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":2,"timestamp":"2026-07-11T01:12:51.166Z"},"createdAt":"2026-07-11T01:12:51.201Z"},{"id":"1783732371201-61398eaa79a2d8","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":1,"timestamp":"2026-07-11T01:12:51.165Z"},"createdAt":"2026-07-11T01:12:51.201Z"},{"id":"1783732371200-5c6b77202d6538","type":"t4.performance","title":"Performance test event","message":"Load test event from scripts/t4/load-test.mjs","source":"ibex-main-backend","entity":{"test":"load","source":"scripts/t4/load-test.mjs","requestIndex":0,"timestamp":"2026-07-11T01:12:51.165Z"},"createdAt":"2026-07-11T01:12:51.200Z"}]}

@@ -1,0 +1,25 @@
+IBEX T4 - Frontend Realtime Demo Fix
+Fecha:
+Fri Jul 10 20:38:00 CDT 2026
+
+Se restauró el frontend React principal al estado estable previo.
+Se creó una página dedicada de evidencia visual: frontend/public/t4-realtime-demo.html.
+La página usa Socket.IO desde backend, consulta health checks y dispara /api/t4/notify.
+Dockerfile frontend copia public para incluir la demo en el build.
+
+Build:
+FRONTEND_BUILD_OK
+
+Demo HEAD:
+HTTP/1.1 301 Moved Permanently
+Location: /t4-realtime-demo
+Date: Sat, 11 Jul 2026 01:38:00 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+
+Docker ps:
+NAME                         IMAGE                                      COMMAND                  SERVICE                 CREATED          STATUS                    PORTS
+ibex-backend                 ibex-carwash-fase1-backend                 "docker-entrypoint.s…"   backend                 44 seconds ago   Up 33 seconds (healthy)   0.0.0.0:4000->4000/tcp, [::]:4000->4000/tcp
+ibex-frontend                ibex-carwash-fase1-frontend                "docker-entrypoint.s…"   frontend                44 seconds ago   Up 22 seconds             0.0.0.0:4173->4173/tcp, [::]:4173->4173/tcp
+ibex-notifications-service   ibex-carwash-fase1-notifications-service   "docker-entrypoint.s…"   notifications-service   44 seconds ago   Up 43 seconds (healthy)   0.0.0.0:4010->4010/tcp, [::]:4010->4010/tcp

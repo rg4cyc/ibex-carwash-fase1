@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IBEX T4 Realtime Demo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #eef2ff, #e0f2fe);
+      color: #0f172a;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 42px 24px;
+    }
+
+    .hero, .card {
+      background: white;
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.14);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .eyebrow {
+      color: #2563eb;
+      text-transform: uppercase;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      margin: 0 0 8px;
+    }
+
+    h1 {
+      font-size: clamp(36px, 5vw, 60px);
+      line-height: 1;
+      margin: 0 0 14px;
+    }
+
+    .lead {
+      color: #475569;
+      font-size: 18px;
+      max-width: 760px;
+      margin: 0;
+    }
+
+    .status {
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 900;
+      background: #fef9c3;
+      white-space: nowrap;
+    }
+
+    .status.connected {
+      background: #dcfce7;
+    }
+
+    .status.error {
+      background: #fee2e2;
+    }
+
+    .flow {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .pill {
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-weight: 800;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 20px;
+      font-weight: 900;
+      cursor: pointer;
+      background: #0f172a;
+      color: white;
+      font-size: 15px;
+    }
+
+    button:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
+    .check, .event {
+      background: #f8fafc;
+      border-radius: 18px;
+      padding: 14px;
+      border: 1px solid #e2e8f0;
+      margin-top: 12px;
+    }
+
+    .check {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .event strong {
+      display: block;
+      color: #1d4ed8;
+      margin-bottom: 4px;
+    }
+
+    .event small {
+      display: block;
+      color: #64748b;
+      margin-top: 8px;
+    }
+
+    .muted {
+      color: #64748b;
+    }
+
+    @media (max-width: 840px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="top">
+        <div>
+          <p class="eyebrow">IBEX Carwash Fase II / T4</p>
+          <h1>Realtime Notifications Demo</h1>
+          <p class="lead">
+            Evidencia visual de WebSockets, microservicio de notificaciones y comunicación backend → notifications-service.
+          </p>
+        </div>
+        <div id="socketStatus" class="status connected">Socket.IO: conectando</div>
+      </div>
+
+      <div class="flow">
+        <span class="pill">Backend Express</span>
+        <span class="pill">Socket.IO</span>
+        <span class="pill">Notifications Service</span>
+        <span class="pill">Docker Compose</span>
+        <span class="pill">MongoDB Atlas</span>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Disparar evento T4</h2>
+        <p class="muted">
+          Este botón llama a /api/t4/notify. El backend emite el evento por Socket.IO
+          y lo reenvía al microservicio de notificaciones.
+        </p>
+        <button id="sendEventButton" type="button">Disparar evento realtime T4</button>
+
+        <div id="backendHealth" class="check">Backend health: pendiente</div>
+        <div id="lastPost" class="check">Último POST: pendiente</div>
+      </article>
+
+      <article class="card">
+        <h2>Eventos recibidos</h2>
+        <p class="muted">Aquí aparecen los eventos generados por la demo y recibidos por el flujo realtime.</p>
+        <div id="events">
+          <div class="event">
+            <strong>Demo lista</strong>
+            Presiona el botón para generar evidencia del flujo backend → notifications-service.
+            <small>Realtime + microservicio</small>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socketStatus = document.getElementById("socketStatus");
+    const events = document.getElementById("events");
+    const button = document.getElementById("sendEventButton");
+    const backendHealth = document.getElementById("backendHealth");
+    const lastPost = document.getElementById("lastPost");
+
+    function addEvent(title, message, source) {
+      const item = document.createElement("div");
+      item.className = "event";
+      item.innerHTML = `
+        <strong>${title}</strong>
+        ${message}
+        <small>${source} · ${new Date().toISOString()}</small>
+      `;
+      events.prepend(item);
+    }
+
+    async function loadHealth() {
+      try {
+        const backend = await fetch("/api/health").then((res) => res.json());
+        backendHealth.textContent =
+          `Backend health: ok=${backend.ok}, realtime=${backend.realtime}, database=${backend.database}, notifications=${backend.notificationsService?.enabled}`;
+      } catch (error) {
+        backendHealth.textContent = `Backend health error: ${error.message}`;
+      }
+    }
+
+    const socket = io("/", {
+      transports: ["polling", "websocket"],
+      reconnectionAttempts: 3,
+      timeout: 5000
+    });
+
+    socket.on("connect", () => {
+      socketStatus.textContent = "Socket.IO: conectado";
+      socketStatus.className = "status connected";
+      addEvent("Socket conectado", `socket.id=${socket.id}`, "Socket.IO real");
+    });
+
+    socket.on("disconnect", () => {
+      socketStatus.textContent = "Socket.IO: desconectado";
+      socketStatus.className = "status error";
+    });
+
+    socket.on("connect_error", (error) => {
+      socketStatus.textContent = "Socket.IO: error";
+      socketStatus.className = "status error";
+      if (!document.getElementById("socketErrorShown")) {
+        const marker = document.createElement("div");
+        marker.id = "socketErrorShown";
+        marker.className = "event";
+        marker.innerHTML = `<strong>Error Socket.IO</strong>${error.message}<small>Revisar CORS/origen</small>`;
+        events.prepend(marker);
+      }
+    });
+
+    socket.on("ibex:event", (event) => {
+      addEvent(
+        event.title || "Evento realtime T4",
+        event.message || "Evento recibido por Socket.IO",
+        "Socket.IO ibex:event"
+      );
+    });
+
+    button.addEventListener("click", async () => {
+      button.disabled = true;
+      button.textContent = "Enviando evento...";
+
+      try {
+        const response = await fetch("/api/t4/notify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: "t4.visual.demo",
+            title: "Evento realtime T4",
+            message: "Evento disparado desde la demo backend para evidenciar WebSockets y notifications-service",
+            entity: {
+              module: "backend-public-demo",
+              timestamp: new Date().toISOString()
+            }
+          })
+        });
+
+        const data = await response.json();
+        lastPost.textContent = `Último POST: status=${response.status}, forwarded=${data.forwardedToNotificationsService}`;
+
+        addEvent(
+          "Evento realtime T4",
+          "El backend recibió el evento, lo emitió como realtime y lo reenvió al notifications-service.",
+          "Backend → Socket.IO → notifications-service"
+        );
+      } catch (error) {
+        lastPost.textContent = `Último POST error: ${error.message}`;
+      } finally {
+        button.disabled = false;
+        button.textContent = "Disparar evento realtime T4";
+      }
+    });
+
+    loadHealth();
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+IBEX T4 - Socket.IO Realtime Test
+Fecha:
+Fri Jul 10 21:07:55 CDT 2026
+
+=== Docker ps ===
+NAME                         IMAGE                                      COMMAND                  SERVICE                 CREATED          STATUS                    PORTS
+ibex-backend                 ibex-carwash-fase1-backend                 "docker-entrypoint.s…"   backend                 13 minutes ago   Up 13 minutes (healthy)   0.0.0.0:4000->4000/tcp, [::]:4000->4000/tcp
+ibex-frontend                ibex-carwash-fase1-frontend                "docker-entrypoint.s…"   frontend                13 minutes ago   Up 13 minutes             0.0.0.0:4173->4173/tcp, [::]:4173->4173/tcp
+ibex-notifications-service   ibex-carwash-fase1-notifications-service   "docker-entrypoint.s…"   notifications-service   13 minutes ago   Up 13 minutes (healthy)   0.0.0.0:4010->4010/tcp, [::]:4010->4010/tcp
+
+=== Socket.IO test ===
+SOCKET_URL=http://localhost:4000
+API_URL=http://localhost:4000/api
+SOCKET_CONNECTED id=MOSYfyYiuxXO25gcAAAR
+SOCKET_IBEX_EVENT_RECEIVED
+{"type":"t4.socketio.real","title":"Evento realtime T4","message":"Evento recibido por Socket.IO real desde prueba técnica","source":"ibex-main-backend","entity":{"test":"socketio-realtime"},"realtime":true,"createdAt":"2026-07-11T02:07:55.860Z"}
+POST_STATUS=201
+POST_FORWARDED=true
+SOCKETIO_REALTIME_TEST_OK
+
+=== Backend health ===
+{"ok":true,"service":"IBEX Carwash Fase I API","realtime":"Socket.IO enabled","notificationsService":{"enabled":true,"url":"http://notifications-service:4010"},"database":"mongodb","timestamp":"2026-07-11T02:07:55.894Z"}

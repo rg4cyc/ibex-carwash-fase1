@@ -1,0 +1,624 @@
+IBEX Carwash Fase II - Revision realtime frontend/backend
+Fecha:
+Fri Jul 10 19:47:46 CDT 2026
+
+=== Git ===
+## t4...origin/t4
+?? docs/t4/frontend-realtime-review.txt
+
+4c7c5e5 (HEAD -> t4, origin/t4) integrate backend with t4 notifications service
+5ebe0ce test t4 notifications service
+a4a8353 start t4 architecture and notifications service
+4ce13ac (tag: t3-submit, origin/main, main) add final t3 screenshots
+072c95b trim t3 report to essential unique screenshots
+b9c578d clean t3 tag evidence while preserving t2 baseline
+
+=== Frontend package socket.io-client ===
+7:    "dev": "vite",
+8:    "build": "vite build",
+9:    "preview": "vite preview"
+12:    "@vitejs/plugin-react": "^6.0.1",
+13:    "vite": "^8.0.12",
+14:    "react": "^19.2.6",
+15:    "react-dom": "^19.2.6",
+16:    "socket.io-client": "^4.8.1"
+
+=== Backend package socket.io ===
+14:    "express": "^5.2.1",
+15:    "mongodb": "^7.0.0",
+16:    "socket.io": "^4.8.1"
+
+=== Frontend realtime references ===
+frontend/src/App.jsx:import { io } from "socket.io-client";
+frontend/src/App.jsx:        <span className="pill">React + Express + MongoDB + Socket.IO</span>
+frontend/src/App.jsx:            con CRUD full stack, catálogos relacionados y eventos en tiempo real.
+frontend/src/App.jsx:          onChange={(event) => setForm((current) => ({ ...current, [field]: event.target.value }))}
+frontend/src/App.jsx:        onChange={(event) => setForm((current) => ({ ...current, [field]: event.target.value }))}
+frontend/src/App.jsx:      <p className="muted">Eventos recibidos con Socket.IO.</p>
+frontend/src/App.jsx:        <div>Socket.IO<br /><span>Eventos en tiempo real</span></div>
+frontend/src/App.jsx:    const socket = io(SOCKET_URL);
+frontend/src/App.jsx:    socket.on("activity:new", (activity) => {
+frontend/src/App.jsx:    return () => socket.disconnect();
+frontend/src/App.jsx:  async function handleSubmit(event) {
+frontend/src/App.jsx:    event.preventDefault();
+
+=== Backend realtime references ===
+backend/server.js:const { Server } = require("socket.io");
+backend/server.js:const io = new Server(server, {
+backend/server.js:  io.emit("activity:new", activity);
+backend/server.js:    io.emit("ibex:event", {
+backend/server.js:      realtime: true,
+backend/server.js:    realtime: "Socket.IO enabled",
+backend/server.js:  socket.emit("activity:new", {
+
+=== Frontend App.jsx first 260 lines ===
+import { useEffect, useMemo, useState } from "react";
+import { io } from "socket.io-client";
+import { createResource, deleteResource, getDashboard, updateResource, SOCKET_URL } from "./services/api";
+
+const resources = [
+  { key: "clients", label: "Clientes" },
+  { key: "guardians", label: "Tutores" },
+  { key: "students", label: "Estudiantes" },
+  { key: "vehicles", label: "Vehículos" },
+  { key: "projects", label: "Jornadas" },
+  { key: "tasks", label: "Tareas" },
+  { key: "slots", label: "Slots" },
+  { key: "bookings", label: "Reservas" }
+];
+
+const initialForms = {
+  clients: { name: "", phone: "", email: "" },
+  guardians: { name: "", phone: "", email: "" },
+  students: { name: "", guardianName: "", status: "activo", skills: "" },
+  vehicles: { clientName: "", description: "", plate: "" },
+  projects: { name: "", date: "", status: "planeada", objective: "" },
+  tasks: { title: "", projectName: "", assignedTo: "", status: "pendiente", priority: "media" },
+  slots: { date: "", startTime: "09:00", durationMinutes: "30", capacity: "3", location: "IBEX Carwash" },
+  bookings: { clientName: "", vehicleDescription: "", slotLabel: "", serviceName: "Lavado exterior", status: "confirmada" }
+};
+
+const fieldLabels = {
+  name: "Nombre",
+  phone: "Teléfono",
+  email: "Email",
+  guardianName: "Tutor",
+  status: "Estado",
+  skills: "Habilidades",
+  clientName: "Cliente",
+  description: "Descripción",
+  plate: "Placa",
+  date: "Fecha",
+  objective: "Objetivo",
+  title: "Título",
+  projectName: "Jornada",
+  assignedTo: "Asignado a",
+  priority: "Prioridad",
+  startTime: "Hora inicio",
+  durationMinutes: "Duración",
+  capacity: "Cupo",
+  location: "Ubicación",
+  vehicleDescription: "Vehículo",
+  slotLabel: "Slot",
+  serviceName: "Servicio"
+};
+
+const requiredFields = [
+  "name",
+  "phone",
+  "guardianName",
+  "clientName",
+  "description",
+  "date",
+  "startTime",
+  "title",
+  "projectName",
+  "assignedTo",
+  "vehicleDescription",
+  "slotLabel",
+  "serviceName"
+];
+
+const timeOptions = [
+  "08:00", "08:30",
+  "09:00", "09:30",
+  "10:00", "10:30",
+  "11:00", "11:30",
+  "12:00", "12:30",
+  "13:00", "13:30",
+  "14:00", "14:30",
+  "15:00", "15:30",
+  "16:00", "16:30",
+  "17:00", "17:30",
+  "18:00"
+];
+
+function getRecordId(item) {
+  return item.id || item._id;
+}
+
+function Header({ stats }) {
+  return (
+    <header className="hero">
+      <nav className="nav">
+        <span className="brand">IBEX Carwash Fase I</span>
+        <span className="pill">React + Express + MongoDB + Socket.IO</span>
+      </nav>
+
+      <section className="heroGrid">
+        <div>
+          <p className="eyebrow">Sistema de gestión operativa</p>
+          <h1>Gestión de jornadas, tareas, estudiantes, clientes y reservas</h1>
+          <p className="heroText">
+            Major release de IBEX Carwash Slots para administrar el programa prelaboral
+            con CRUD full stack, catálogos relacionados y eventos en tiempo real.
+          </p>
+        </div>
+
+        <div className="statsCard">
+          <strong>{stats.tasks || 0}</strong>
+          <span>Tareas</span>
+          <strong>{stats.students || 0}</strong>
+          <span>Estudiantes</span>
+          <strong>{stats.bookings || 0}</strong>
+          <span>Reservas</span>
+        </div>
+      </section>
+    </header>
+  );
+}
+
+function ResourceTabs({ active, setActive }) {
+  return (
+    <div className="tabs">
+      {resources.map((resource) => (
+        <button
+          key={resource.key}
+          className={active === resource.key ? "tab active" : "tab"}
+          onClick={() => setActive(resource.key)}
+        >
+          {resource.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function buildOptions(resource, field, dashboard, currentValue) {
+  let options = [];
+
+  const relationFields = new Set([
+    "guardianName",
+    "clientName",
+    "vehicleDescription",
+    "projectName",
+    "assignedTo",
+    "slotLabel",
+    "serviceName"
+  ]);
+
+  const controlledFields = new Set([
+    "startTime",
+    "durationMinutes",
+    "status",
+    "priority"
+  ]);
+
+  if (!relationFields.has(field) && !controlledFields.has(field)) {
+    return [];
+  }
+
+  if (field === "clientName") {
+    options = (dashboard.clients || []).map((client) => client.name).filter(Boolean);
+  }
+
+  if (field === "guardianName") {
+    options = (dashboard.guardians || []).map((guardian) => guardian.name).filter(Boolean);
+  }
+
+  if (field === "vehicleDescription") {
+    options = (dashboard.vehicles || []).map((vehicle) => vehicle.description).filter(Boolean);
+  }
+
+  if (field === "projectName") {
+    options = (dashboard.projects || []).map((project) => project.name).filter(Boolean);
+  }
+
+  if (field === "assignedTo") {
+    options = (dashboard.students || []).map((student) => student.name).filter(Boolean);
+  }
+
+  if (field === "slotLabel") {
+    options = (dashboard.slots || [])
+      .map((slot) => `${slot.date || ""} ${slot.startTime || ""}`.trim())
+      .filter(Boolean);
+  }
+
+  if (field === "serviceName") {
+    options = ["Lavado exterior"];
+  }
+
+  if (field === "startTime" && resource === "slots") {
+    options = timeOptions;
+  }
+
+  if (field === "durationMinutes" && resource === "slots") {
+    options = ["30", "60"];
+  }
+
+  if (field === "status" && resource === "tasks") {
+    options = ["pendiente", "en progreso", "completada"];
+  }
+
+  if (field === "status" && resource === "bookings") {
+    options = ["confirmada", "en proceso", "completada", "cancelada"];
+  }
+
+  if (field === "status" && resource === "projects") {
+    options = ["planeada", "activa", "cerrada"];
+  }
+
+  if (field === "status" && resource === "students") {
+    options = ["activo", "inactivo"];
+  }
+
+  if (field === "priority") {
+    options = ["baja", "media", "alta"];
+  }
+
+  const unique = [...new Set(options)];
+  if (currentValue && relationFields.has(field) && !unique.includes(String(currentValue))) {
+    unique.unshift(String(currentValue));
+  }
+
+  return unique;
+}
+
+function ResourceForm({
+  resource,
+  form,
+  setForm,
+  onSubmit,
+  isSaving,
+  dashboard,
+  editingRecord,
+  onCancelEdit
+}) {
+  const fields = Object.keys(initialForms[resource]);
+  const resourceLabel = resources.find((item) => item.key === resource)?.label;
+
+  function renderField(field) {
+    const value = form[field] ?? "";
+    const options = buildOptions(resource, field, dashboard, value);
+    const isRequired = requiredFields.includes(field);
+
+    if (options.length > 0) {
+      return (
+        <select
+          required={isRequired}
+          value={String(value)}
+          onChange={(event) => setForm((current) => ({ ...current, [field]: event.target.value }))}
+        >
+          <option value="">Selecciona {fieldLabels[field] || field}</option>
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      );
+    }
+
+    return (
+      <input
+        required={isRequired}
+
+=== Frontend api.js ===
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/api";
+
+async function request(path, options = {}) {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers || {})
+    },
+    ...options
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data.error || "Error en la solicitud");
+  }
+
+  return data;
+}
+
+export function getDashboard() {
+  return request("/dashboard");
+}
+
+export function createResource(resource, payload) {
+  return request(`/${resource}`, {
+    method: "POST",
+    body: JSON.stringify(payload)
+  });
+}
+
+export function updateResource(resource, id, payload) {
+  return request(`/${resource}/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(payload)
+  });
+}
+
+export function deleteResource(resource, id) {
+  return request(`/${resource}/${id}`, {
+    method: "DELETE"
+  });
+}
+
+export const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:8080";
+
+=== Backend relevant routes/head ===
+require("dotenv").config();
+
+const express = require("express");
+const cors = require("cors");
+const http = require("http");
+const { randomUUID } = require("crypto");
+const { MongoClient, ObjectId } = require("mongodb");
+const { Server } = require("socket.io");
+
+const PORT = Number(process.env.PORT || 8080);
+const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || "http://localhost:5173";
+const MONGODB_URI = process.env.MONGODB_URI || "";
+const DB_NAME = process.env.DB_NAME || "ibex_carwash_fase1";
+
+const app = express();
+
+const NOTIFICATIONS_SERVICE_URL = process.env.NOTIFICATIONS_SERVICE_URL || "http://localhost:4010";
+const NOTIFICATIONS_SERVICE_ENABLED = process.env.NOTIFICATIONS_SERVICE_ENABLED !== "false";
+
+async function publishNotificationEvent(event) {
+  if (!NOTIFICATIONS_SERVICE_ENABLED) {
+    return { ok: false, skipped: true, reason: "notifications_disabled" };
+  }
+
+  try {
+    const response = await fetch(`${NOTIFICATIONS_SERVICE_URL}/events`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        ...event,
+        source: event.source || "ibex-main-backend"
+      })
+    });
+
+    if (!response.ok) {
+      return { ok: false, status: response.status };
+    }
+
+    const data = await response.json();
+    return { ok: true, data };
+  } catch (error) {
+    console.warn("notifications_service_unavailable", error.message);
+    return { ok: false, error: error.message };
+  }
+}
+
+
+
+const allowedOrigins = (process.env.CLIENT_ORIGIN || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+function corsOriginDelegate(origin, callback) {
+  if (!origin) return callback(null, true);
+  if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+    return callback(null, true);
+  }
+  return callback(new Error(`CORS blocked origin: ${origin}`));
+}
+
+const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: CLIENT_ORIGIN,
+    methods: ["GET", "POST", "PATCH", "DELETE"]
+  }
+});
+
+app.use(cors({
+  origin: corsOriginDelegate,
+  credentials: true
+}));
+app.use(express.json());
+
+const allowedResources = [
+  "clients",
+  "guardians",
+  "students",
+  "vehicles",
+  "projects",
+  "tasks",
+  "slots",
+  "bookings"
+];
+
+const memory = {
+  clients: [],
+  guardians: [],
+  students: [],
+  vehicles: [],
+  projects: [],
+  tasks: [],
+  slots: [],
+  bookings: [],
+  activities: []
+};
+
+let db = null;
+let mongoClient = null;
+
+function nowIso() {
+  return new Date().toISOString();
+}
+
+function normalizeRecord(record) {
+  if (!record) return record;
+  const copy = { ...record };
+  if (copy._id) {
+    copy.id = String(copy._id);
+    delete copy._id;
+  }
+  return copy;
+}
+
+function createRecord(payload) {
+  return {
+    id: randomUUID(),
+    ...payload,
+    createdAt: nowIso(),
+    updatedAt: nowIso()
+  };
+}
+
+async function collection(name) {
+  if (!db) return null;
+  return db.collection(name);
+}
+
+async function listRecords(resource) {
+  const col = await collection(resource);
+  if (!col) return memory[resource];
+  const rows = await col.find({}).sort({ createdAt: -1 }).toArray();
+  return rows.map(normalizeRecord);
+}
+
+async function findRecord(resource, id) {
+  const col = await collection(resource);
+  if (!col) return memory[resource].find((item) => item.id === id);
+  const query = ObjectId.isValid(id) ? { _id: new ObjectId(id) } : { id };
+  return normalizeRecord(await col.findOne(query));
+}
+
+async function insertRecord(resource, payload) {
+  const record = createRecord(payload);
+  const col = await collection(resource);
+  if (!col) {
+    memory[resource].unshift(record);
+    return record;
+  }
+  const result = await col.insertOne(record);
+  return { ...record, id: String(result.insertedId) };
+}
+
+async function updateRecord(resource, id, payload) {
+  const changes = { ...payload, updatedAt: nowIso() };
+  const col = await collection(resource);
+
+  if (!col) {
+    const index = memory[resource].findIndex((item) => item.id === id);
+    if (index === -1) return null;
+    memory[resource][index] = { ...memory[resource][index], ...changes };
+    return memory[resource][index];
+  }
+
+  const query = ObjectId.isValid(id) ? { _id: new ObjectId(id) } : { id };
+  await col.updateOne(query, { $set: changes });
+  return findRecord(resource, id);
+}
+
+async function deleteRecord(resource, id) {
+  const col = await collection(resource);
+
+  if (!col) {
+    const before = memory[resource].length;
+    memory[resource] = memory[resource].filter((item) => item.id !== id);
+    return before !== memory[resource].length;
+  }
+
+  const query = ObjectId.isValid(id) ? { _id: new ObjectId(id) } : { id };
+  const result = await col.deleteOne(query);
+  return result.deletedCount > 0;
+}
+
+async function addActivity(type, message, meta = {}) {
+  const activity = createRecord({ type, message, meta });
+  const col = await collection("activities");
+
+  if (!col) {
+    memory.activities.unshift(activity);
+    memory.activities = memory.activities.slice(0, 50);
+  } else {
+    await col.insertOne(activity);
+  }
+
+  io.emit("activity:new", activity);
+  return activity;
+}
+
+function requireResource(req, res, next) {
+  const { resource } = req.params;
+  if (!allowedResources.includes(resource)) {
+    return res.status(404).json({ error: "Resource not supported" });
+  }
+  return next();
+}
+
+function validateRequired(payload, requiredFields) {
+  return requiredFields.filter((field) => !String(payload[field] || "").trim());
+}
+
+const requiredByResource = {
+  clients: ["name", "phone"],
+  guardians: ["name", "phone"],
+  students: ["name", "guardianName"],
+  vehicles: ["clientName", "description"],
+  projects: ["name", "date"],
+  tasks: ["title", "projectName", "assignedTo"],
+  slots: ["date", "startTime", "capacity"],
+  bookings: ["clientName", "vehicleDescription", "slotLabel", "serviceName"]
+};
+
+
+app.post("/api/t4/notify", async (req, res) => {
+  const payload = req.body || {};
+  const event = {
+    type: payload.type || "t4.manual",
+    title: payload.title || "T4 integration event",
+    message: payload.message || "Backend sent event to notifications service",
+    source: "ibex-main-backend",
+    entity: payload.entity || {
+      module: "t4",
+      integration: "backend-notifications-service"
+    }
+  };
+
+  const result = await publishNotificationEvent(event);
+
+  if (io) {
+    io.emit("ibex:event", {
+      ...event,
+      realtime: true,
+      createdAt: new Date().toISOString()
+    });
+  }
+
+  res.status(result.ok ? 201 : 202).json({
+    ok: true,
+    forwardedToNotificationsService: result.ok,
+    notificationResult: result,
+    event
+  });
+});
+
+
+app.get("/api/health", async (_req, res) => {
+  res.json({
+

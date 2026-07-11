@@ -1,0 +1,44 @@
+IBEX T4 Docker Check
+Fri Jul 10 19:58:30 CDT 2026
+
+Docker version:
+Docker version 29.4.2, build 055a478
+
+Docker Compose version:
+Docker Compose version v5.1.3
+
+Compose config:
+COMPOSE_CONFIG_OK
+
+Container status:
+NAME                         IMAGE                                      COMMAND                  SERVICE                 CREATED          STATUS                    PORTS
+ibex-backend                 ibex-carwash-fase1-backend                 "docker-entrypoint.s…"   backend                 42 seconds ago   Up 30 seconds (healthy)   0.0.0.0:4000->4000/tcp, [::]:4000->4000/tcp
+ibex-frontend                ibex-carwash-fase1-frontend                "docker-entrypoint.s…"   frontend                42 seconds ago   Up 20 seconds             0.0.0.0:4173->4173/tcp, [::]:4173->4173/tcp
+ibex-notifications-service   ibex-carwash-fase1-notifications-service   "docker-entrypoint.s…"   notifications-service   42 seconds ago   Up 41 seconds (healthy)   0.0.0.0:4010->4010/tcp, [::]:4010->4010/tcp
+
+Backend health:
+{"ok":true,"service":"IBEX Carwash Fase I API","realtime":"Socket.IO enabled","notificationsService":{"enabled":true,"url":"http://notifications-service:4010"},"database":"mongodb","timestamp":"2026-07-11T00:58:30.223Z"}
+
+Notifications health:
+{"ok":true,"service":"IBEX Notifications Service","version":"1.0.0","maxEvents":100,"storedEvents":0,"timestamp":"2026-07-11T00:58:30.231Z"}
+
+Frontend HEAD:
+HTTP/1.1 200 OK
+Content-Length: 404
+Content-Disposition: inline; filename="index.html"
+Accept-Ranges: bytes
+ETag: "78769801b98bd682d6ae6c28698b06ef7756874b"
+Content-Type: text/html; charset=utf-8
+Vary: Accept-Encoding
+Date: Sat, 11 Jul 2026 00:58:30 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+
+Backend -> notifications integration through Docker:
+{"ok":true,"forwardedToNotificationsService":true,"notificationResult":{"ok":true,"data":{"ok":true,"notification":{"id":"1783731510286-aa221ccfb3fec8","type":"t4.docker","title":"Docker integration event","message":"Backend container forwarded event to notifications-service container","source":"ibex-main-backend","entity":{"runtime":"docker-compose"},"createdAt":"2026-07-11T00:58:30.286Z"}}},"event":{"type":"t4.docker","title":"Docker integration event","message":"Backend container forwarded event to notifications-service container","source":"ibex-main-backend","entity":{"runtime":"docker-compose"}}}
+
+Notifications list:
+{"ok":true,"count":1,"notifications":[{"id":"1783731510286-aa221ccfb3fec8","type":"t4.docker","title":"Docker integration event","message":"Backend container forwarded event to notifications-service container","source":"ibex-main-backend","entity":{"runtime":"docker-compose"},"createdAt":"2026-07-11T00:58:30.286Z"}]}
+
+T4_DOCKER_CHECK_DONE

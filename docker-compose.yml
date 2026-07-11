@@ -1,0 +1,52 @@
+services:
+  notifications-service:
+    build:
+      context: ./services/notifications-service
+    container_name: ibex-notifications-service
+    environment:
+      NODE_ENV: production
+      NOTIFICATIONS_PORT: 4010
+      NOTIFICATIONS_MAX_EVENTS: 100
+    ports:
+      - "4010:4010"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:4010/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+    container_name: ibex-backend
+    depends_on:
+      notifications-service:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      CLIENT_ORIGIN: http://localhost:4000,http://localhost:4173,http://localhost:5173,https://ibex.ccjira.io
+      MONGODB_URI: ${MONGODB_URI}
+      DB_NAME: ${DB_NAME:-ibex_carwash_fase1}
+      NOTIFICATIONS_SERVICE_URL: http://notifications-service:4010
+      NOTIFICATIONS_SERVICE_ENABLED: "true"
+    ports:
+      - "4000:4000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:4000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: http://localhost:4000/api
+        VITE_SOCKET_URL: http://localhost:4000
+    container_name: ibex-frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "4173:4173"

@@ -1,0 +1,41 @@
+IBEX T4 - Inventario final
+
+Documentos principales:
+docs/t4/REPORTE_WORD_T4.md
+docs/t4/VIDEO_GUION_T4.md
+docs/t4/00-matriz-rubrica-evidencia.md
+docs/t4/01-arquitectura-t4.md
+docs/t4/03-evidencia-tecnica-t4.md
+docs/t4/04-checklist-capturas-t4.md
+
+Evidencia técnica:
+docs/t4/notifications-service-test.txt
+docs/t4/backend-notifications-integration-test.txt
+docs/t4/docker-check-results.txt
+docs/t4/performance-results.txt
+docs/t4/socketio-realtime-test.txt
+
+Docker:
+docker-compose.yml
+backend/Dockerfile
+frontend/Dockerfile
+services/notifications-service/Dockerfile
+.dockerignore
+
+Scripts:
+scripts/t4/test-notifications-service.mjs
+scripts/t4/test-backend-notifications-integration.mjs
+scripts/t4/test-socketio-realtime.mjs
+scripts/t4/load-test.mjs
+scripts/t4/docker-check.sh
+
+Capturas:
+assets/screenshots/t4/01_frontend_realtime.png
+assets/screenshots/t4/02_microservices_structure.png
+assets/screenshots/t4/03_backend_notifications_integration.png
+assets/screenshots/t4/04_docker_compose_file.png
+assets/screenshots/t4/05_docker_compose_up.png
+assets/screenshots/t4/06_docker_check_results.png
+assets/screenshots/t4/07_performance_results.png
+assets/screenshots/t4/08_socketio_realtime_test.png
+assets/screenshots/t4/09_github_t4_branch.png

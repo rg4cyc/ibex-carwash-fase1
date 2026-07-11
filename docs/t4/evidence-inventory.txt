@@ -1,0 +1,61 @@
+IBEX T4 Evidence Inventory
+Fecha:
+Fri Jul 10 20:18:24 CDT 2026
+
+=== Git ===
+## t4...origin/t4
+?? docs/t4/03-evidencia-tecnica-t4.md
+?? docs/t4/04-checklist-capturas-t4.md
+?? docs/t4/evidence-inventory.txt
+?? scripts/t4/git-evidence.sh
+?? scripts/t4/open-evidence.sh
+32e7f7f (HEAD -> t4, origin/t4) add t4 performance load tests
+d0a5d5f refresh t4 docker evidence
+747ee74 add t4 docker compose orchestration
+7ca6eb6 add t4 realtime notification panel
+4c7c5e5 integrate backend with t4 notifications service
+5ebe0ce test t4 notifications service
+a4a8353 start t4 architecture and notifications service
+4ce13ac (tag: t3-submit, origin/main, main) add final t3 screenshots
+072c95b trim t3 report to essential unique screenshots
+b9c578d clean t3 tag evidence while preserving t2 baseline
+
+=== T4 docs ===
+docs/t4/00-matriz-rubrica-evidencia.md
+docs/t4/01-arquitectura-t4.md
+docs/t4/02-checklist-tecnico.md
+docs/t4/03-evidencia-tecnica-t4.md
+docs/t4/04-checklist-capturas-t4.md
+docs/t4/backend-notifications-integration-test.txt
+docs/t4/docker-check-results.txt
+docs/t4/docker-evidence-plan.md
+docs/t4/evidence-inventory.txt
+docs/t4/frontend-realtime-review.txt
+docs/t4/frontend-realtime-ui-test.txt
+docs/t4/notifications-service-test.txt
+docs/t4/performance-analysis.md
+docs/t4/performance-results.txt
+docs/t4/stack-review.txt
+
+=== T4 scripts ===
+scripts/t4/docker-check.sh
+scripts/t4/git-evidence.sh
+scripts/t4/load-test.mjs
+scripts/t4/open-evidence.sh
+scripts/t4/test-backend-notifications-integration.mjs
+scripts/t4/test-notifications-service.mjs
+
+=== Services ===
+services/notifications-service/.env.example
+services/notifications-service/Dockerfile
+services/notifications-service/node_modules/.package-lock.json
+services/notifications-service/package-lock.json
+services/notifications-service/package.json
+services/notifications-service/server.js
+
+=== Docker files ===
+./.dockerignore
+./backend/Dockerfile
+./docker-compose.yml
+./frontend/Dockerfile
+./services/notifications-service/Dockerfile

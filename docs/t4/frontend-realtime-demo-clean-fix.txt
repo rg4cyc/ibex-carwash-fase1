@@ -1,0 +1,6 @@
+IBEX T4 - Demo realtime limpia para captura
+
+Se ajustó backend/public/t4-realtime-demo.html para evitar ruido visual de errores WebSocket del navegador.
+La demo conserva el flujo funcional:
+botón visual -> /api/t4/notify -> backend -> notifications-service.
+La página muestra health del backend, estado realtime y evento generado para evidencia.

@@ -1,0 +1,24 @@
+IBEX Carwash Fase II - Notifications Service Test
+Fecha:
+Fri Jul 10 19:01:21 CDT 2026
+
+=== Service log inicial ===
+
+> ibex-notifications-service@1.0.0 start
+> node server.js
+
+◇ injected env (0) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+IBEX Notifications Service listening on port 4010
+
+=== Health directo ===
+{"ok":true,"service":"IBEX Notifications Service","version":"1.0.0","maxEvents":100,"storedEvents":0,"timestamp":"2026-07-11T00:01:21.498Z"}
+
+=== Test script ===
+NOTIFICATIONS_URL=http://localhost:4010
+TEST_1_NOTIFICATIONS_HEALTH_OK
+TEST_2_NOTIFICATIONS_CREATE_EVENT_OK
+TEST_3_NOTIFICATIONS_LIST_OK
+NOTIFICATIONS_SERVICE_TESTS_OK
+
+=== Notifications list despues del test ===
+{"ok":true,"count":1,"notifications":[{"id":"1783728081564-d4621d0d9ef9d","type":"qa.t4","title":"T4 test event","message":"Notification service receives events correctly","source":"scripts/t4/test-notifications-service.mjs","entity":{"project":"ibex-carwash-fase2"},"createdAt":"2026-07-11T00:01:21.564Z"}]}

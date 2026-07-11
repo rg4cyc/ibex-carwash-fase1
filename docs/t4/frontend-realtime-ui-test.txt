@@ -1,0 +1,32 @@
+IBEX Carwash Fase II - Frontend Realtime UI
+Fecha:
+Fri Jul 10 19:53:42 CDT 2026
+
+Cambio implementado:
+Se agregó un panel T4 de notificaciones en tiempo real.
+El panel escucha Socket.IO, muestra estado de conexión y permite disparar /api/t4/notify.
+
+Evidencia técnica:
+Frontend usa socket.io-client y conecta con SOCKET_URL.
+Backend emite activity:new e ibex:event.
+El endpoint /api/t4/notify manda evento al notifications-service y emite ibex:event.
+
+Build:
+FRONTEND_BUILD_OK
+
+Referencias App.jsx:
+3:import { createResource, deleteResource, getDashboard, sendT4Notification, updateResource, SOCKET_URL } from "./services/api";
+407:function T4RealtimePanel({ status, notifications, onSendTestEvent, isSending }) {
+461:  const [realtimeStatus, setRealtimeStatus] = useState("connecting");
+502:    socket.on("ibex:event", (event) => {
+505:          id: `${event.type || "ibex:event"}-${event.createdAt || Date.now()}`,
+509:          type: event.type || "ibex:event"
+540:  async function handleSendT4RealtimeEvent() {
+544:      await sendT4Notification({
+629:      <T4RealtimePanel
+631:        status={realtimeStatus}
+635:        onSendTestEvent={handleSendT4RealtimeEvent}
+
+Referencias api.js:
+48:export function sendT4Notification(payload = {}) {
+49:  return request("/t4/notify", {
