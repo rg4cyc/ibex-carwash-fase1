@@ -11,12 +11,12 @@ Docker Compose instalado y corriendo.
 
 Pendiente por implementar:
 
-Integración backend -> notifications-service.
-Dockerfile backend.
-Dockerfile notifications-service.
-Dockerfile frontend o build reproducible.
-docker-compose.yml.
-Pruebas de carga.
+Integración backend -> notifications-service. COMPLETADO
+Dockerfile backend. COMPLETADO
+Dockerfile notifications-service. COMPLETADO
+Dockerfile frontend o build reproducible. COMPLETADO
+docker-compose.yml. COMPLETADO
+Pruebas de carga. COMPLETADO
 Reporte Word-friendly.
 Guion de video.
 Capturas únicas.
