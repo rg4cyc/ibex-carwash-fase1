@@ -158,7 +158,7 @@
             Evidencia visual de WebSockets, microservicio de notificaciones y comunicación backend → notifications-service.
           </p>
         </div>
-        <div id="socketStatus" class="status connected">Realtime listo</div>
+        <div id="socketStatus" class="status connected">Socket.IO: conectando</div>
       </div>
 
       <div class="flow">
@@ -226,21 +226,33 @@
       }
     }
 
-    const socket = io("/", { transports: ["polling"] });
+    const socket = io("/", {
+      transports: ["polling", "websocket"],
+      reconnectionAttempts: 3,
+      timeout: 5000
+    });
 
     socket.on("connect", () => {
       socketStatus.textContent = "Socket.IO: conectado";
       socketStatus.className = "status connected";
+      addEvent("Socket conectado", `socket.id=${socket.id}`, "Socket.IO real");
     });
 
     socket.on("disconnect", () => {
-      socketStatus.textContent = "Realtime HTTP activo";
-      socketStatus.className = "status connected";
+      socketStatus.textContent = "Socket.IO: desconectado";
+      socketStatus.className = "status error";
     });
 
-    socket.on("connect_error", () => {
-      socketStatus.textContent = "Realtime HTTP activo";
-      socketStatus.className = "status connected";
+    socket.on("connect_error", (error) => {
+      socketStatus.textContent = "Socket.IO: error";
+      socketStatus.className = "status error";
+      if (!document.getElementById("socketErrorShown")) {
+        const marker = document.createElement("div");
+        marker.id = "socketErrorShown";
+        marker.className = "event";
+        marker.innerHTML = `<strong>Error Socket.IO</strong>${error.message}<small>Revisar CORS/origen</small>`;
+        events.prepend(marker);
+      }
     });
 
     socket.on("ibex:event", (event) => {
