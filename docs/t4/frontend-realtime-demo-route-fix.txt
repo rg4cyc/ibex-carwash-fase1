@@ -1,0 +1,10 @@
+IBEX T4 - Realtime Demo Route Fix
+
+Se agregó la ruta estática frontend/public/t4-realtime-demo/index.html.
+
+Motivo:
+El servidor de producción redirigía /t4-realtime-demo.html hacia /t4-realtime-demo y terminaba mostrando la aplicación principal. Con la ruta de carpeta, la demo visual queda disponible en:
+
+http://localhost:4173/t4-realtime-demo/
+
+La demo incluye botón para disparar evento realtime T4, health checks, Socket.IO y conexión con /api/t4/notify.
