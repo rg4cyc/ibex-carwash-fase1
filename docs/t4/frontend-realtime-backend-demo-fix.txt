@@ -1,0 +1,6 @@
+IBEX T4 - Demo realtime servida desde backend
+
+Se agregó backend/public/t4-realtime-demo.html.
+Se agregó la ruta GET /t4-realtime-demo en backend/server.js.
+La demo usa Socket.IO desde el mismo backend y llama a /api/t4/notify.
+Esto evita el fallback SPA del frontend container y permite una captura visual estable para T4.

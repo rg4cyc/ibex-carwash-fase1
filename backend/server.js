@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const http = require("http");
+const path = require("path");
 const { randomUUID } = require("crypto");
 const { MongoClient, ObjectId } = require("mongodb");
 const { Server } = require("socket.io");
@@ -75,6 +76,13 @@ app.use(cors({
   credentials: true
 }));
 app.use(express.json());
+
+
+app.get("/t4-realtime-demo", (_req, res) => {
+  res.sendFile(path.join(__dirname, "public", "t4-realtime-demo.html"));
+});
+
+
 
 const allowedResources = [
   "clients",
