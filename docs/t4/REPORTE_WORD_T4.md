@@ -371,3 +371,37 @@ La URL técnica propuesta para evidencia en servidor es:
 `https://api-ibex.ccjira.io/t4-realtime-demo`
 
 Este enfoque permite validar Docker Compose, microservicios y Socket.IO en Lightsail sin apagar ni reemplazar la versión estable de producción.
+
+## Despliegue real Docker T4 en Lightsail
+
+Además del ambiente local, la Fase II fue desplegada en el servidor AWS Lightsail existente usando Docker Compose en paralelo a la producción original.
+
+La producción previa se mantuvo activa con PM2 y Nginx, mientras que T4 fue desplegado en contenedores separados:
+
+Backend T4: puerto interno 14000 hacia contenedor 4000.  
+Notifications Service T4: puerto interno 14010 hacia contenedor 4010.  
+Frontend T4: puerto interno 14173 hacia contenedor 4173.  
+
+El despliegue en Lightsail validó:
+
+Docker instalado en servidor.  
+Contenedores `ibex-backend`, `ibex-frontend` e `ibex-notifications-service` activos.  
+Backend conectado a MongoDB Atlas.  
+Notifications Service saludable.  
+Socket.IO funcionando por HTTPS.  
+Evento backend → notifications-service funcionando.  
+Nginx exponiendo la demo pública T4.  
+
+URL pública de evidencia:
+
+`https://api-ibex.ccjira.io/t4-realtime-demo`
+
+La evidencia técnica del servidor quedó documentada en:
+
+`docs/t4/lightsail-docker-deploy-evidence.txt`
+
+La captura visual pública corresponde a:
+
+`assets/screenshots/t4/11_lightsail_https_realtime_demo.png`
+
+Esta captura muestra la demo pública en HTTPS con Socket.IO conectado, `database=mongodb`, `status=201`, `forwarded=true` y eventos realtime recibidos.

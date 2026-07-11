@@ -1,18 +1,19 @@
-IBEX T4 - Evidencia Git final
+IBEX T4 - Evidencia Git final actualizada con Lightsail
 Fecha:
-Fri Jul 10 23:27:43 CDT 2026
+Sat Jul 11 00:08:58 CDT 2026
 
 === Status ===
 ## main...origin/main
-?? docs/t4/git-final-evidence.txt
-
-=== Branches ===
-* main 0f82cef [origin/main] merge t4 phase ii deliverable
-  t3   045c3b3 [origin/t3] normalize t3 structure and evidence
-  t4   3e32359 [origin/t4] add t4 final report and video guide
+ M docs/t4/REPORTE_WORD_T4.md
+ M docs/t4/final-inventory.txt
+ M docs/t4/git-final-evidence.txt
+?? assets/screenshots/t4/11_lightsail_https_realtime_demo.png
+?? docs/t4/lightsail-docker-deploy-evidence.txt
 
 === Recent commits ===
-0f82cef (HEAD -> main, tag: t4-submit, origin/main) merge t4 phase ii deliverable
+8be79b8 (HEAD -> main, tag: t4-submit, origin/main) add t4 docker lightsail deployment plan
+4823ef9 add t4 final git evidence
+0f82cef merge t4 phase ii deliverable
 3e32359 (origin/t4, t4) add t4 final report and video guide
 3ffd3d1 add t4 evidence screenshots
 427911b verify real socketio realtime flow
@@ -22,11 +23,6 @@ ad980a6 fix t4 realtime demo route
 3c978d4 add stable t4 realtime demo page
 27dd573 fix t4 realtime panel rendering
 5d2060e consolidate t4 technical evidence
-32e7f7f add t4 performance load tests
-d0a5d5f refresh t4 docker evidence
-747ee74 add t4 docker compose orchestration
-7ca6eb6 add t4 realtime notification panel
-4c7c5e5 integrate backend with t4 notifications service
 
 === Tags ===
 t2-baseline
@@ -34,14 +30,17 @@ t3-submit
 t4-submit
 tarea2-100-baseline
 
-=== Remote ===
-origin	https://github.com/rg4cyc/ibex-carwash-fase1.git (fetch)
-origin	https://github.com/rg4cyc/ibex-carwash-fase1.git (push)
+=== T4 Lightsail public URL ===
+https://api-ibex.ccjira.io/t4-realtime-demo
 
 === T4 report/video files ===
--rw-r--r--  1 vier  staff   1.2K Jul 10 23:27 docs/t4/final-inventory.txt
--rw-r--r--  1 vier  staff    12K Jul 10 23:27 docs/t4/REPORTE_WORD_T4.md
+-rw-r--r--  1 vier  staff   1.6K Jul 11 00:08 docs/t4/final-inventory.txt
+-rw-r--r--  1 vier  staff    15K Jul 11 00:08 docs/t4/REPORTE_WORD_T4.md
 -rw-r--r--  1 vier  staff   2.2K Jul 10 23:27 docs/t4/VIDEO_GUION_T4.md
+
+=== T4 Lightsail evidence ===
+-rw-r--r--@ 1 vier  staff   799K Jul 11 00:07 assets/screenshots/t4/11_lightsail_https_realtime_demo.png
+-rw-r--r--  1 vier  staff   1.9K Jul 11 00:08 docs/t4/lightsail-docker-deploy-evidence.txt
 
 === T4 screenshots ===
 -rw-r--r--  1 vier  staff   837K Jul 10 23:27 assets/screenshots/t4/01_frontend_realtime.png
@@ -53,3 +52,5 @@ origin	https://github.com/rg4cyc/ibex-carwash-fase1.git (push)
 -rw-r--r--  1 vier  staff   1.2M Jul 10 23:27 assets/screenshots/t4/07_performance_results.png
 -rw-r--r--  1 vier  staff   351K Jul 10 23:27 assets/screenshots/t4/08_socketio_realtime_test.png
 -rw-r--r--  1 vier  staff   527K Jul 10 23:27 assets/screenshots/t4/09_github_t4_branch.png
+-rw-r--r--@ 1 vier  staff   480K Jul 10 22:58 assets/screenshots/t4/10_docker_containers_running.png
+-rw-r--r--@ 1 vier  staff   799K Jul 11 00:07 assets/screenshots/t4/11_lightsail_https_realtime_demo.png

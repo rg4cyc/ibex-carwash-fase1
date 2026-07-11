@@ -46,3 +46,10 @@ assets/screenshots/t4/10_docker_containers_running.png
 Deploy Lightsail:
 docker-compose.lightsail.yml
 docs/t4/LIGHTSAIL_DOCKER_DEPLOY.md
+
+Evidencia Lightsail real:
+docs/t4/lightsail-docker-deploy-evidence.txt
+assets/screenshots/t4/11_lightsail_https_realtime_demo.png
+
+URL pública T4:
+https://api-ibex.ccjira.io/t4-realtime-demo

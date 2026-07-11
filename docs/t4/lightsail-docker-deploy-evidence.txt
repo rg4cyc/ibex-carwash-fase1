@@ -1,0 +1,36 @@
+IBEX T4 - Lightsail Docker public deployment evidence
+Fecha:
+Sat Jul 11 00:08:57 CDT 2026
+
+URL pública T4:
+https://api-ibex.ccjira.io/t4-realtime-demo
+
+=== HTTPS demo HEAD ===
+HTTP/2 200 
+date: Sat, 11 Jul 2026 05:08:57 GMT
+content-type: text/html; charset=utf-8
+server: cloudflare
+x-powered-by: Express
+vary: Origin
+access-control-allow-credentials: true
+cache-control: public, max-age=0
+last-modified: Sat, 11 Jul 2026 04:54:20 GMT
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=AflwU0fQ786%2FWSSuj4NwtlFHgzGkIbv9njiPUNWF%2FSTtcnXF%2FEqDIrTrAqkwc8yrqTWRzB29MUvPfSbZg%2Bl4jXGlKVxQFGT%2FyTw8VE%2FOip%2BeTZYVDjWQYitEiOS%2B9gmpMwQGEHg%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+cf-cache-status: DYNAMIC
+
+=== HTTPS API T4 notify ===
+{"ok":true,"forwardedToNotificationsService":true,"notificationResult":{"ok":true,"data":{"ok":true,"notification":{"id":"1783746537968-1d307380970108","type":"public-https-evidence","title":"Evento T4 Public Evidence","message":"Docker Compose T4 expuesto por Nginx HTTPS en Lightsail","source":"ibex-main-backend","entity":{"module":"t4","integration":"backend-notifications-service"},"createdAt":"2026-07-11T05:08:57.969Z"}}},"event":{"type":"public-https-evidence","title":"Evento T4 Public Evidence","message":"Docker Compose T4 expuesto por Nginx HTTPS en Lightsail","source":"ibex-main-backend","entity":{"module":"t4","integration":"backend-notifications-service"}}}
+
+=== Notifications health public ===
+{"ok":true,"service":"IBEX Notifications Service","version":"1.0.0","maxEvents":100,"storedEvents":7,"timestamp":"2026-07-11T05:08:58.282Z"}
+
+Evidencia visual:
+assets/screenshots/t4/11_lightsail_https_realtime_demo.png
+
+Resultado esperado observado en captura:
+Socket.IO conectado
+database=mongodb
+Último POST status=201
+forwarded=true
+Eventos realtime recibidos
