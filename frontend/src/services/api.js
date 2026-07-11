@@ -43,19 +43,3 @@ export function deleteResource(resource, id) {
 }
 
 export const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:8080";
-
-
-export function sendT4Notification(payload = {}) {
-  return request("/t4/notify", {
-    method: "POST",
-    body: JSON.stringify({
-      type: payload.type || "t4.frontend.demo",
-      title: payload.title || "Evento realtime T4",
-      message: payload.message || "El frontend disparó una notificación en tiempo real",
-      entity: payload.entity || {
-        module: "frontend",
-        feature: "realtime-notifications"
-      }
-    })
-  });
-}

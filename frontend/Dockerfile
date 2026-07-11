@@ -6,6 +6,7 @@ COPY package*.json ./
 RUN npm ci
 
 COPY index.html ./
+COPY public ./public
 COPY src ./src
 
 ARG VITE_API_BASE_URL=http://localhost:4000/api

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { io } from "socket.io-client";
-import { createResource, deleteResource, getDashboard, sendT4Notification, updateResource, SOCKET_URL } from "./services/api";
+import { createResource, deleteResource, getDashboard, updateResource, SOCKET_URL } from "./services/api";
 
 const resources = [
   { key: "clients", label: "Clientes" },
@@ -403,64 +403,10 @@ function ArchitecturePanel() {
   );
 }
 
-export default 
-function T4RealtimePanel({ status, notifications, onSendTestEvent, isSending }) {
-  const statusLabel = {
-    connected: "Conectado",
-    connecting: "Conectando",
-    disconnected: "Desconectado"
-  }[status] || status;
-
-  return (
-    <section className="t4RealtimePanel">
-      <div className="t4RealtimeHeader">
-        <div>
-          <p className="eyebrow">T4 / Fase II</p>
-          <h2>Notificaciones en tiempo real</h2>
-          <p className="muted">
-            Panel de evidencia para WebSockets, eventos dinámicos y separación con notifications-service.
-          </p>
-        </div>
-
-        <div className={`socketStatus ${status}`}>
-          Socket.IO: {statusLabel}
-        </div>
-      </div>
-
-      <div className="t4RealtimeActions">
-        <button type="button" onClick={onSendTestEvent} disabled={isSending}>
-          {isSending ? "Enviando evento..." : "Disparar evento realtime T4"}
-        </button>
-        <span>
-          El backend publica el evento, Socket.IO lo entrega al frontend y el microservicio registra la notificación.
-        </span>
-      </div>
-
-      <div className="t4NotificationList">
-        {notifications.length === 0 ? (
-          <p className="muted">Aún no hay eventos T4 recibidos en esta sesión.</p>
-        ) : (
-          notifications.map((item) => (
-            <article key={item.id || item.createdAt} className="t4NotificationItem">
-              <strong>{item.title || item.type || "Evento realtime"}</strong>
-              <span>{item.message || "Evento recibido por Socket.IO"}</span>
-              <small>{item.createdAt || "timestamp pendiente"}</small>
-            </article>
-          ))
-        )}
-      </div>
-    </section>
-  );
-}
-
-
-function App() {
+export default function App() {
   const [activeResource, setActiveResource] = useState("clients");
   const [dashboard, setDashboard] = useState({});
   const [activities, setActivities] = useState([]);
-  const [realtimeStatus, setRealtimeStatus] = useState("connecting");
-  const [realtimeNotifications, setRealtimeNotifications] = useState([]);
-  const [isSendingT4Event, setIsSendingT4Event] = useState(false);
   const [forms, setForms] = useState(initialForms);
   const [message, setMessage] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -483,33 +429,9 @@ function App() {
     loadDashboard().catch((error) => setMessage(error.message));
 
     const socket = io(SOCKET_URL);
-
-    setRealtimeStatus("connecting");
-
-    socket.on("connect", () => {
-      setRealtimeStatus("connected");
-    });
-
-    socket.on("disconnect", () => {
-      setRealtimeStatus("disconnected");
-    });
     socket.on("activity:new", (activity) => {
       setActivities((current) => [activity, ...current].slice(0, 20));
       loadDashboard().catch(() => {});
-    });
-
-    
-    socket.on("ibex:event", (event) => {
-      setRealtimeNotifications((current) => [
-        {
-          id: `${event.type || "ibex:event"}-${event.createdAt || Date.now()}`,
-          title: event.title || "Evento realtime T4",
-          message: event.message || "Evento recibido por Socket.IO",
-          createdAt: event.createdAt || new Date().toISOString(),
-          type: event.type || "ibex:event"
-        },
-        ...current
-      ].slice(0, 5));
     });
 
     return () => socket.disconnect();
@@ -536,49 +458,7 @@ function App() {
     setForms((current) => ({ ...current, [activeResource]: initialForms[activeResource] }));
   }
 
-  
-  async function handleSendT4RealtimeEvent() {
-    setIsSendingT4Event(true);
-
-    try {
-      await sendT4Notification({
-        type: "t4.frontend.demo",
-        title: "Evento realtime T4",
-        message: "Evento disparado desde la interfaz para demostrar WebSockets y notifications-service",
-        entity: {
-          module: "frontend",
-          feature: "realtime-notifications",
-          timestamp: new Date().toISOString()
-        }
-      });
-
-      setRealtimeNotifications((current) => [
-        {
-          id: `t4-local-${Date.now()}`,
-          title: "Evento realtime T4",
-          message: "Evento enviado al backend, emitido por Socket.IO y registrado por notifications-service",
-          createdAt: new Date().toISOString(),
-          type: "t4.frontend.demo"
-        },
-        ...current
-      ].slice(0, 5));
-    } catch (error) {
-      setRealtimeNotifications((current) => [
-        {
-          id: `t4-error-${Date.now()}`,
-          title: "Error al enviar evento T4",
-          message: error.message,
-          createdAt: new Date().toISOString(),
-          type: "t4.error"
-        },
-        ...current
-      ].slice(0, 5));
-    } finally {
-      setIsSendingT4Event(false);
-    }
-  }
-
-async function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     setIsSaving(true);
     setMessage("");
@@ -635,16 +515,7 @@ async function handleSubmit(event) {
   return (
     <>
       <Header stats={stats} />
-      
-
-      
       <main className="layout">
-        <T4RealtimePanel
-          status={realtimeStatus}
-          notifications={realtimeNotifications}
-          onSendTestEvent={handleSendT4RealtimeEvent}
-          isSending={isSendingT4Event}
-        />
         <section>
           <ArchitecturePanel />
           <ResourceTabs active={activeResource} setActive={setActiveResource} />
