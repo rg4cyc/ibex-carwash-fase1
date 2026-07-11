@@ -551,6 +551,17 @@ function App() {
           timestamp: new Date().toISOString()
         }
       });
+
+      setRealtimeNotifications((current) => [
+        {
+          id: `t4-local-${Date.now()}`,
+          title: "Evento realtime T4",
+          message: "Evento enviado al backend, emitido por Socket.IO y registrado por notifications-service",
+          createdAt: new Date().toISOString(),
+          type: "t4.frontend.demo"
+        },
+        ...current
+      ].slice(0, 5));
     } catch (error) {
       setRealtimeNotifications((current) => [
         {
@@ -626,18 +637,14 @@ async function handleSubmit(event) {
       <Header stats={stats} />
       
 
-      <T4RealtimePanel
-
-        status={realtimeStatus}
-
-        notifications={realtimeNotifications}
-
-        onSendTestEvent={handleSendT4RealtimeEvent}
-
-        isSending={isSendingT4Event}
-
-      />
-<main className="layout">
+      
+      <main className="layout">
+        <T4RealtimePanel
+          status={realtimeStatus}
+          notifications={realtimeNotifications}
+          onSendTestEvent={handleSendT4RealtimeEvent}
+          isSending={isSendingT4Event}
+        />
         <section>
           <ArchitecturePanel />
           <ResourceTabs active={activeResource} setActive={setActiveResource} />
