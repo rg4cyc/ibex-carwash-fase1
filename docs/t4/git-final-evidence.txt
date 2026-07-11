@@ -1,0 +1,55 @@
+IBEX T4 - Evidencia Git final
+Fecha:
+Fri Jul 10 23:27:43 CDT 2026
+
+=== Status ===
+## main...origin/main
+?? docs/t4/git-final-evidence.txt
+
+=== Branches ===
+* main 0f82cef [origin/main] merge t4 phase ii deliverable
+  t3   045c3b3 [origin/t3] normalize t3 structure and evidence
+  t4   3e32359 [origin/t4] add t4 final report and video guide
+
+=== Recent commits ===
+0f82cef (HEAD -> main, tag: t4-submit, origin/main) merge t4 phase ii deliverable
+3e32359 (origin/t4, t4) add t4 final report and video guide
+3ffd3d1 add t4 evidence screenshots
+427911b verify real socketio realtime flow
+b478339 clean t4 realtime demo visual state
+2f680b7 serve stable t4 realtime demo from backend
+ad980a6 fix t4 realtime demo route
+3c978d4 add stable t4 realtime demo page
+27dd573 fix t4 realtime panel rendering
+5d2060e consolidate t4 technical evidence
+32e7f7f add t4 performance load tests
+d0a5d5f refresh t4 docker evidence
+747ee74 add t4 docker compose orchestration
+7ca6eb6 add t4 realtime notification panel
+4c7c5e5 integrate backend with t4 notifications service
+
+=== Tags ===
+t2-baseline
+t3-submit
+t4-submit
+tarea2-100-baseline
+
+=== Remote ===
+origin	https://github.com/rg4cyc/ibex-carwash-fase1.git (fetch)
+origin	https://github.com/rg4cyc/ibex-carwash-fase1.git (push)
+
+=== T4 report/video files ===
+-rw-r--r--  1 vier  staff   1.2K Jul 10 23:27 docs/t4/final-inventory.txt
+-rw-r--r--  1 vier  staff    12K Jul 10 23:27 docs/t4/REPORTE_WORD_T4.md
+-rw-r--r--  1 vier  staff   2.2K Jul 10 23:27 docs/t4/VIDEO_GUION_T4.md
+
+=== T4 screenshots ===
+-rw-r--r--  1 vier  staff   837K Jul 10 23:27 assets/screenshots/t4/01_frontend_realtime.png
+-rw-r--r--  1 vier  staff   290K Jul 10 23:27 assets/screenshots/t4/02_microservices_structure.png
+-rw-r--r--  1 vier  staff   332K Jul 10 23:27 assets/screenshots/t4/03_backend_notifications_integration.png
+-rw-r--r--  1 vier  staff   388K Jul 10 23:27 assets/screenshots/t4/04_docker_compose_file.png
+-rw-r--r--  1 vier  staff   268K Jul 10 23:27 assets/screenshots/t4/05_docker_compose_up.png
+-rw-r--r--  1 vier  staff   576K Jul 10 23:27 assets/screenshots/t4/06_docker_check_results.png
+-rw-r--r--  1 vier  staff   1.2M Jul 10 23:27 assets/screenshots/t4/07_performance_results.png
+-rw-r--r--  1 vier  staff   351K Jul 10 23:27 assets/screenshots/t4/08_socketio_realtime_test.png
+-rw-r--r--  1 vier  staff   527K Jul 10 23:27 assets/screenshots/t4/09_github_t4_branch.png
