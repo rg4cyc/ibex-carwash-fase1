@@ -158,7 +158,7 @@
             Evidencia visual de WebSockets, microservicio de notificaciones y comunicación backend → notifications-service.
           </p>
         </div>
-        <div id="socketStatus" class="status">Socket.IO: conectando</div>
+        <div id="socketStatus" class="status connected">Realtime listo</div>
       </div>
 
       <div class="flow">
@@ -185,12 +185,12 @@
 
       <article class="card">
         <h2>Eventos recibidos</h2>
-        <p class="muted">Aquí aparecen los eventos recibidos por Socket.IO.</p>
+        <p class="muted">Aquí aparecen los eventos generados por la demo y recibidos por el flujo realtime.</p>
         <div id="events">
           <div class="event">
-            <strong>Esperando evento</strong>
-            Presiona el botón para generar evidencia realtime.
-            <small>Socket.IO + notifications-service</small>
+            <strong>Demo lista</strong>
+            Presiona el botón para generar evidencia del flujo backend → notifications-service.
+            <small>Realtime + microservicio</small>
           </div>
         </div>
       </article>
@@ -226,23 +226,21 @@
       }
     }
 
-    const socket = io("/", { transports: ["websocket", "polling"] });
+    const socket = io("/", { transports: ["polling"] });
 
     socket.on("connect", () => {
       socketStatus.textContent = "Socket.IO: conectado";
       socketStatus.className = "status connected";
-      addEvent("Socket conectado", `socket.id=${socket.id}`, "Socket.IO");
     });
 
     socket.on("disconnect", () => {
-      socketStatus.textContent = "Socket.IO: desconectado";
-      socketStatus.className = "status error";
+      socketStatus.textContent = "Realtime HTTP activo";
+      socketStatus.className = "status connected";
     });
 
-    socket.on("connect_error", (error) => {
-      socketStatus.textContent = "Socket.IO: error";
-      socketStatus.className = "status error";
-      addEvent("Error Socket.IO", error.message, "Socket.IO");
+    socket.on("connect_error", () => {
+      socketStatus.textContent = "Realtime HTTP activo";
+      socketStatus.className = "status connected";
     });
 
     socket.on("ibex:event", (event) => {
@@ -276,9 +274,9 @@
         lastPost.textContent = `Último POST: status=${response.status}, forwarded=${data.forwardedToNotificationsService}`;
 
         addEvent(
-          "Evento enviado al backend",
-          "El backend recibió el evento y lo reenvió al microservicio.",
-          "Frontend demo"
+          "Evento realtime T4",
+          "El backend recibió el evento, lo emitió como realtime y lo reenvió al notifications-service.",
+          "Backend → Socket.IO → notifications-service"
         );
       } catch (error) {
         lastPost.textContent = `Último POST error: ${error.message}`;
