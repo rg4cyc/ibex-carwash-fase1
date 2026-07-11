@@ -14,6 +14,40 @@ const DB_NAME = process.env.DB_NAME || "ibex_carwash_fase1";
 
 const app = express();
 
+const NOTIFICATIONS_SERVICE_URL = process.env.NOTIFICATIONS_SERVICE_URL || "http://localhost:4010";
+const NOTIFICATIONS_SERVICE_ENABLED = process.env.NOTIFICATIONS_SERVICE_ENABLED !== "false";
+
+async function publishNotificationEvent(event) {
+  if (!NOTIFICATIONS_SERVICE_ENABLED) {
+    return { ok: false, skipped: true, reason: "notifications_disabled" };
+  }
+
+  try {
+    const response = await fetch(`${NOTIFICATIONS_SERVICE_URL}/events`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        ...event,
+        source: event.source || "ibex-main-backend"
+      })
+    });
+
+    if (!response.ok) {
+      return { ok: false, status: response.status };
+    }
+
+    const data = await response.json();
+    return { ok: true, data };
+  } catch (error) {
+    console.warn("notifications_service_unavailable", error.message);
+    return { ok: false, error: error.message };
+  }
+}
+
+
+
 const allowedOrigins = (process.env.CLIENT_ORIGIN || "")
   .split(",")
   .map((origin) => origin.trim())
@@ -189,11 +223,48 @@ const requiredByResource = {
   bookings: ["clientName", "vehicleDescription", "slotLabel", "serviceName"]
 };
 
+
+app.post("/api/t4/notify", async (req, res) => {
+  const payload = req.body || {};
+  const event = {
+    type: payload.type || "t4.manual",
+    title: payload.title || "T4 integration event",
+    message: payload.message || "Backend sent event to notifications service",
+    source: "ibex-main-backend",
+    entity: payload.entity || {
+      module: "t4",
+      integration: "backend-notifications-service"
+    }
+  };
+
+  const result = await publishNotificationEvent(event);
+
+  if (io) {
+    io.emit("ibex:event", {
+      ...event,
+      realtime: true,
+      createdAt: new Date().toISOString()
+    });
+  }
+
+  res.status(result.ok ? 201 : 202).json({
+    ok: true,
+    forwardedToNotificationsService: result.ok,
+    notificationResult: result,
+    event
+  });
+});
+
+
 app.get("/api/health", async (_req, res) => {
   res.json({
     ok: true,
     service: "IBEX Carwash Fase I API",
     realtime: "Socket.IO enabled",
+    notificationsService: {
+      enabled: NOTIFICATIONS_SERVICE_ENABLED,
+      url: NOTIFICATIONS_SERVICE_URL
+    },
     database: db ? "mongodb" : "memory-fallback",
     timestamp: nowIso()
   });
