@@ -1,0 +1,8 @@
+IBEX AWS Frontend API Audit
+
+Referencias en frontend/src:
+frontend/src/App.jsx:2:import { io } from "socket.io-client";
+frontend/src/App.jsx:431:    const socket = io(SOCKET_URL);
+frontend/src/services/api.js:1:const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/api";
+frontend/src/services/api.js:4:  const response = await fetch(`${API_BASE_URL}${path}`, {
+frontend/src/services/api.js:45:export const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:8080";

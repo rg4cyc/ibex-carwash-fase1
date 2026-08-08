@@ -1,0 +1,27 @@
+IBEX AWS Database Dependency Audit
+
+Referencias en código propio:
+backend/server.js:8:const { MongoClient, ObjectId } = require("mongodb");
+backend/server.js:13:const MONGODB_URI = process.env.MONGODB_URI || "";
+backend/server.js:14:const DB_NAME = process.env.DB_NAME || "ibex_carwash_fase1";
+backend/server.js:136:async function collection(name) {
+backend/server.js:138:  return db.collection(name);
+backend/server.js:142:  const col = await collection(resource);
+backend/server.js:149:  const col = await collection(resource);
+backend/server.js:151:  const query = ObjectId.isValid(id) ? { _id: new ObjectId(id) } : { id };
+backend/server.js:157:  const col = await collection(resource);
+backend/server.js:168:  const col = await collection(resource);
+backend/server.js:177:  const query = ObjectId.isValid(id) ? { _id: new ObjectId(id) } : { id };
+backend/server.js:183:  const col = await collection(resource);
+backend/server.js:191:  const query = ObjectId.isValid(id) ? { _id: new ObjectId(id) } : { id };
+backend/server.js:198:  const col = await collection("activities");
+backend/server.js:276:    database: db ? "mongodb" : "memory-fallback",
+backend/server.js:287:    ? (await db.collection("activities").find({}).sort({ createdAt: -1 }).limit(20).toArray()).map(normalizeRecord)
+backend/server.js:555:  if (MONGODB_URI) {
+backend/server.js:556:    mongoClient = new MongoClient(MONGODB_URI);
+backend/server.js:558:    db = mongoClient.db(DB_NAME);
+backend/server.js:559:    console.log(`MongoDB connected: ${DB_NAME}`);
+backend/server.js:561:    console.log("MONGODB_URI not configured. Using memory fallback.");
+
+Dependencia declarada en package.json:
+15:    "mongodb": "^7.0.0",

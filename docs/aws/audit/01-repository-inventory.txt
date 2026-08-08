@@ -1,0 +1,75 @@
+IBEX AWS Repository Audit
+
+Fecha:
+Fri Aug  7 23:33:11 CDT 2026
+
+Repositorio:
+/Users/vier/Documents/tm-fullstack/ibex-carwash-fase1
+
+Rama:
+aws-foundation
+
+Últimos commits:
+edc8b75 (HEAD -> aws-foundation, tag: t4-submit, origin/main, main) rename t4 abridged word report
+dd06995 fix t4 clean word report accents
+f453381 add t4 video link and clean word paste report
+e088d87 restore complete t4 performance results
+bbbbf2f update t4 final video script
+eefc070 add t4 lightsail docker deployment evidence
+8be79b8 add t4 docker lightsail deployment plan
+4823ef9 add t4 final git evidence
+0f82cef merge t4 phase ii deliverable
+3e32359 (origin/t4, t4) add t4 final report and video guide
+3ffd3d1 add t4 evidence screenshots
+427911b verify real socketio realtime flow
+
+Directorios principales:
+.
+./.dockerignore
+./.DS_Store
+./.env
+./assets
+./assets/.DS_Store
+./assets/screenshots
+./backend
+./backend/.DS_Store
+./backend/.env
+./backend/.env.example
+./backend/Dockerfile
+./backend/package-lock.json
+./backend/package.json
+./backend/public
+./backend/server.js
+./docker-compose.lightsail.yml
+./docker-compose.yml
+./docs
+./docs/.DS_Store
+./docs/arquitectura.md
+./docs/aws
+./docs/informe-fase1.md
+./docs/pruebas.md
+./docs/reporte-fase1.html
+./docs/t3
+./docs/t4
+./docs/video-guion-fase1.md
+./frontend
+./frontend/.DS_Store
+./frontend/Dockerfile
+./frontend/index.html
+./frontend/package-lock.json
+./frontend/package.json
+./frontend/public
+./frontend/src
+./infrastructure
+./infrastructure/aws
+./infrastructure/sam
+./infrastructure/terraform
+./README.md
+./scripts
+./scripts/.DS_Store
+./scripts/aws
+./scripts/t3
+./scripts/t4
+./services
+./services/.DS_Store
+./services/notifications-service

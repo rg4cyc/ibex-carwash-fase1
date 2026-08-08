@@ -1,0 +1,16 @@
+IBEX AWS Endpoint Audit
+
+Rutas Express detectadas:
+81:app.get("/t4-realtime-demo", (_req, res) => {
+235:app.post("/api/t4/notify", async (req, res) => {
+267:app.get("/api/health", async (_req, res) => {
+281:app.get("/api/dashboard", async (_req, res) => {
+292:app.get("/api/:resource", requireResource, async (req, res) => {
+296:app.post("/api/:resource", requireResource, async (req, res) => {
+317:app.patch("/api/:resource/:id", requireResource, async (req, res) => {
+332:app.delete("/api/:resource/:id", requireResource, async (req, res) => {
+
+Eventos Socket.IO detectados:
+207:  io.emit("activity:new", activity);
+251:    io.emit("ibex:event", {
+347:io.on("connection", (socket) => {

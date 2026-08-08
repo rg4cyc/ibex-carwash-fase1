@@ -1,0 +1,27 @@
+IBEX AWS Environment Variable Audit
+
+Backend variables documentadas:
+PORT=<REDACTED>
+CLIENT_ORIGIN=<REDACTED>
+MONGODB_URI=<REDACTED>
+DB_NAME=<REDACTED>
+NOTIFICATIONS_SERVICE_URL=<REDACTED>
+NOTIFICATIONS_SERVICE_ENABLED=<REDACTED>
+
+Notifications Service variables documentadas:
+NOTIFICATIONS_PORT=<REDACTED>
+NOTIFICATIONS_MAX_EVENTS=<REDACTED>
+
+Frontend variables usadas por código propio:
+VITE_API_BASE_URL
+VITE_SOCKET_URL
+
+Backend process.env usados por código propio:
+process.env.CLIENT_ORIGIN
+process.env.DB_NAME
+process.env.MONGODB_URI
+process.env.NOTIFICATIONS_MAX_EVENTS
+process.env.NOTIFICATIONS_PORT
+process.env.NOTIFICATIONS_SERVICE_ENABLED
+process.env.NOTIFICATIONS_SERVICE_URL
+process.env.PORT

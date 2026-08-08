@@ -1,0 +1,6 @@
+IBEX AWS Existing Infrastructure Audit
+./backend/Dockerfile
+./docker-compose.lightsail.yml
+./docker-compose.yml
+./frontend/Dockerfile
+./services/notifications-service/Dockerfile
