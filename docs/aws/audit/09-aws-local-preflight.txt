@@ -1,0 +1,60 @@
+IBEX AWS Scenario A Local Preflight
+
+Fecha:
+Fri Aug  7 23:37:43 CDT 2026
+
+Rama:
+scenario-a-serverless
+
+=== Git ===
+git version 2.50.1 (Apple Git-155)
+
+=== Node.js ===
+v24.14.0
+
+=== npm ===
+11.9.0
+
+=== Python ===
+Python 3.9.6
+
+=== AWS CLI ===
+zsh: command not found: aws
+AWS_CLI_NOT_FOUND
+
+=== AWS SAM CLI ===
+zsh: command not found: sam
+SAM_CLI_NOT_FOUND
+
+=== Docker ===
+Docker version 29.4.2, build 055a478
+
+=== Docker Compose ===
+Docker Compose version v5.1.3
+
+=== jq ===
+jq-1.7.1-apple
+
+=== AWS Profiles ===
+NO_AWS_PROFILES_FOUND
+
+=== AWS Default Configuration ===
+
+=== AWS Region ===
+AWS_REGION_NOT_CONFIGURED
+
+=== AWS Identity Test ===
+AWS_IDENTITY_FAILED
+
+=== Local AWS Files ===
+AWS_CONFIG_FILE_NOT_FOUND
+AWS_CREDENTIALS_FILE_NOT_FOUND
+
+=== Credentials File Permissions ===
+
+=== Existing AWS Environment Variables: names only ===
+
+=== Git Status ===
+## scenario-a-serverless
+?? docs/aws/audit/09-aws-local-preflight.txt
+?? docs/t4/gantt.mermaid

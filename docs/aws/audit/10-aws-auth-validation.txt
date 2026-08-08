@@ -1,0 +1,69 @@
+IBEX AWS Authentication Validation
+
+Fecha:
+Sat Aug  8 01:32:54 CDT 2026
+
+Rama:
+scenario-a-serverless
+
+=== AWS CLI ===
+aws-cli/2.36.19 Python/3.14.6 Darwin/25.5.0 exe/arm64
+
+=== AWS SAM CLI ===
+SAM CLI, version 1.165.0
+
+=== Perfil configurado ===
+PROFILE_IBEX_OK
+
+=== Región ===
+us-east-1
+
+=== Identidad AWS ===
+AWS_IDENTITY_OK
+{
+  "UserId": "AIDA...HKOD",
+  "Account": "REDACTED",
+  "Arn": "ibex-deployer"
+}
+
+=== CloudFormation ===
+CLOUDFORMATION_ACCESS_OK
+{
+  "stackCount": 0
+}
+
+=== Amazon S3 ===
+S3_ACCESS_OK
+{
+  "bucketCount": 0
+}
+
+=== AWS Lambda ===
+LAMBDA_ACCESS_OK
+{
+  "functionCount": 0
+}
+
+=== Amazon DynamoDB ===
+DYNAMODB_ACCESS_OK
+{
+  "tableCount": 0
+}
+
+=== Amazon API Gateway ===
+API_GATEWAY_ACCESS_OK
+{
+  "apiCount": 0
+}
+
+=== Amazon CloudWatch Logs ===
+CLOUDWATCH_LOGS_ACCESS_OK
+{
+  "logGroupCount": 0
+}
+
+=== Docker ===
+DOCKER_ENGINE_OK
+
+=== Resultado general ===
+AWS_AUTH_VALIDATION_OK
