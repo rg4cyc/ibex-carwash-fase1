@@ -134,6 +134,23 @@ Resources:
             Path: /api/sales/{id}
             Method: DELETE
 
+  FrontendBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+
+
   IbexTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -156,6 +173,11 @@ Outputs:
   ApiUrl:
     Description: URL de API Gateway para el Escenario A
     Value: !Sub "https://${IbexApi}.execute-api.${AWS::Region}.amazonaws.com/Prod"
+
+  FrontendBucketName:
+    Description: Bucket privado del frontend IBEX
+    Value: !Ref FrontendBucket
+
 
   TableName:
     Description: Nombre de la tabla DynamoDB

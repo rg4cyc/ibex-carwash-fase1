@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { io } from "socket.io-client";
-import { createResource, deleteResource, getDashboard, updateResource, SOCKET_URL } from "./services/api";
+import { createResource, deleteResource, getDashboard, updateResource, SOCKET_ENABLED, SOCKET_URL } from "./services/api";
 
 const resources = [
   { key: "clients", label: "Clientes" },
@@ -427,6 +427,10 @@ export default function App() {
 
   useEffect(() => {
     loadDashboard().catch((error) => setMessage(error.message));
+
+    if (!SOCKET_ENABLED) {
+      return undefined;
+    }
 
     const socket = io(SOCKET_URL);
     socket.on("activity:new", (activity) => {

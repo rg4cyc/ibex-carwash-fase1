@@ -1,0 +1,42 @@
+IBEX AWS Scenario A Private S3 Frontend
+
+Fecha:
+Sat Aug  8 02:17:46 CDT 2026
+
+Stack:
+ibex-scenario-a
+
+Bucket:
+ibex-scenario-a-frontendbucket-frunrqjnlprj
+
+Objetos:
+3
+
+Cifrado:
+AES256
+
+Bloqueo de acceso público:
+{
+  "BlockPublicAcls": true,
+  "IgnorePublicAcls": true,
+  "BlockPublicPolicy": true,
+  "RestrictPublicBuckets": true
+}
+
+Acceso directo anónimo:
+HTTP 403
+
+Resultado:
+El frontend fue compilado y almacenado en un bucket S3 privado.
+El bucket contiene index.html, JavaScript y CSS.
+El acceso público directo está bloqueado.
+CloudFront se agregará en el siguiente paso.
+
+Validaciones:
+SAM_DEPLOY_OK
+FRONTEND_BUILD_OK
+T4_FILES_REMOVED
+S3_SYNC_OK
+S3_OBJECT_COUNT=3
+S3_ENCRYPTION=AES256
+S3_DIRECT_STATUS=403
