@@ -1,0 +1,10 @@
+{
+  "name": "ibex-scenario-a-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lambda básica del Escenario A de IBEX",
+  "main": "app.js",
+  "scripts": {
+    "test": "node test.js"
+  }
+}

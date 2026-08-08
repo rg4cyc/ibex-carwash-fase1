@@ -29,3 +29,5 @@ LINKS_*.txt
 services/notifications-service/.env
 
 .venv/
+
+.aws-sam/
