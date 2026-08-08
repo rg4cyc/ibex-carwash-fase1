@@ -1,0 +1,66 @@
+IBEX AWS Scenario A DynamoDB Customers
+
+Fecha:
+Sat Aug  8 01:57:26 CDT 2026
+
+Resultado:
+Las rutas GET y POST /customers están desplegadas y operativas.
+El error 403 observado inicialmente fue transitorio durante la propagación del deployment de API Gateway.
+
+API:
+https://qncm3vk3od.execute-api.us-east-1.amazonaws.com/Prod/customers
+
+POST status:
+201
+
+POST response:
+{
+  "ok": true,
+  "customer": {
+    "id": "5da79ea0-6c67-4787-950e-20d38b993c74",
+    "name": "Cliente Demo AWS",
+    "email": "cliente.aws.1786172243@example.com",
+    "createdAt": "2026-08-08T06:57:21.789Z"
+  }
+}
+
+GET status:
+200
+
+GET response:
+{
+  "ok": true,
+  "count": 2,
+  "customers": [
+    {
+      "id": "5da79ea0-6c67-4787-950e-20d38b993c74",
+      "name": "Cliente Demo AWS",
+      "email": "cliente.aws.1786172243@example.com",
+      "createdAt": "2026-08-08T06:57:21.789Z"
+    },
+    {
+      "id": "b52f1f71-714a-483e-9fab-fb1d4caa5c42",
+      "name": "test",
+      "email": "test@test.com",
+      "createdAt": "2026-08-08T06:55:22.739Z"
+    }
+  ]
+}
+
+DynamoDB table:
+ibex-scenario-a-data
+
+API customer count:
+2
+
+DynamoDB customer count:
+2
+
+CloudWatch Log Group:
+/aws/lambda/ibex-scenario-a-api
+
+Validaciones:
+CREATE_STATUS=201
+LIST_STATUS=200
+API_CUSTOMER_COUNT=2
+DYNAMODB_CUSTOMER_COUNT=2

@@ -6,5 +6,9 @@
   "main": "app.js",
   "scripts": {
     "test": "node test.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1106.0",
+    "@aws-sdk/lib-dynamodb": "^3.1106.0"
   }
 }

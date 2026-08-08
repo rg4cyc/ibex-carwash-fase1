@@ -4,20 +4,28 @@ const assert = require("node:assert");
 const { handler } = require("./app");
 
 async function run() {
-  const result = await handler({
+  const healthResult = await handler({
     httpMethod: "GET",
     path: "/health"
   });
 
-  assert.strictEqual(result.statusCode, 200);
+  assert.strictEqual(healthResult.statusCode, 200);
 
-  const body = JSON.parse(result.body);
+  const healthBody = JSON.parse(healthResult.body);
 
-  assert.strictEqual(body.ok, true);
-  assert.strictEqual(body.architecture, "serverless");
-  assert.strictEqual(body.database, "dynamodb");
+  assert.strictEqual(healthBody.ok, true);
+  assert.strictEqual(healthBody.architecture, "serverless");
+  assert.strictEqual(healthBody.database, "dynamodb");
 
-  console.log("SCENARIO_A_HEALTH_UNIT_TEST_OK");
+  const invalidResult = await handler({
+    httpMethod: "POST",
+    path: "/customers",
+    body: JSON.stringify({})
+  });
+
+  assert.strictEqual(invalidResult.statusCode, 400);
+
+  console.log("SCENARIO_A_BASIC_UNIT_TESTS_OK");
 }
 
 run().catch((error) => {

@@ -38,6 +38,18 @@ Resources:
             RestApiId: !Ref IbexApi
             Path: /health
             Method: GET
+        ListCustomersEndpoint:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /customers
+            Method: GET
+        CreateCustomerEndpoint:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /customers
+            Method: POST
 
   IbexTable:
     Type: AWS::DynamoDB::Table
