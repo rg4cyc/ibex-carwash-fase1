@@ -1,0 +1,28 @@
+IBEX AWS Scenario A CRUD Production Test
+
+Fecha:
+Sat Aug  8 05:24:21 CDT 2026
+
+Frontend:
+https://ibex-aws.ccjira.io/
+
+API:
+https://qncm3vk3od.execute-api.us-east-1.amazonaws.com/Prod/api
+
+Prueba ejecutada:
+Crear cliente temporal
+Consultar cliente
+Editar cliente
+Consultar actualización
+Eliminar cliente
+Confirmar eliminación
+
+Resultados:
+HEALTH_STATUS=200
+CREATE_STATUS=201
+CREATE_FOUND=true
+UPDATE_STATUS=200
+UPDATE_FOUND=true
+DELETE_STATUS=200
+DELETE_CONFIRMED=true
+CUSTOMER_COUNT_FINAL=8

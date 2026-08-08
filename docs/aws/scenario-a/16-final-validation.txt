@@ -1,0 +1,57 @@
+IBEX AWS Scenario A Final Validation
+
+Fecha:
+Sat Aug  8 05:30:37 CDT 2026
+
+Rama:
+scenario-a-serverless
+
+Frontend:
+https://ibex-aws.ccjira.io/
+
+API:
+https://qncm3vk3od.execute-api.us-east-1.amazonaws.com/Prod/api
+
+Arquitectura:
+React y Vite
+Amazon S3 Static Website
+Cloudflare DNS y HTTPS
+Amazon API Gateway
+AWS Lambda
+Amazon DynamoDB
+AWS SAM
+Amazon CloudWatch
+
+Validaciones técnicas:
+LAMBDA_SYNTAX_OK=1
+SAM_VALIDATE_OK=1
+FRONTEND_STATUS=200
+HEALTH_STATUS=200
+ROUTES_OK=1
+COUNTS_OK=1
+
+Datos disponibles:
+customers=8
+guardians=2
+students=2
+vehicles=2
+projects=2
+tasks=2
+slots=2
+bookings=2
+
+Prueba CRUD del Paso 37:
+CREATE_STATUS=201
+CREATE_FOUND=true
+UPDATE_STATUS=200
+UPDATE_FOUND=true
+DELETE_STATUS=200
+DELETE_CONFIRMED=true
+CUSTOMER_COUNT_FINAL=8
+IBEX_PRODUCTION_CRUD_TEST_OK
+
+Resultado:
+El Escenario A quedó desplegado y operativo.
+El frontend utiliza HTTPS con dominio personalizado.
+Las ocho categorías consultan datos almacenados en DynamoDB.
+El CRUD de clientes fue validado con creación, consulta, edición y eliminación.
