@@ -1,0 +1,21 @@
+IBEX AWS Scenario A Frontend Customer CRUD
+
+Fecha:
+Sat Aug  8 04:50:47 CDT 2026
+
+Frontend:
+https://ibex-aws.ccjira.io/
+
+API:
+https://qncm3vk3od.execute-api.us-east-1.amazonaws.com/Prod/api
+
+Corrección:
+El recurso clients del frontend se conectó con la ruta customers de API Gateway.
+El frontend ahora solicita la lista de clientes al cargar la aplicación.
+Las operaciones crear, editar y eliminar utilizan las rutas de customers.
+
+Validaciones:
+FRONTEND_BUILD_OK=1
+CUSTOMER_STATUS=200
+CUSTOMER_COUNT=8
+FRONTEND_STATUS=000

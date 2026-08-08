@@ -1,0 +1,24 @@
+IBEX AWS Scenario A Customer Counter
+
+Fecha:
+Sat Aug  8 04:54:21 CDT 2026
+
+Frontend:
+https://ibex-aws.ccjira.io/
+
+API:
+https://qncm3vk3od.execute-api.us-east-1.amazonaws.com/Prod/api
+
+Corrección:
+El primer indicador de la portada cambió de Tareas a Clientes.
+El indicador utiliza dashboard.clients y refleja los registros obtenidos
+desde API Gateway, Lambda y DynamoDB.
+
+Validaciones:
+BUILD_OK=1
+BUILD_FILES_OK=1
+COUNTER_EMBEDDED=1
+S3_SYNC_OK=1
+CUSTOMER_STATUS=200
+CUSTOMER_COUNT=8
+S3_WEBSITE_STATUS=200

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { createResource, deleteResource, getDashboard, updateResource } from "./services/api";
+import { createResource, deleteResource, getDashboard, listResource, updateResource } from "./services/api";
 
 const resources = [
   { key: "clients", label: "Clientes" },
@@ -101,8 +101,8 @@ function Header({ stats }) {
         </div>
 
         <div className="statsCard">
-          <strong>{stats.tasks || 0}</strong>
-          <span>Tareas</span>
+          <strong>{stats.clients || 0}</strong>
+          <span>Clientes</span>
           <strong>{stats.students || 0}</strong>
           <span>Estudiantes</span>
           <strong>{stats.bookings || 0}</strong>
@@ -419,12 +419,25 @@ export default function App() {
   }, [dashboard]);
 
   async function loadDashboard() {
-    const data = await getDashboard();
-    setDashboard(data);
-    setActivities(data.activities || []);
+    const [summary, clients] = await Promise.all([
+      getDashboard(),
+      listResource("clients")
+    ]);
+
+    setDashboard({
+      ...summary,
+      clients: Array.isArray(clients) ? clients : []
+    });
+
+    setActivities(summary.activities || []);
   }
 
-  
+  useEffect(() => {
+    loadDashboard().catch((error) => {
+      setMessage(error.message);
+    });
+  }, []);
+
   useEffect(() => {
     setEditingRecord(null);
     setForms((current) => ({ ...current, [activeResource]: initialForms[activeResource] }));
