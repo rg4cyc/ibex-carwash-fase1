@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant U as Usuario
+    participant F as React en S3
+    participant A as API Gateway
+    participant L as Lambda
+    participant D as DynamoDB
+
+    U->>F: Abre ibex-aws.ccjira.io
+    F->>A: Solicitud HTTP CRUD
+    A->>L: Invoca función
+    L->>D: Consulta o modifica datos
+    D-->>L: Resultado
+    L-->>A: Respuesta JSON
+    A-->>F: HTTP 200 o 201
+    F-->>U: Actualiza tabla y contadores

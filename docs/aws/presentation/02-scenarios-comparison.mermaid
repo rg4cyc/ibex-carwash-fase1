@@ -1,0 +1,22 @@
+flowchart TB
+    A[Escenario A<br/>Implementado]
+    B[Escenario B<br/>Diseñado]
+    C[Escenario C<br/>Diseñado]
+
+    A --> A1[API Gateway]
+    A --> A2[Lambda stateless]
+    A --> A3[DynamoDB]
+    A --> A4[S3 + HTTPS]
+
+    B --> B1[VPC]
+    B --> B2[Backend privado]
+    B --> B3[RDS PostgreSQL]
+    B --> B4[Security Groups]
+
+    C --> C1[Docker]
+    C --> C2[ECR]
+    C --> C3[ECS Fargate]
+    C --> C4[Application Load Balancer]
+
+    A -. Evolución .-> B
+    B -. Evolución .-> C

@@ -1,0 +1,10 @@
+flowchart LR
+    U[Usuario] --> CF[Cloudflare DNS y HTTPS]
+    CF --> S3[Amazon S3<br/>React + Vite]
+    S3 --> APIGW[Amazon API Gateway]
+    APIGW --> L[AWS Lambda<br/>API REST stateless]
+    L --> DDB[Amazon DynamoDB]
+    L --> CW[Amazon CloudWatch]
+    SAM[AWS SAM<br/>Infraestructura como código] --> APIGW
+    SAM --> L
+    SAM --> DDB
