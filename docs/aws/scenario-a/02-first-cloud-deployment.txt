@@ -1,0 +1,59 @@
+IBEX AWS Scenario A First Cloud Deployment
+
+Fecha:
+Sat Aug  8 01:46:44 CDT 2026
+
+Rama:
+scenario-a-serverless
+
+Stack:
+ibex-scenario-a
+
+Región:
+us-east-1
+
+Stack status:
+CREATE_COMPLETE
+
+API URL:
+https://qncm3vk3od.execute-api.us-east-1.amazonaws.com/Prod
+
+Health URL:
+https://qncm3vk3od.execute-api.us-east-1.amazonaws.com/Prod/health
+
+HTTP status:
+200
+
+Health response:
+{
+  "ok": true,
+  "service": "IBEX Scenario A API",
+  "architecture": "serverless",
+  "services": [
+    "API Gateway",
+    "Lambda",
+    "DynamoDB",
+    "CloudWatch"
+  ],
+  "database": "dynamodb",
+  "tableName": "ibex-scenario-a-data",
+  "timestamp": "2026-08-08T06:46:35.826Z"
+}
+
+Lambda:
+ibex-scenario-a-api
+
+API Gateway:
+qncm3vk3od
+
+DynamoDB:
+ibex-scenario-a-data
+
+CloudWatch Log Group:
+/aws/lambda/ibex-scenario-a-api
+
+Validaciones:
+SAM_VALIDATE_OK
+SAM_BUILD_OK
+SAM_DEPLOY_OK
+SCENARIO_A_CLOUD_HEALTH_OK
