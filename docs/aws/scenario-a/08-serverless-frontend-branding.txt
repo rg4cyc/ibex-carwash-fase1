@@ -1,0 +1,38 @@
+IBEX AWS Scenario A Serverless Frontend Branding
+
+Fecha:
+Sat Aug  8 04:03:50 CDT 2026
+
+Rama:
+scenario-a-serverless
+
+Frontend:
+http://ibex-scenario-a-frontendbucket-frunrqjnlprj.s3-website-us-east-1.amazonaws.com
+
+Frontend status:
+200
+
+API:
+https://qncm3vk3od.execute-api.us-east-1.amazonaws.com/Prod/api
+
+API status:
+200
+
+Arquitectura mostrada:
+React y Vite
+Amazon S3
+Amazon API Gateway
+AWS Lambda
+Amazon DynamoDB
+
+Cambios:
+Se eliminaron del texto visible las referencias a Express, MongoDB y Socket.IO.
+Se actualizó la presentación para reflejar la arquitectura serverless desplegada.
+En este paso no se modificó la lógica CRUD.
+
+Validaciones:
+FRONTEND_BUILD_OK
+SERVERLESS_BRANDING_OK=1
+OLD_BRANDING_REMOVED=1
+FRONTEND_STATUS=200
+API_STATUS=200

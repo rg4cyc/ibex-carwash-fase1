@@ -88,7 +88,7 @@ function Header({ stats }) {
     <header className="hero">
       <nav className="nav">
         <span className="brand">IBEX Carwash Fase I</span>
-        <span className="pill">React + Express + MongoDB + Socket.IO</span>
+        <span className="pill">React + API Gateway + Lambda + DynamoDB</span>
       </nav>
 
       <section className="heroGrid">
@@ -373,8 +373,8 @@ function ResourceTable({ resource, items, onEdit, onDelete, onStatusChange }) {
 function LiveFeed({ activities }) {
   return (
     <aside className="feedCard">
-      <h2>Feed en tiempo real</h2>
-      <p className="muted">Eventos recibidos con Socket.IO.</p>
+      <h2>Estado del sistema</h2>
+      <p className="muted">Eventos recibidos con API Gateway.</p>
       <div className="feed">
         {activities.slice(0, 10).map((activity) => (
           <article key={activity.id || activity.createdAt} className="feedItem">
@@ -391,13 +391,13 @@ function LiveFeed({ activities }) {
 function ArchitecturePanel() {
   return (
     <section className="architecture">
-      <h2>Arquitectura Fase I</h2>
+      <h2>Arquitectura Serverless AWS</h2>
       <div className="archGrid">
-        <div>React + Vite<br /><span>ibex.ccjira.io</span></div>
+        <div>React + Vite<br /><span>Amazon S3</span></div>
         <div>Fetch API</div>
-        <div>Node.js + Express<br /><span>api-ibex.ccjira.io</span></div>
-        <div>Socket.IO<br /><span>Eventos en tiempo real</span></div>
-        <div>MongoDB Atlas<br /><span>Base de datos</span></div>
+        <div>AWS Lambda<br /><span>Lógica del backend</span></div>
+        <div>API Gateway<br /><span>API REST</span></div>
+        <div>Amazon DynamoDB<br /><span>Persistencia</span></div>
       </div>
     </section>
   );
