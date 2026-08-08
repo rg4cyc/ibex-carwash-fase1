@@ -1,0 +1,17 @@
+IBEX AWS Scenario A Remove Socket.IO
+
+Fecha:
+Sat Aug  8 04:22:56 CDT 2026
+
+Cambio:
+Se retiró socket.io-client del frontend del Escenario A.
+Se eliminaron SOCKET_URL, SOCKET_ENABLED y la conexión persistente.
+
+Motivo:
+El Escenario A utiliza solicitudes HTTP mediante Amazon API Gateway y AWS Lambda.
+
+Validaciones:
+SOCKET_CLEAN=1
+BUILD_OK=1
+FRONTEND_STATUS=200
+API_STATUS=200

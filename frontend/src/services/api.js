@@ -42,8 +42,3 @@ export function deleteResource(resource, id) {
   });
 }
 
-export const SOCKET_ENABLED =
-  import.meta.env.VITE_SOCKET_ENABLED !== "false";
-
-export const SOCKET_URL =
-  import.meta.env.VITE_SOCKET_URL || "http://localhost:8080";

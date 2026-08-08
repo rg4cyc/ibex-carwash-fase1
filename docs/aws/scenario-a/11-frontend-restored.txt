@@ -1,0 +1,24 @@
+IBEX AWS Scenario A Frontend Restored
+
+Fecha:
+Sat Aug  8 04:22:56 CDT 2026
+
+Bucket:
+ibex-scenario-a-frontendbucket-frunrqjnlprj
+
+Frontend:
+http://ibex-scenario-a-frontendbucket-frunrqjnlprj.s3-website-us-east-1.amazonaws.com
+
+API:
+https://qncm3vk3od.execute-api.us-east-1.amazonaws.com/Prod/api
+
+Resultado:
+El frontend React fue recompilado y restaurado en Amazon S3.
+index.html y los archivos CSS y JavaScript están publicados.
+
+Validaciones:
+BUILD_OK=1
+SOCKET_CLEAN=1
+S3_OBJECT_COUNT=3
+FRONTEND_STATUS=200
+API_STATUS=200

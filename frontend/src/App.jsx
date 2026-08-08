@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { io } from "socket.io-client";
-import { createResource, deleteResource, getDashboard, updateResource, SOCKET_ENABLED, SOCKET_URL } from "./services/api";
+import { createResource, deleteResource, getDashboard, updateResource } from "./services/api";
 
 const resources = [
   { key: "clients", label: "Clientes" },
@@ -87,7 +86,7 @@ function Header({ stats }) {
   return (
     <header className="hero">
       <nav className="nav">
-        <span className="brand">IBEX Carwash Fase I</span>
+        <span className="brand">IBEX Carwash · Escenario A</span>
         <span className="pill">React + API Gateway + Lambda + DynamoDB</span>
       </nav>
 
@@ -96,8 +95,8 @@ function Header({ stats }) {
           <p className="eyebrow">Sistema de gestión operativa</p>
           <h1>Gestión de jornadas, tareas, estudiantes, clientes y reservas</h1>
           <p className="heroText">
-            Major release de IBEX Carwash Slots para administrar el programa prelaboral
-            con CRUD full stack, catálogos relacionados y eventos en tiempo real.
+            Aplicación serverless de IBEX Carwash Slots para administrar el programa prelaboral
+            con CRUD full stack, catálogos relacionados y servicios administrados en AWS.
           </p>
         </div>
 
@@ -374,7 +373,7 @@ function LiveFeed({ activities }) {
   return (
     <aside className="feedCard">
       <h2>Estado del sistema</h2>
-      <p className="muted">Eventos recibidos con API Gateway.</p>
+      <p className="muted">API REST disponible mediante Amazon API Gateway.</p>
       <div className="feed">
         {activities.slice(0, 10).map((activity) => (
           <article key={activity.id || activity.createdAt} className="feedItem">
@@ -425,22 +424,7 @@ export default function App() {
     setActivities(data.activities || []);
   }
 
-  useEffect(() => {
-    loadDashboard().catch((error) => setMessage(error.message));
-
-    if (!SOCKET_ENABLED) {
-      return undefined;
-    }
-
-    const socket = io(SOCKET_URL);
-    socket.on("activity:new", (activity) => {
-      setActivities((current) => [activity, ...current].slice(0, 20));
-      loadDashboard().catch(() => {});
-    });
-
-    return () => socket.disconnect();
-  }, []);
-
+  
   useEffect(() => {
     setEditingRecord(null);
     setForms((current) => ({ ...current, [activeResource]: initialForms[activeResource] }));
