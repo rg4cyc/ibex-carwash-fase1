@@ -3,14 +3,17 @@
 const crypto = require("node:crypto");
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const {
+  DeleteCommand,
   DynamoDBDocumentClient,
+  GetCommand,
   PutCommand,
   QueryCommand
 } = require("@aws-sdk/lib-dynamodb");
 
-const dynamo = DynamoDBDocumentClient.from(new DynamoDBClient({}));
+const client = new DynamoDBClient({});
+const database = DynamoDBDocumentClient.from(client);
 
-function response(statusCode, body) {
+function createResponse(statusCode, body) {
   return {
     statusCode,
     headers: {
@@ -21,7 +24,7 @@ function response(statusCode, body) {
   };
 }
 
-function parseBody(event) {
+function readBody(event) {
   if (!event.body) {
     return {};
   }
@@ -33,140 +36,244 @@ function parseBody(event) {
   }
 }
 
-async function createCustomer(event) {
-  const body = parseBody(event);
-
-  if (!body) {
-    return response(400, {
-      ok: false,
-      error: "El cuerpo debe contener JSON válido"
-    });
+function removeDatabaseKeys(item) {
+  if (!item) {
+    return null;
   }
 
-  const name = String(body.name || "").trim();
-  const email = String(body.email || "").trim().toLowerCase();
-
-  if (!name || !email) {
-    return response(400, {
-      ok: false,
-      error: "name y email son obligatorios"
-    });
-  }
-
-  const id = crypto.randomUUID();
-  const createdAt = new Date().toISOString();
-
-  const customer = {
-    id,
-    name,
-    email,
-    createdAt
-  };
-
-  await dynamo.send(
-    new PutCommand({
-      TableName: process.env.TABLE_NAME,
-      Item: {
-        PK: "RESOURCE#customers",
-        SK: `ITEM#${id}`,
-        entityType: "customer",
-        ...customer
-      }
-    })
-  );
-
-  console.log(
-    JSON.stringify({
-      level: "INFO",
-      message: "Cliente creado",
-      customerId: id
-    })
-  );
-
-  return response(201, {
-    ok: true,
-    customer
-  });
+  const { PK, SK, ...record } = item;
+  return record;
 }
 
-async function listCustomers() {
-  const result = await dynamo.send(
+async function listRecords(resource) {
+  const result = await database.send(
     new QueryCommand({
       TableName: process.env.TABLE_NAME,
       KeyConditionExpression: "PK = :pk",
       ExpressionAttributeValues: {
-        ":pk": "RESOURCE#customers"
+        ":pk": `RESOURCE#${resource}`
       }
     })
   );
 
-  const customers = (result.Items || []).map((item) => ({
-    id: item.id,
-    name: item.name,
-    email: item.email,
-    createdAt: item.createdAt
-  }));
+  return (result.Items || []).map(removeDatabaseKeys);
+}
 
-  return response(200, {
+async function createRecord(resource, event) {
+  const body = readBody(event);
+
+  if (!body) {
+    return createResponse(400, {
+      ok: false,
+      error: "JSON inválido"
+    });
+  }
+
+  const id = crypto.randomUUID();
+  const now = new Date().toISOString();
+
+  const record = {
+    ...body,
+    id,
+    createdAt: now,
+    updatedAt: now
+  };
+
+  await database.send(
+    new PutCommand({
+      TableName: process.env.TABLE_NAME,
+      Item: {
+        PK: `RESOURCE#${resource}`,
+        SK: `ITEM#${id}`,
+        ...record
+      }
+    })
+  );
+
+  return createResponse(201, record);
+}
+
+async function updateRecord(resource, id, event) {
+  const body = readBody(event);
+
+  if (!body) {
+    return createResponse(400, {
+      ok: false,
+      error: "JSON inválido"
+    });
+  }
+
+  const result = await database.send(
+    new GetCommand({
+      TableName: process.env.TABLE_NAME,
+      Key: {
+        PK: `RESOURCE#${resource}`,
+        SK: `ITEM#${id}`
+      }
+    })
+  );
+
+  if (!result.Item) {
+    return createResponse(404, {
+      ok: false,
+      error: "Registro no encontrado"
+    });
+  }
+
+  const updated = {
+    ...removeDatabaseKeys(result.Item),
+    ...body,
+    id,
+    updatedAt: new Date().toISOString()
+  };
+
+  await database.send(
+    new PutCommand({
+      TableName: process.env.TABLE_NAME,
+      Item: {
+        PK: `RESOURCE#${resource}`,
+        SK: `ITEM#${id}`,
+        ...updated
+      }
+    })
+  );
+
+  return createResponse(200, updated);
+}
+
+async function deleteRecord(resource, id) {
+  const result = await database.send(
+    new GetCommand({
+      TableName: process.env.TABLE_NAME,
+      Key: {
+        PK: `RESOURCE#${resource}`,
+        SK: `ITEM#${id}`
+      }
+    })
+  );
+
+  if (!result.Item) {
+    return createResponse(404, {
+      ok: false,
+      error: "Registro no encontrado"
+    });
+  }
+
+  await database.send(
+    new DeleteCommand({
+      TableName: process.env.TABLE_NAME,
+      Key: {
+        PK: `RESOURCE#${resource}`,
+        SK: `ITEM#${id}`
+      }
+    })
+  );
+
+  return createResponse(200, {
     ok: true,
-    count: customers.length,
-    customers
+    deletedId: id
+  });
+}
+
+async function getDashboard() {
+  const customers = await listRecords("customers");
+  const services = await listRecords("services");
+  const sales = await listRecords("sales");
+
+  return createResponse(200, {
+    stats: {
+      customers: customers.length,
+      services: services.length,
+      sales: sales.length
+    },
+    activities: []
   });
 }
 
 exports.handler = async function handler(event) {
   const method = event.httpMethod || "GET";
   const path = event.path || "/";
+  const id = event.pathParameters ? event.pathParameters.id : null;
 
   console.log(
     JSON.stringify({
-      level: "INFO",
       message: "Solicitud recibida",
       method,
-      path,
-      scenario: process.env.SCENARIO_NAME
+      path
     })
   );
 
   try {
-    if (method === "GET" && path === "/health") {
-      return response(200, {
+    if (method === "GET" && path === "/api/health") {
+      return createResponse(200, {
         ok: true,
         service: "IBEX Scenario A API",
         architecture: "serverless",
-        services: [
-          "API Gateway",
-          "Lambda",
-          "DynamoDB",
-          "CloudWatch"
-        ],
         database: "dynamodb",
-        tableName: process.env.TABLE_NAME || "local-template",
         timestamp: new Date().toISOString()
       });
     }
 
-    if (method === "GET" && path === "/customers") {
-      return await listCustomers();
+    if (method === "GET" && path === "/api/dashboard") {
+      return await getDashboard();
     }
 
-    if (method === "POST" && path === "/customers") {
-      return await createCustomer(event);
+    if (method === "GET" && path === "/api/customers") {
+      return createResponse(200, await listRecords("customers"));
     }
 
-    return response(404, {
+    if (method === "POST" && path === "/api/customers") {
+      return await createRecord("customers", event);
+    }
+
+    if (method === "PATCH" && path.startsWith("/api/customers/")) {
+      return await updateRecord("customers", id, event);
+    }
+
+    if (method === "DELETE" && path.startsWith("/api/customers/")) {
+      return await deleteRecord("customers", id);
+    }
+
+    if (method === "GET" && path === "/api/services") {
+      return createResponse(200, await listRecords("services"));
+    }
+
+    if (method === "POST" && path === "/api/services") {
+      return await createRecord("services", event);
+    }
+
+    if (method === "PATCH" && path.startsWith("/api/services/")) {
+      return await updateRecord("services", id, event);
+    }
+
+    if (method === "DELETE" && path.startsWith("/api/services/")) {
+      return await deleteRecord("services", id);
+    }
+
+    if (method === "GET" && path === "/api/sales") {
+      return createResponse(200, await listRecords("sales"));
+    }
+
+    if (method === "POST" && path === "/api/sales") {
+      return await createRecord("sales", event);
+    }
+
+    if (method === "PATCH" && path.startsWith("/api/sales/")) {
+      return await updateRecord("sales", id, event);
+    }
+
+    if (method === "DELETE" && path.startsWith("/api/sales/")) {
+      return await deleteRecord("sales", id);
+    }
+
+    return createResponse(404, {
       ok: false,
       error: "Ruta no encontrada"
     });
   } catch (error) {
-    console.error(
-      JSON.stringify({
-        level: "ERROR",
-        message: error.message
-      })
-    );
+    console.error(error);
 
-    return response(500, {
+    return createResponse(500, {
       ok: false,
       error: "Error interno"
     });

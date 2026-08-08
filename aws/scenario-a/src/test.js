@@ -4,28 +4,28 @@ const assert = require("node:assert");
 const { handler } = require("./app");
 
 async function run() {
-  const healthResult = await handler({
+  const health = await handler({
     httpMethod: "GET",
-    path: "/health"
+    path: "/api/health",
+    pathParameters: null
   });
 
-  assert.strictEqual(healthResult.statusCode, 200);
+  assert.strictEqual(health.statusCode, 200);
 
-  const healthBody = JSON.parse(healthResult.body);
+  const healthBody = JSON.parse(health.body);
 
   assert.strictEqual(healthBody.ok, true);
-  assert.strictEqual(healthBody.architecture, "serverless");
   assert.strictEqual(healthBody.database, "dynamodb");
 
-  const invalidResult = await handler({
-    httpMethod: "POST",
-    path: "/customers",
-    body: JSON.stringify({})
+  const missingRoute = await handler({
+    httpMethod: "GET",
+    path: "/api/unknown",
+    pathParameters: null
   });
 
-  assert.strictEqual(invalidResult.statusCode, 400);
+  assert.strictEqual(missingRoute.statusCode, 404);
 
-  console.log("SCENARIO_A_BASIC_UNIT_TESTS_OK");
+  console.log("SCENARIO_A_EXPLICIT_ROUTES_TEST_OK");
 }
 
 run().catch((error) => {

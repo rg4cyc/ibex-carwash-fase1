@@ -20,6 +20,10 @@ Resources:
       StageName: Prod
       EndpointConfiguration:
         Type: REGIONAL
+      Cors:
+        AllowMethods: "'GET,POST,PATCH,DELETE,OPTIONS'"
+        AllowHeaders: "'Content-Type'"
+        AllowOrigin: "'*'"
 
   IbexApiFunction:
     Type: AWS::Serverless::Function
@@ -27,29 +31,108 @@ Resources:
       FunctionName: ibex-scenario-a-api
       CodeUri: src/
       Handler: app.handler
-      Description: API serverless básica para IBEX
+      Description: API serverless de IBEX
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref IbexTable
       Events:
-        HealthEndpoint:
+        Health:
           Type: Api
           Properties:
             RestApiId: !Ref IbexApi
-            Path: /health
+            Path: /api/health
             Method: GET
-        ListCustomersEndpoint:
+
+        Dashboard:
           Type: Api
           Properties:
             RestApiId: !Ref IbexApi
-            Path: /customers
+            Path: /api/dashboard
             Method: GET
-        CreateCustomerEndpoint:
+
+        ListCustomers:
           Type: Api
           Properties:
             RestApiId: !Ref IbexApi
-            Path: /customers
+            Path: /api/customers
+            Method: GET
+
+        CreateCustomer:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/customers
             Method: POST
+
+        UpdateCustomer:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/customers/{id}
+            Method: PATCH
+
+        DeleteCustomer:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/customers/{id}
+            Method: DELETE
+
+        ListServices:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/services
+            Method: GET
+
+        CreateService:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/services
+            Method: POST
+
+        UpdateService:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/services/{id}
+            Method: PATCH
+
+        DeleteService:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/services/{id}
+            Method: DELETE
+
+        ListSales:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/sales
+            Method: GET
+
+        CreateSale:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/sales
+            Method: POST
+
+        UpdateSale:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/sales/{id}
+            Method: PATCH
+
+        DeleteSale:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/sales/{id}
+            Method: DELETE
 
   IbexTable:
     Type: AWS::DynamoDB::Table

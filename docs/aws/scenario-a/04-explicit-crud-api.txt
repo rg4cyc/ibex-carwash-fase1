@@ -1,0 +1,82 @@
+IBEX AWS Scenario A Explicit CRUD API
+
+Fecha:
+Sat Aug  8 02:11:45 CDT 2026
+
+Stack status:
+UPDATE_COMPLETE
+
+API Gateway:
+qncm3vk3od
+
+API Base:
+https://qncm3vk3od.execute-api.us-east-1.amazonaws.com/Prod/api
+
+Rutas esperadas encontradas:
+8
+
+Health status:
+200
+{
+  "ok": true,
+  "service": "IBEX Scenario A API",
+  "architecture": "serverless",
+  "database": "dynamodb",
+  "timestamp": "2026-08-08T07:11:41.895Z"
+}
+
+Create status:
+201
+{
+  "name": "Lavado AWS 1786173104",
+  "price": 350,
+  "status": "active",
+  "id": "1696ba97-4aa6-4a51-b320-5430f21feb73",
+  "createdAt": "2026-08-08T07:11:42.112Z",
+  "updatedAt": "2026-08-08T07:11:42.112Z"
+}
+
+Update status:
+200
+{
+  "updatedAt": "2026-08-08T07:11:42.866Z",
+  "status": "active",
+  "createdAt": "2026-08-08T07:11:42.112Z",
+  "price": 375,
+  "id": "1696ba97-4aa6-4a51-b320-5430f21feb73",
+  "name": "Lavado AWS 1786173104"
+}
+
+List status:
+200
+[
+  {
+    "updatedAt": "2026-08-08T07:11:42.866Z",
+    "status": "active",
+    "createdAt": "2026-08-08T07:11:42.112Z",
+    "price": 375,
+    "id": "1696ba97-4aa6-4a51-b320-5430f21feb73",
+    "name": "Lavado AWS 1786173104"
+  }
+]
+
+Dashboard status:
+200
+{
+  "stats": {
+    "customers": 2,
+    "services": 1,
+    "sales": 0
+  },
+  "activities": []
+}
+
+Delete status:
+200
+{
+  "ok": true,
+  "deletedId": "1696ba97-4aa6-4a51-b320-5430f21feb73"
+}
+
+Service count:
+1
