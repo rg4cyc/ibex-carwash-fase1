@@ -1,0 +1,34 @@
+IBEX AWS Scenario A Complete Operational Data
+
+Fecha:
+Sat Aug  8 05:20:23 CDT 2026
+
+Frontend:
+https://ibex-aws.ccjira.io/
+
+API:
+https://qncm3vk3od.execute-api.us-east-1.amazonaws.com/Prod/api
+
+Arquitectura:
+React y Vite
+Amazon S3
+Amazon API Gateway
+AWS Lambda
+Amazon DynamoDB
+
+Categorías operativas:
+Clientes
+Tutores
+Estudiantes
+Vehículos
+Jornadas
+Tareas
+Slots
+Reservas
+
+Validaciones:
+ROUTES_OK=1
+COUNTS_OK=1
+HEALTH_STATUS=200
+FRONTEND_BUILD_OK=1
+FRONTEND_PUBLICATION_OK=1

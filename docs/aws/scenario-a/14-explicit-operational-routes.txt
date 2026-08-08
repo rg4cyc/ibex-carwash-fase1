@@ -1,0 +1,20 @@
+IBEX AWS Scenario A Explicit Operational Routes
+
+Fecha:
+Sat Aug  8 05:14:47 CDT 2026
+
+Frontend:
+https://ibex-aws.ccjira.io/
+
+API:
+https://qncm3vk3od.execute-api.us-east-1.amazonaws.com/Prod/api
+
+Resultado:
+Se sustituyó la ruta proxy por rutas explícitas en API Gateway.
+Se habilitaron datos para las ocho categorías.
+
+Validaciones:
+HEALTH_STATUS=200
+ROUTES_OK=0
+COUNTS_OK=0
+FRONTEND_STATUS=200

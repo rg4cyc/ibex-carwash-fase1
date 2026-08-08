@@ -218,6 +218,33 @@ exports.handler = async function handler(event) {
       return await getDashboard();
     }
 
+    const operationalResourceMatch = path.match(
+      /^\/api\/(guardians|students|vehicles|projects|tasks|slots|bookings)(?:\/([^/]+))?$/
+    );
+
+    if (operationalResourceMatch) {
+      const resource = operationalResourceMatch[1];
+      const resourceId = operationalResourceMatch[2]
+        ? decodeURIComponent(operationalResourceMatch[2])
+        : null;
+
+      if (method === "GET" && !resourceId) {
+        return createResponse(200, await listRecords(resource));
+      }
+
+      if (method === "POST" && !resourceId) {
+        return await createRecord(resource, event);
+      }
+
+      if (method === "PATCH" && resourceId) {
+        return await updateRecord(resource, resourceId, event);
+      }
+
+      if (method === "DELETE" && resourceId) {
+        return await deleteRecord(resource, resourceId);
+      }
+    }
+
     if (method === "GET" && path === "/api/customers") {
       return createResponse(200, await listRecords("customers"));
     }

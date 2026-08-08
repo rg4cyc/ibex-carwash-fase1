@@ -36,6 +36,90 @@ Resources:
         - DynamoDBCrudPolicy:
             TableName: !Ref IbexTable
       Events:
+        ListGuardians:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/guardians
+            Method: ANY
+        ItemGuardians:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/guardians/{id}
+            Method: ANY
+        ListStudents:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/students
+            Method: ANY
+        ItemStudents:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/students/{id}
+            Method: ANY
+        ListVehicles:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/vehicles
+            Method: ANY
+        ItemVehicles:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/vehicles/{id}
+            Method: ANY
+        ListProjects:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/projects
+            Method: ANY
+        ItemProjects:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/projects/{id}
+            Method: ANY
+        ListTasks:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/tasks
+            Method: ANY
+        ItemTasks:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/tasks/{id}
+            Method: ANY
+        ListSlots:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/slots
+            Method: ANY
+        ItemSlots:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/slots/{id}
+            Method: ANY
+        ListBookings:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/bookings
+            Method: ANY
+        ItemBookings:
+          Type: Api
+          Properties:
+            RestApiId: !Ref IbexApi
+            Path: /api/bookings/{id}
+            Method: ANY
         Health:
           Type: Api
           Properties:

@@ -1,0 +1,29 @@
+IBEX AWS Scenario A Operational Resources
+
+Fecha:
+Sat Aug  8 05:11:16 CDT 2026
+
+Frontend:
+https://ibex-aws.ccjira.io/
+
+API:
+https://qncm3vk3od.execute-api.us-east-1.amazonaws.com/Prod/api
+
+Correcciones:
+Se corrigió la expresión regular de Lambda.
+Se agregó la ruta proxy /api/{proxy+} a API Gateway.
+Se habilitó CRUD para todas las categorías operativas.
+
+Validaciones:
+FRONTEND_STATUS=200
+API_STATUS=200
+
+Conteos:
+customers=8
+guardians=0
+students=0
+vehicles=0
+projects=0
+tasks=0
+slots=0
+bookings=0

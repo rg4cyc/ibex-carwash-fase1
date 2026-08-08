@@ -419,14 +419,21 @@ export default function App() {
   }, [dashboard]);
 
   async function loadDashboard() {
-    const [summary, clients] = await Promise.all([
-      getDashboard(),
-      listResource("clients")
+    const [summary, resourceEntries] = await Promise.all([
+      getDashboard().catch(() => ({ activities: [] })),
+      Promise.all(
+        resources.map(async ({ key }) => {
+          const records = await listResource(key);
+          return [key, Array.isArray(records) ? records : []];
+        })
+      )
     ]);
+
+    const resourceData = Object.fromEntries(resourceEntries);
 
     setDashboard({
       ...summary,
-      clients: Array.isArray(clients) ? clients : []
+      ...resourceData
     });
 
     setActivities(summary.activities || []);
