@@ -31,3 +31,5 @@ services/notifications-service/.env
 .venv/
 
 .aws-sam/
+
+frontend/dist-scenario-a/

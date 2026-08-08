@@ -1,0 +1,31 @@
+IBEX AWS Scenario A Frontend Build
+
+Fecha:
+Sat Aug  8 02:13:24 CDT 2026
+
+Rama:
+scenario-a-serverless
+
+API Base:
+https://qncm3vk3od.execute-api.us-east-1.amazonaws.com/Prod/api
+
+API health status:
+200
+
+Frontend build:
+frontend/dist-scenario-a
+
+Build size:
+272K
+
+Validaciones:
+FRONTEND_BUILD_OK
+FRONTEND_INDEX_OK
+API_URL_EMBEDDED_OK
+
+Archivos:
+frontend/dist-scenario-a/assets/index-J7qlhV3B.css
+frontend/dist-scenario-a/assets/index-Mru5XjTg.js
+frontend/dist-scenario-a/index.html
+frontend/dist-scenario-a/t4-realtime-demo.html
+frontend/dist-scenario-a/t4-realtime-demo/index.html
