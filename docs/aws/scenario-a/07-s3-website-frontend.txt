@@ -1,0 +1,46 @@
+IBEX AWS Scenario A S3 Website Frontend
+
+Fecha:
+Sat Aug  8 03:58:28 CDT 2026
+
+Stack:
+ibex-scenario-a
+
+Stack status:
+UPDATE_COMPLETE
+
+Bucket:
+ibex-scenario-a-frontendbucket-frunrqjnlprj
+
+Frontend URL:
+http://ibex-scenario-a-frontendbucket-frunrqjnlprj.s3-website-us-east-1.amazonaws.com
+
+Frontend status:
+200
+
+API Base:
+https://qncm3vk3od.execute-api.us-east-1.amazonaws.com/Prod/api
+
+API status:
+200
+
+Arquitectura:
+React y Vite
+Amazon S3 Static Website
+Amazon API Gateway
+AWS Lambda
+Amazon DynamoDB
+Amazon CloudWatch
+
+CloudFront:
+La creación fue probada mediante SAM y mediante consola.
+AWS bloqueó nuevas distribuciones porque la cuenta requiere verificación.
+El frontend se publica mediante S3 Website para continuar el escenario.
+
+Validaciones:
+SAM_DEPLOY_OK
+FRONTEND_BUILD_OK
+S3_SYNC_OK
+FRONTEND_STATUS=200
+API_STATUS=200
+REACT_ROOT_OK=1

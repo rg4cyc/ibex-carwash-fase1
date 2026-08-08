@@ -138,10 +138,10 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        IgnorePublicAcls: true
-        BlockPublicPolicy: true
-        RestrictPublicBuckets: true
+        BlockPublicAcls: false
+        IgnorePublicAcls: false
+        BlockPublicPolicy: false
+        RestrictPublicBuckets: false
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerEnforced
@@ -149,6 +149,23 @@ Resources:
         ServerSideEncryptionConfiguration:
           - ServerSideEncryptionByDefault:
               SSEAlgorithm: AES256
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: index.html
+
+  FrontendWebsitePolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref FrontendBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: PublicReadFrontend
+            Effect: Allow
+            Principal: "*"
+            Action:
+              - s3:GetObject
+            Resource: !Sub "${FrontendBucket.Arn}/*"
 
 
   IbexTable:
@@ -173,6 +190,11 @@ Outputs:
   ApiUrl:
     Description: URL de API Gateway para el Escenario A
     Value: !Sub "https://${IbexApi}.execute-api.${AWS::Region}.amazonaws.com/Prod"
+
+  FrontendWebsiteUrl:
+    Description: URL pública del frontend IBEX en S3 Website
+    Value: !GetAtt FrontendBucket.WebsiteURL
+
 
   FrontendBucketName:
     Description: Bucket privado del frontend IBEX
